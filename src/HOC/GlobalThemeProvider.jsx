@@ -41,12 +41,9 @@ const GlobalThemeProvider = (props) => {
   return (
     <StyleSheetManager>
       <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
-        <ThemeContext.Provider value={setTheme}>
+        <ThemeContext.Provider value={[theme, setTheme]}>
           <GlobalStyle />
           {children}
-          <button onClick={() => theme === 'light' ? setTheme('dark') : setTheme('light')}>
-            Switch Theme
-          </button>
         </ThemeContext.Provider>
       </ThemeProvider>
     </StyleSheetManager>

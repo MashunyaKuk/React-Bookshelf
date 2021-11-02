@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import IconTelegram from '../assets/img/icons/telegram-plane-brands.svg';
 import IconInstagram from '../assets/img/icons/instagram-brands.svg';
@@ -72,7 +72,7 @@ const StyledFooter = styled.footer`
 `;
 
 const Footer = (props) => {
-  /* const setTheme = useContext(ThemeContext); */
+  const [theme, setTheme] = useContext(ThemeContext);
   return (
     <StyledFooter className="footer-container">
       <div className="footer-holder">
@@ -107,11 +107,11 @@ const Footer = (props) => {
             <div className="footer-text">
               <p className="footer-text_p">© 2021 Bookshelf</p>
             </div>
-            {/* <button onClick={() => {
-              props.theme === 'light' ? setTheme('dark') : setTheme('light')
+            <button onClick={() => {
+              theme === 'light' ? setTheme('dark') : setTheme('light')
             }}>
               Switch Theme
-            </button> */}
+            </button>
           </div>
         </div>
       </div>
