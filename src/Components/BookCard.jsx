@@ -32,7 +32,7 @@ margin: 0 0 30px 40px;
     background-color: #C89566;
     border: none;
     border-radius: 4px;
-    font-size: 14px;
+    font-size: 12px;
     text-align: center;
   }
 `;

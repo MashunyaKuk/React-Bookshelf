@@ -5,6 +5,7 @@ import IconInstagram from '../assets/img/icons/instagram-brands.svg';
 import IconFacebook from '../assets/img/icons/facebook-brands.svg';
 import { Link } from 'react-router-dom';
 import { ROUTE } from '../Root/routes';
+import { ThemeContext } from '../HOC/GlobalThemeProvider';
 
 
 const StyledFooter = styled.footer`
@@ -66,11 +67,12 @@ const StyledFooter = styled.footer`
     .footer-text_p {
       margin: 0px;
       color: #F6F5F3;
-      font-size: 10px;
+      font-size: 12px;
     }
 `;
 
-const Footer = () => {
+const Footer = (props) => {
+  /* const setTheme = useContext(ThemeContext); */
   return (
     <StyledFooter className="footer-container">
       <div className="footer-holder">
@@ -105,11 +107,16 @@ const Footer = () => {
             <div className="footer-text">
               <p className="footer-text_p">© 2021 Bookshelf</p>
             </div>
+            {/* <button onClick={() => {
+              props.theme === 'light' ? setTheme('dark') : setTheme('light')
+            }}>
+              Switch Theme
+            </button> */}
           </div>
         </div>
       </div>
 
-    </StyledFooter>
+    </StyledFooter >
   );
 };
 

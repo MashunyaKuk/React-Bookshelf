@@ -9,7 +9,7 @@ const StyledMainScene = styled.div`
   margin: auto;
 
   .main-screen-container {
-    height: calc(100vh - 100px); //высчитать и отнять высоту header
+    height: 500px;
     background-image: url(${background});
     background-repeat: no-repeat;
     background-position: center;
@@ -24,7 +24,7 @@ const StyledMainScene = styled.div`
     }
 
   .main-screen-title {
-    font-size: 38px;
+    font-size: 34px;
     margin-bottom: 30px;
     color: #212020;
   }
@@ -32,7 +32,7 @@ const StyledMainScene = styled.div`
   .main-screen-description {
     margin-bottom: 30px;
     &_p {
-      font-size: 18px;
+      font-size: 16px;
       color: #212020;
     }
   }

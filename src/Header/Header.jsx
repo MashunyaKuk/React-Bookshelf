@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import logo from '../assets/img/logo.png';
 import { Link } from 'react-router-dom';
 import { ROUTE } from '../Root/routes';
+import { ModalContext } from '../HOC/GlobalModalProvider';
+import LoginModal from '../Modal/ModalContent/LoginModal';
 
 const StyledHeader = styled.header`
   font-family: 'Montserrat';
@@ -36,7 +38,7 @@ const StyledHeader = styled.header`
   }
 
   .header-menu_link {
-    font-size: 18px;
+    font-size: 14px;
     color: #212020;
   }
 
@@ -46,7 +48,7 @@ const StyledHeader = styled.header`
     //justify-content: space-between;
     &_link {
       color: #212020;
-      font-size: 20px;
+      font-size: 18px;
       display: inline-block;
       height: 100%;
       vertical-align: middle;
@@ -70,17 +72,24 @@ const StyledHeader = styled.header`
     :focus-visible {
       outline: none;
     }
+ }
+    
+    .register_btn {
+      color: #F6F5F3;
+      font-family: 'Montserrat';
+      padding: 10px 30px;
+      cursor: pointer;
+      background-color: #C89566;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
   }
 
-  .header-login {
-    &_link {
-      color: #212020;
-      font-size: 18px;
-    }
-  }
+
 `;
 
-const Header = () => {
+const Header = (props) => {
+  const setModalContent = useContext(ModalContext);
   return (
     <StyledHeader className="header-container">
       <div className="header-row">
@@ -115,9 +124,17 @@ const Header = () => {
             {/* <img src="#"></img> */}
           </div>
           <div className="header-login">
-            <Link to="#" className="header-login_link">
-              Login
-            </Link>
+            <button
+              type="button"
+              onClick={() => {
+                setModalContent(
+                  <LoginModal />,
+                );
+              }}
+              className="btn register_btn"
+            >
+              Register
+            </button>
           </div>
         </div>
       </div>
