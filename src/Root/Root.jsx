@@ -4,7 +4,7 @@ import MainScene from '../Scenes/MainScene';
 import LibraryScene from '../Scenes/LibraryScene';
 import { ROUTE } from '../Root/routes';
 
-const RootRouter = () => {
+const RootRouter = (props) => {
   return (
     <>
       <Switch>

@@ -1,0 +1,1 @@
+export const userListSelector = store => store.userList;

@@ -2,23 +2,23 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Formik, Form } from 'formik';
 import FormikInput from '../../Components/FormikInputs/FormikInputs';
+import { ModalContext } from '../../HOC/GlobalModalProvider';
 
 const StyledLoginModal = styled.div`
     margin-right: 20px;
 ;
 `;
 
-const LoginModal = (props) => {
-  /* const setModalContent = useContext(ModalContext); */
+const LoginModal = () => {
+  const setModalContent = useContext(ModalContext);
 
   return (
     <StyledLoginModal>
-      <Formik initialValues={{ name: 'Alex', email: 'example@gmail.com', password: '*****' }}
+      <Formik initialValues={{ name: '', email: '', password: '' }}
         onSubmit={(formData) => {
-          console.log('formsubmit', formData);
+          console.log("formData", formData)
         }}
         validate={(formData) => {
-          console.log('formdata', formData);
           const errorObj = {};
           let isFormValid = true;
 
@@ -50,7 +50,9 @@ const LoginModal = (props) => {
             <label htmlFor="password" className="loginform-item_formlabel">Password</label>
             <FormikInput name="password" />
           </div>
-          <button type="submit" className="loginform-button_submit">Register</button>
+          <button type="submit" onClick={() => {
+            setModalContent(false)
+          }}>Register</button>
         </Form>
       </Formik>
 

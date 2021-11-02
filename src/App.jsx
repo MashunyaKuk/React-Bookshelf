@@ -4,17 +4,21 @@ import MainLayout from './Layouts/MainLayout';
 import RootRouter from './Root/Root';
 import GlobalThemeProvider from './HOC/GlobalThemeProvider';
 import GlobalModalProvider from './HOC/GlobalModalProvider';
+import GlobalStoreProvider from './HOC/GlobalStoreProvider';
 
 const App = () => (
   <>
     <BrowserRouter>
-      <GlobalThemeProvider>
-        <GlobalModalProvider>
-          <MainLayout>
-            <RootRouter />
-          </MainLayout>
-        </GlobalModalProvider>
-      </GlobalThemeProvider>
+      <GlobalStoreProvider>
+        <GlobalThemeProvider>
+          <GlobalModalProvider>
+            <MainLayout>
+              <RootRouter />
+            </MainLayout>
+          </GlobalModalProvider>
+        </GlobalThemeProvider>
+      </GlobalStoreProvider>
+
     </BrowserRouter>
   </>
 );
