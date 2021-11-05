@@ -21,18 +21,18 @@ const StyledModalWindow = styled.div`
     .popup-content {
         background-color: #f6f5f3;
         color: #221c1d;
-        max-width: 500px;
-        padding: 20px 25px;
+        width: 300px;
+        padding: 20px 20px;
         border-radius: 4px;
         position: relative;
       }
       
     .popup-close {
         position: absolute;
-        right: 10px;
-        top: 10px;
-        font-size: 16px;
-        padding: 2px 8px 4px 8px;
+        right: 20px;
+        top: 20px;
+        font-size: 18px;
+        padding: 4px 10px 4px 10px;
         color: #F6F5F3;
         border-radius: 50%;
         border: none;

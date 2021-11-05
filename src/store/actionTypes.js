@@ -1,5 +1,6 @@
-const USER_LIST_ACTIONS = {
-  addUser: 'add new user to userlist',
+const USER_ACTIONS = {
+  addUser: 'add new user',
+  logOut: 'logout user'
 };
 
-export default USER_LIST_ACTIONS;
+export default USER_ACTIONS;

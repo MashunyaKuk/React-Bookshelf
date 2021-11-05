@@ -4,7 +4,6 @@ import { lightTheme, darkTheme } from '../assets/styles/themes';
 
 export const ThemeContext = React.createContext('');
 
-
 const GlobalStyle = createGlobalStyle`
     body {
         margin: 0;

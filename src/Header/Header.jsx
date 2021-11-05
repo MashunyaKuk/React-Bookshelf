@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { ROUTE } from '../Root/routes';
 import { ModalContext } from '../HOC/GlobalModalProvider';
 import LoginModal from '../Modal/ModalContent/LoginModal';
+import { useSelector } from 'react-redux';
+import { userSelector } from '../store/selectors/userListSelectors';
 
 const StyledHeader = styled.header`
   font-family: 'Montserrat';
@@ -79,17 +81,17 @@ const StyledHeader = styled.header`
       font-family: 'Montserrat';
       padding: 10px 30px;
       cursor: pointer;
-      background-color: #C89566;
+      background-color: #7E929F;
       border: none;
       border-radius: 4px;
       font-size: 14px;
   }
 
-
 `;
 
 const Header = (props) => {
   const setModalContent = useContext(ModalContext);
+  const user = useSelector(userSelector);
   return (
     <StyledHeader className="header-container">
       <div className="header-row">
@@ -110,7 +112,7 @@ const Header = (props) => {
                 <Link to="#" className="header-menu_link">About</Link>
               </li>
               <li className="header-menu_item">
-                <Link to="#" className="header-menu_link">Subscription</Link>
+                <Link to="#" className="header-menu_link">Register</Link>
               </li>
               <li className="header-menu_item">
                 <Link to={ROUTE.LIBRARY} className="header-menu_link">Library</Link>
@@ -124,17 +126,18 @@ const Header = (props) => {
             {/* <img src="#"></img> */}
           </div>
           <div className="header-login">
-            <button
-              type="button"
-              onClick={() => {
-                setModalContent(
-                  <LoginModal />,
-                );
-              }}
-              className="btn register_btn"
-            >
-              Register
-            </button>
+            {user.find(item => item.logged === true) && (
+              <button
+                type="submit"
+                onClick={() => {
+                  setModalContent(
+                    <LoginModal />,
+                  );
+                }}
+                className="btn register_btn"
+              >
+                Login
+              </button>)}
           </div>
         </div>
       </div>

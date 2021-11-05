@@ -1,7 +1,8 @@
-/* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import background from '../assets/img/main-bg.png';
+import RegisterModal from '../Modal/ModalContent/RegisterModal';
+import { ModalContext } from '../HOC/GlobalModalProvider';
 
 const StyledMainScene = styled.div`
   font-family: 'Montserrat';
@@ -37,7 +38,7 @@ const StyledMainScene = styled.div`
     }
   }
 
-  .try-free_btn {
+  .register_btn {
     color: #F6F5F3;
     font-family: 'Montserrat';
     padding: 10px 30px;
@@ -50,6 +51,7 @@ const StyledMainScene = styled.div`
 `;
 
 const MainScene = () => {
+  const setModalContent = useContext(ModalContext);
   return (
     <StyledMainScene>
       <div className="main-screen-container">
@@ -62,8 +64,14 @@ const MainScene = () => {
               Online library
             </p>
           </div>
-          <button className="btn try-free_btn">
-            Try it
+          <button type="submit"
+            onClick={() => {
+              setModalContent(
+                <RegisterModal />,
+              );
+            }}
+            className="btn register_btn">
+            Register free
           </button>
         </div>
       </div>

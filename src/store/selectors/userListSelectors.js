@@ -1,1 +1,1 @@
-export const userListSelector = store => store.userList;
+export const userSelector = store => store.user;

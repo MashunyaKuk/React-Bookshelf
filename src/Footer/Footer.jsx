@@ -41,7 +41,6 @@ const StyledFooter = styled.footer`
       font-size: 14px;
     }
 
-
     .footer-social_row {
       display: flex;
       align-items: center;
@@ -71,7 +70,7 @@ const StyledFooter = styled.footer`
     }
 `;
 
-const Footer = (props) => {
+const Footer = () => {
   const [theme, setTheme] = useContext(ThemeContext);
   return (
     <StyledFooter className="footer-container">
@@ -84,7 +83,7 @@ const Footer = (props) => {
                   <Link to="#" className="footer-menu_link">About</Link>
                 </li>
                 <li className="footer-menu_item">
-                  <Link to="#" className="footer-menu_link">Subscription</Link>
+                  <Link to="#" className="footer-menu_link">Register</Link>
                 </li>
                 <li className="footer-menu_item">
                   <Link to={ROUTE.LIBRARY} className="footer-menu_link">Library</Link>
