@@ -5,7 +5,7 @@ import { ModalContext } from '../HOC/GlobalModalProvider';
 const StyledModalWindow = styled.div`
     height: 100%;
     width: 100%;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 100;

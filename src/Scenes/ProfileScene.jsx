@@ -85,6 +85,7 @@ const StyledProfileScene = styled.div`
 
 const ProfileScene = (props) => {
   const urlParams = useParams();
+  const urlParamsId = urlParams.userId
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -108,13 +109,13 @@ const ProfileScene = (props) => {
           <nav className="profile-screen-navigation">
             <ul>
 
-              <Link to={PATHS.PROFILE_ABOUT(urlParams.userId)} className="profile-screen-item_a">
+              <Link to={PATHS.PROFILE_ABOUT(urlParamsId)} className="profile-screen-item_a">
                 <li className="profile-screen-item">
                   My profile
                 </li>
               </Link>
 
-              <Link to={PATHS.PROFILE_EDIT(urlParams.userId)} className="profile-screen-item_a">
+              <Link to={PATHS.PROFILE_EDIT(urlParamsId)} className="profile-screen-item_a">
                 <li className="profile-screen-item">
                   Edit profile
                 </li>
@@ -128,19 +129,19 @@ const ProfileScene = (props) => {
 
           <nav className="profile-screen-navigation">
             <ul>
-              <Link to={PATHS.PROFILE_READING(urlParams.userId)} className="profile-screen-item_a">
+              <Link to={PATHS.PROFILE_READING(urlParamsId)} className="profile-screen-item_a">
                 <li className="profile-screen-item">
                   Reading now
                 </li>
               </Link>
 
-              <Link to={PATHS.PROFILE_WANT(urlParams.userId)} className="profile-screen-item_a">
+              <Link to={PATHS.PROFILE_WANT(urlParamsId)} className="profile-screen-item_a">
                 <li className="profile-screen-item">
                   Want to read
                 </li>
               </Link>
 
-              <Link to={PATHS.PROFILE_FINISHED(urlParams.userId)} className="profile-screen-item_a">
+              <Link to={PATHS.PROFILE_FINISHED(urlParamsId)} className="profile-screen-item_a">
                 <li className="profile-screen-item">
                   Already read
                 </li>

@@ -8,6 +8,8 @@ import { ModalContext } from '../../HOC/GlobalModalProvider';
 import { newUserAdd } from '../../store/actions/userActions';
 import { PATHS } from '../../Root/routes';
 import LoginModal from '../../Modal/ModalContent/LoginModal';
+import { registerUser } from '../../api/instance';
+
 
 const StyledRegisterModal = styled.div`
   font-family: 'Montserrat';
@@ -68,15 +70,6 @@ const RegisterModal = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const newUser = (userName, userEmail, userPassword) => {
-    const id = Math.floor((Math.random() * 1000) + 1);
-    let logged = true;
-    console.log('id', id);
-    dispatch(newUserAdd(userName, userEmail, userPassword, id, logged));
-    history.push(PATHS.PROFILE_ABOUT(id));
-    setModalContent(false);
-  }
-
   return (
     <StyledRegisterModal>
       <div className="registerform-title">
@@ -85,8 +78,13 @@ const RegisterModal = () => {
       <Formik
         initialValues={{ name: '', email: '', password: '' }}
         onSubmit={(formData) => {
-          console.log("formData", formData);
-          newUser(formData.name, formData.email, formData.password);
+          registerUser(formData.name, formData.email, formData.password)
+            .then(({ dataId, dataLogged }) => {
+              console.log('data', dataId, dataLogged)
+              dispatch(newUserAdd(formData.name, formData.email, formData.password, dataId, dataLogged));
+              history.push(PATHS.PROFILE_ABOUT(dataId));
+              setModalContent(false);
+            })
         }}
         validate={(formData) => {
           const errorObj = {};
@@ -95,21 +93,36 @@ const RegisterModal = () => {
           if (!formData.name) {
             errorObj.name = 'Please input name'
             isFormValid = false;
-          }
-          if (formData.name.length < 5) {
-            errorObj.name = 'Please input correct name - minimum 5 symbols'
+          } else if (formData.name.length < 3) {
+            errorObj.name = 'Please input correct name - at least 3 characters'
             isFormValid = false;
           }
+
           if (!formData.email) {
             errorObj.email = 'Please input email'
             isFormValid = false;
-          }
-          if (formData.email.length < 5) {
-            errorObj.email = 'Please input correct email - minimum 5 symbols'
+          } else if (formData.email.length < 5) {
+            errorObj.email = 'Please input correct email - at least 5 characters'
+            isFormValid = false;
+          } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(formData.email)) {
+            errorObj.email = 'Incorrect email address';
             isFormValid = false;
           }
+
           if (!formData.password) {
             errorObj.password = 'Please input password'
+            isFormValid = false;
+          } else if (formData.password.length < 5) {
+            errorObj.email = 'Please input correct email - at least 5 characters'
+            isFormValid = false;
+          } else if (!/[a-z]/.test(formData.password)) {
+            errorObj.password = ('Please input correct password - at least one lowercase letter')
+            isFormValid = false;
+          } else if (!/[0-9]/.test(formData.password)) {
+            errorObj.password = ('Please input correct password - at least one digit')
+            isFormValid = false;
+          } else if (!/[A-Z]/.test(formData.password)) {
+            errorObj.password = ('Please input correct password - at least one uppercase letter')
             isFormValid = false;
           }
 

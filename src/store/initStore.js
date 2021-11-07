@@ -21,13 +21,26 @@ const rootReducer = (state, action) => {
             email: action.payload.email,
             password: action.payload.password,
             id: action.payload.id,
-            logged: action.payload.logged,
+            loggedIn: action.payload.loggedIn,
           }
         );
         return { ...state, user: newUser };
       case (USER_ACTIONS.logOut):
         return { ...initialState };
 
+      case (USER_ACTIONS.logIn):
+        newUser = [...state.user];
+        newUser.push(
+          {
+            name: action.payload.name,
+            email: action.payload.email,
+            password: action.payload.password,
+            id: action.payload.id,
+            loggedIn: action.payload.loggedIn,
+          }
+        );
+        return { ...state, user: newUser };
+      
       default: 
         return {...state}
   }

@@ -4,6 +4,11 @@ import { Formik, Form } from 'formik';
 import FormikInput from '../../Components/FormikInputs/FormikInputs';
 import { ModalContext } from '../../HOC/GlobalModalProvider';
 import RegisterModal from '../../Modal/ModalContent/RegisterModal';
+import { useHistory } from "react-router-dom";
+import { PATHS } from '../../Root/routes';
+import { logInUser } from '../../store/actions/userActions';
+import { loginUser } from '../../api/instance';
+import { useDispatch } from 'react-redux';
 
 const StyledLoginModal = styled.div`
   font-family: 'Montserrat';
@@ -61,24 +66,29 @@ const StyledLoginModal = styled.div`
 
 const LoginModal = () => {
   const setModalContent = useContext(ModalContext);
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   return (
     <StyledLoginModal>
       <div className="loginform-title">
         <h2 className="loginform-title_p">Login</h2>
       </div>
-      <Formik initialValues={{ name: '', email: '', password: '' }}
+      <Formik initialValues={{ email: '', password: '' }}
         onSubmit={(formData) => {
-          console.log("formData", formData)
+          loginUser(formData.email, formData.password)
+            .then(({ userData }) => {
+              console.log('userdata', userData.loggedIn);
+              dispatch(logInUser(userData.Name, formData.email, formData.password, userData.userId, userData.loggedIn));
+              history.push(PATHS.PROFILE_ABOUT(userData.userId));
+              setModalContent(false)
+            })
         }}
+
         validate={(formData) => {
           const errorObj = {};
           let isFormValid = true;
 
-          if (!formData.name) {
-            errorObj.name = 'Please input name'
-            isFormValid = false;
-          }
           if (!formData.email) {
             errorObj.email = 'Please input email'
             isFormValid = false;
@@ -101,10 +111,8 @@ const LoginModal = () => {
           </div>
           <button
             type="submit"
-            className="btn login_btn"
-            onClick={() => {
-              setModalContent(false)
-            }}>Login</button>
+            className="login_btn"
+          >Login</button>
         </Form>
       </Formik>
       <div className="loginform-register">

@@ -6,7 +6,10 @@ import IconFacebook from '../assets/img/icons/facebook-brands.svg';
 import { Link } from 'react-router-dom';
 import { ROUTE } from '../Root/routes';
 import { ThemeContext } from '../HOC/GlobalThemeProvider';
-
+import { useSelector } from 'react-redux';
+import { ModalContext } from '../HOC/GlobalModalProvider';
+import { userSelector } from '../store/selectors/userSelectors';
+import RegisterModal from '../Modal/ModalContent/RegisterModal';
 
 const StyledFooter = styled.footer`
   font-family: 'Montserrat';
@@ -37,8 +40,13 @@ const StyledFooter = styled.footer`
 }
     
     .footer-menu_link {
+      font-family: 'Montserrat';
       color: #F6F5F3;
       font-size: 14px;
+      border: none;
+      background-color: transparent;
+      padding: 0;
+      cursor: pointer;
     }
 
     .footer-social_row {
@@ -63,15 +71,35 @@ const StyledFooter = styled.footer`
       height: 30px;
     } 
 
-    .footer-text_p {
-      margin: 0px;
+    .footer-text {
+      margin-bottom: 15px;
+        &_p {
+          margin: 0px;
+          color: #F6F5F3;
+          font-size: 12px;
+    }
+    }
+
+    .change-theme_btn {
       color: #F6F5F3;
+      font-family: 'Montserrat';
+      padding: 5px 10px;
+      cursor: pointer;
+      background-color: #7e9f8b;
+      border: none;
+      border-radius: 4px;
       font-size: 12px;
     }
+   
 `;
 
 const Footer = () => {
   const [theme, setTheme] = useContext(ThemeContext);
+  const setModalContent = useContext(ModalContext);
+  const user = useSelector(userSelector);
+  const moveToProfile = (userId) => {
+    history.push(PATHS.PROFILE_ABOUT(userId))
+  }
   return (
     <StyledFooter className="footer-container">
       <div className="footer-holder">
@@ -79,15 +107,45 @@ const Footer = () => {
           <div className="footer-item">
             <nav className="footer-menu">
               <ul className="footer-menu_list">
+
                 <li className="footer-menu_item">
-                  <Link to="#" className="footer-menu_link">About</Link>
+                  <Link to="/" className="footer-menu_link">About</Link>
                 </li>
-                <li className="footer-menu_item">
+
+                {/* <li className="footer-menu_item">
                   <Link to="#" className="footer-menu_link">Register</Link>
-                </li>
+                </li> */}
+
+                {(user.find(item => item.loggedIn === true))
+
+                  ? <li className="footer-menu_item">
+                    <button
+                      className="footer-menu_link"
+                      type="button"
+                      onClick={() => {
+                        moveToProfile(user.find(user => user).id)
+                      }}
+                    >My profile
+                    </button>
+                  </li>
+
+                  : <li className="footer-menu_item">
+                    <button
+                      className="footer-menu_link"
+                      type="button"
+                      onClick={() => {
+                        setModalContent(
+                          <RegisterModal />,
+                        );
+                      }}
+                    >Registration
+                    </button>
+                  </li>}
+
                 <li className="footer-menu_item">
                   <Link to={ROUTE.LIBRARY} className="footer-menu_link">Library</Link>
                 </li>
+
               </ul>
             </nav>
           </div>
@@ -106,9 +164,11 @@ const Footer = () => {
             <div className="footer-text">
               <p className="footer-text_p">© 2021 Bookshelf</p>
             </div>
-            <button onClick={() => {
-              theme === 'light' ? setTheme('dark') : setTheme('light')
-            }}>
+            <button
+              className="change-theme_btn"
+              onClick={() => {
+                theme === 'light' ? setTheme('dark') : setTheme('light')
+              }}>
               Switch Theme
             </button>
           </div>

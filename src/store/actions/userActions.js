@@ -1,14 +1,14 @@
 import USER_ACTIONS from '../actionTypes';
 
-export const newUserAdd = (userName, userEmail, userPassword, id, userLogged) => {
+export const newUserAdd = (userName, userEmail, userPassword, userId, userLoggedIn) => {
   return ( {
     type: USER_ACTIONS.addUser,
     payload: {
       name: userName,
       email: userEmail,
       password: userPassword,
-      id,
-      logged: userLogged,
+      id: userId,
+      loggedIn: userLoggedIn,
   },
   
   })
@@ -20,4 +20,18 @@ export const logOutUser = () => {
     payload: {
   }
 })
-}
+};
+
+export const logInUser = (userName, userEmail, userPassword, userId, userLoggedIn) => {
+  return ({
+    type: USER_ACTIONS.logIn,
+    payload: {
+      name: userName,
+      email: userEmail,
+      password: userPassword,
+      id: userId,
+      loggedIn: userLoggedIn,
+  }
+})
+};
+

@@ -17,9 +17,9 @@ const RootRouter = () => {
         <Route path={ROUTE.LIBRARY}>
           <LibraryScene />
         </Route>
-        <Route path={ROUTE.PROFILE}>
+        <Route path={ROUTE.PROFILE} >
           <ProfileScene>
-            <Route path={ROUTE.PROFILE_ABOUT}>
+            <Route path={ROUTE.PROFILE_ABOUT} >
               <MyProfileScene />
             </Route>
             <Route path={ROUTE.PROFILE_EDIT}>
