@@ -9,6 +9,7 @@ import { PATHS } from '../../Root/routes';
 import { logInUser } from '../../store/actions/userActions';
 import { loginUser } from '../../api/instance';
 import { useDispatch } from 'react-redux';
+import { loginValidation } from '../ModalContent/validation/loginValidation';
 
 const StyledLoginModal = styled.div`
   font-family: 'Montserrat';
@@ -84,22 +85,7 @@ const LoginModal = () => {
               setModalContent(false)
             })
         }}
-
-        validate={(formData) => {
-          const errorObj = {};
-          let isFormValid = true;
-
-          if (!formData.email) {
-            errorObj.email = 'Please input email'
-            isFormValid = false;
-          }
-          if (!formData.password) {
-            errorObj.password = 'Please input password'
-            isFormValid = false;
-          }
-
-          return isFormValid ? null : errorObj;
-        }}>
+        validate={loginValidation}>
         <Form className="loginform">
           <div className="loginform-item">
             <label htmlFor="email" className="loginform-item_formlabel">Email</label>

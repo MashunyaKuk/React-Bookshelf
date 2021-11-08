@@ -9,6 +9,7 @@ import { newUserAdd } from '../../store/actions/userActions';
 import { PATHS } from '../../Root/routes';
 import LoginModal from '../../Modal/ModalContent/LoginModal';
 import { registerUser } from '../../api/instance';
+import { registerValidation } from './validation/registerValidation';
 
 
 const StyledRegisterModal = styled.div`
@@ -86,48 +87,7 @@ const RegisterModal = () => {
               setModalContent(false);
             })
         }}
-        validate={(formData) => {
-          const errorObj = {};
-          let isFormValid = true;
-
-          if (!formData.name) {
-            errorObj.name = 'Please input name'
-            isFormValid = false;
-          } else if (formData.name.length < 3) {
-            errorObj.name = 'Please input correct name - at least 3 characters'
-            isFormValid = false;
-          }
-
-          if (!formData.email) {
-            errorObj.email = 'Please input email'
-            isFormValid = false;
-          } else if (formData.email.length < 5) {
-            errorObj.email = 'Please input correct email - at least 5 characters'
-            isFormValid = false;
-          } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(formData.email)) {
-            errorObj.email = 'Incorrect email address';
-            isFormValid = false;
-          }
-
-          if (!formData.password) {
-            errorObj.password = 'Please input password'
-            isFormValid = false;
-          } else if (formData.password.length < 5) {
-            errorObj.email = 'Please input correct email - at least 5 characters'
-            isFormValid = false;
-          } else if (!/[a-z]/.test(formData.password)) {
-            errorObj.password = ('Please input correct password - at least one lowercase letter')
-            isFormValid = false;
-          } else if (!/[0-9]/.test(formData.password)) {
-            errorObj.password = ('Please input correct password - at least one digit')
-            isFormValid = false;
-          } else if (!/[A-Z]/.test(formData.password)) {
-            errorObj.password = ('Please input correct password - at least one uppercase letter')
-            isFormValid = false;
-          }
-
-          return isFormValid ? null : errorObj;
-        }}>
+        validate={registerValidation}>
         <Form className="registerform">
           <div className="registerform-item">
             <label htmlFor="name" className="registerform-item_formlabel">Name</label>

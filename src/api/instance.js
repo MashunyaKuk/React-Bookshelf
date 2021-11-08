@@ -30,10 +30,11 @@ export const loginUser = (userEmail, userPassword) => {
         rej();
       }
       
-    if (userData) {
+    if (userData && userFind) {
+      console.log('userData', userData, 'userFind', userFind)
       res({ userData })
     } else {
-      rej()
+      rej(alert("The user doesn't exist. Check input data, please"))
     }
   })
 }; 

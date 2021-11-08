@@ -23,7 +23,7 @@ const StyledProfileScene = styled.div`
       margin-right: 60px;
       border: 1px solid #212020;
       border-radius: 4px;
-      padding: 15px;
+      padding: 15px 50px 15px 50px;
     }
 
     &-userphoto {

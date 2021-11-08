@@ -3,12 +3,12 @@ import styled from 'styled-components';
 
 const StyledBookFilters = styled.div`
   font-family: 'Montserrat';
-  width: 150px;
+  width: 200px;
 
   .book-filters_holder {
     border: 1px solid #212020;
     border-radius: 4px;
-    padding: 15px;
+    padding: 15px 50px 15px 50px;
 }
   
 `;
