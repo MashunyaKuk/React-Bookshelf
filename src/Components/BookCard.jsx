@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import bookCover from '../assets/img/bookcover.jpg';
+import { Link } from 'react-router-dom';
+import { ROUTE } from '../Root/routes';
 
 const StyledBookCard = styled.div`
 font-family: 'Montserrat';
@@ -53,9 +55,10 @@ const BookCard = () => {
           </p>
         </div>
       </div>
-      <button className="btn want-read_btn">
+      <Link to={ROUTE.BOOK}
+        className="want-read_btn">
         Want to read
-      </button>
+      </Link>
     </StyledBookCard>
   );
 };

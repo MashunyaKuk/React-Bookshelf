@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import MainScene from '../Scenes/MainScene';
 import LibraryScene from '../Scenes/LibraryScene';
+import BookScene from '../Scenes/BookScene';
 import ProfileScene from '../Scenes/ProfileScene';
 import EditProfileScene from '../Scenes/ProfileInnerScenes/EditProfileScene';
 import ReadingNowScene from '../Scenes/ProfileInnerScenes/ReadingNowScene';
@@ -14,6 +15,9 @@ const RootRouter = () => {
   return (
     <>
       <Switch>
+        <Route path={ROUTE.BOOK}>
+          <BookScene />
+        </Route>
         <Route path={ROUTE.LIBRARY}>
           <LibraryScene />
         </Route>

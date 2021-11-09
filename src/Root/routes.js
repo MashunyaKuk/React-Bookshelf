@@ -5,7 +5,8 @@ export const ROUTE = {
   PROFILE_READING: "/profile/:userId/reading",
   PROFILE_WANT: "/profile/:userId/want",
   PROFILE_FINISHED: "/profile/:userId/finished",
-  LIBRARY: "/library", 
+  LIBRARY: "/library",
+  BOOK: "/library/book",
 }
 
 export const PATHS = {
@@ -16,4 +17,5 @@ export const PATHS = {
   PROFILE_WANT: id => `/profile/${id}/want`,
   PROFILE_FINISHED: id => `/profile/${id}/finished`,
   LIBRARY: id => `/library/${id}`,
+  BOOK: id => `/library/book/${id}`,
 }
