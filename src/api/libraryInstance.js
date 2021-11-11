@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { store } from '../store/initStore';
 
 const remoteLibraryInstance = axios.create ({
   baseURL: "http://openlibrary.org/",
 });
+
 
 remoteLibraryInstance.interceptors.request.use(
   (response) => {
@@ -20,9 +20,8 @@ export const getBooks = (searchQuery) => {
     remoteLibraryInstance.get(`search.json`, {params: {author: searchQuery}})
       .then((response) => {
         const data = response.data.docs;
-        const booksByAuthors = data.map(x => x.title);
-        if (!booksByAuthors) rej()
-        res(booksByAuthors)
+        if (!data) rej()
+        res(data)
       })
   })
     

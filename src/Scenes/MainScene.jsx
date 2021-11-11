@@ -9,7 +9,6 @@ import iconReturn from '../assets/img/icons/icon-return.png';
 import iconLibrary from '../assets/img/icons/icon-library.png';
 import iconOffline from '../assets/img/icons/icon-offline.png';
 import iconCollections from '../assets/img/icons/icon-collections.png';
-import BookCard from '../Components/BookCard';
 
 const StyledMainScene = styled.div`
   font-family: 'Montserrat';
@@ -23,6 +22,7 @@ const StyledMainScene = styled.div`
     background-position: center;
     background-size: cover;
     margin-bottom: 100px;
+    //opacity: ${props => props.theme};
   }
 
   .main-screen-textholder {
@@ -448,18 +448,14 @@ const MainScene = () => {
           </div>
         </div>
       </div>
-      <div className="top-container">
+      {/* <div className="top-container">
         <h3 className="top-title">
           Top books of the week
         </h3>
         <div className="top-content">
-          <BookCard />
-          <BookCard />
-          <BookCard />
-          <BookCard />
-          <BookCard />
+
         </div>
-      </div>
+      </div> */}
       <div className="collections-container">
         <div className="collections-item collections-item_red">
           <p className="collections-title">

@@ -14,7 +14,7 @@ const rootReducer = (state, action) => {
   let newUser = []; 
   switch (action.type) {
       case (USER_ACTIONS.addUser):
-        newUser = [...state.user];
+        //newUser = [...state.user];
         newUser.push(
           {
             name: action.payload.name,
@@ -29,7 +29,7 @@ const rootReducer = (state, action) => {
         return { ...initialState };
 
       case (USER_ACTIONS.logIn):
-        newUser = [...state.user];
+        //newUser = [...state.user];
         newUser.push(
           {
             name: action.payload.name,
