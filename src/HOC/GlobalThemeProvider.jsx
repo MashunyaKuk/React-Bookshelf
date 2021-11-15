@@ -6,6 +6,7 @@ export const ThemeContext = React.createContext('');
 
 const GlobalStyle = createGlobalStyle`
     body {
+        font-family: 'Montserrat';
         margin: 0;
         padding: 0;
         list-style: none;
@@ -31,6 +32,37 @@ const GlobalStyle = createGlobalStyle`
 
     a {
       text-decoration: none;
+    }
+
+
+    @keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+    .loading-indicator:before {
+      content: '';
+      background: #000000cc;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+}
+
+    .loading-indicator:after {
+      content: '';
+      box-sizing: border-box;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 50px;
+      height: 50px;
+      margin-top: -10px;
+      margin-left: -10px;
+      border-radius: 50%;
+      border: 5px solid #F6F5F3;
+      border-top-color: #000000cc;
+      animation: spinner .6s linear infinite;      
     }
 `;
 

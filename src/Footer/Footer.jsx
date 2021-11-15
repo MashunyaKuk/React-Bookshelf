@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import IconTelegram from '../assets/img/icons/telegram-plane-brands.svg';
 import IconInstagram from '../assets/img/icons/instagram-brands.svg';
 import IconFacebook from '../assets/img/icons/facebook-brands.svg';
-import { Link } from 'react-router-dom';
-import { ROUTE } from '../Root/routes';
+import { Link, useHistory } from 'react-router-dom';
+import { ROUTE, PATHS } from '../Root/routes';
 import { ThemeContext } from '../HOC/GlobalThemeProvider';
 import { useSelector } from 'react-redux';
 import { ModalContext } from '../HOC/GlobalModalProvider';
@@ -96,6 +96,7 @@ const StyledFooter = styled.footer`
 const Footer = () => {
   const [theme, setTheme] = useContext(ThemeContext);
   const setModalContent = useContext(ModalContext);
+  const history = useHistory();
   const user = useSelector(userSelector);
   const moveToProfile = (userId) => {
     history.push(PATHS.PROFILE_ABOUT(userId))
@@ -116,14 +117,14 @@ const Footer = () => {
                   <Link to="#" className="footer-menu_link">Register</Link>
                 </li> */}
 
-                {(user.find(item => item.loggedIn === true))
+                {(user.loggedIn === true)
 
                   ? <li className="footer-menu_item">
                     <button
                       className="footer-menu_link"
                       type="button"
                       onClick={() => {
-                        moveToProfile(user.find(user => user).id)
+                        moveToProfile(user.id)
                       }}
                     >My profile
                     </button>

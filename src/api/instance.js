@@ -1,7 +1,6 @@
 export const registerUser = (userName, userEmail, userPassword) => {
   return new Promise((res, rej) => {
       let usersList = JSON.parse(window.localStorage.getItem('registeredUsersList'));
-  
       if (!usersList) {
           usersList = [];
       }
@@ -42,16 +41,17 @@ export const loginUser = (userEmail, userPassword) => {
 export const logoutUser = (userId) => {
   return new Promise((res, rej) => {
       let usersList = JSON.parse(window.localStorage.getItem('registeredUsersList'));
-  
+      console.log('userIndex',  usersList)
       if (!usersList) rej();
       
       const userIndex = usersList.findIndex(user => user.userId === userId);
       if (userIndex !== -1) {
         usersList[userIndex].loggedIn = false;
+        //console.log('usersList', usersList, 'usersList[userIndex].loggedIn', usersList[userIndex].loggedIn)
       } else {
         rej();
       }
-      console.log('userIndex',  usersList[userIndex].loggedIn)
+      
       window.localStorage.setItem('registeredUsersList', JSON.stringify(usersList));
       res()
     

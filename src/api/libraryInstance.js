@@ -5,14 +5,29 @@ const remoteLibraryInstance = axios.create ({
 });
 
 
-remoteLibraryInstance.interceptors.request.use(
-  (response) => {
-    return response;
-  },
-  (error) => {
-    return error;
+remoteLibraryInstance.interceptors.request.use((config) => {
+
+  // spinning start to show
+  document.body.classList.add('loading-indicator');
+
+  const token = window.localStorage.token;
+  if (token) {
+     config.headers.Authorization = `token ${token}`
   }
-)
+  return config
+}, function (error) {
+  return Promise.reject(error);
+});
+
+remoteLibraryInstance.interceptors.response.use((response) => {
+
+  // spinning hide
+  document.body.classList.remove('loading-indicator');
+
+  return response;
+}, function (error) {
+  return Promise.reject(error);
+});
 
 
 export const getBooks = (searchQuery) => {

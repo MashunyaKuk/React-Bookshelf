@@ -161,8 +161,7 @@ const LibraryScene = () => {
               getBooks(values.picked)
                 .then((data) => {
                   setBooks(data);
-                  console.log(new URLSearchParams(values.picked));
-                  history.push({ pathname: location.pathname, search: "?author=" + new URLSearchParams(values.picked) });
+                  history.push({ pathname: location.pathname, search: "?" + new URLSearchParams(`author=${values.picked}`) });
                 })
             }
           >
@@ -244,7 +243,7 @@ const LibraryScene = () => {
             books.map((book, index) => {
               const authors = book.author_name.join(", ");
               const covers = () => {
-                let result = book.isbn === undefined ? '0385472579' : book.isbn[0]
+                let result = book.isbn === undefined ? '1' : book.isbn[0];
                 return result;
               }
               return (

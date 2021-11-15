@@ -126,15 +126,15 @@ const Header = () => {
                 <Link to="/" className="header-menu_link">About</Link>
               </li>
 
-              {(user.find(item => item.loggedIn === true))
+              {(user.loggedIn === true)
 
                 ? <li className="header-menu_item">
                   <button
                     className="header-menu_link"
                     type="button"
                     onClick={() => {
-                      console.log('user', user.find(user => user).id);
-                      moveToProfile(user.find(user => user).id)
+                      console.log('user', user.id);
+                      moveToProfile(user.id)
                     }}
                   >My profile
                   </button>
@@ -153,6 +153,7 @@ const Header = () => {
                   </button>
                 </li>}
 
+
               <li className="header-menu_item">
                 <Link to={ROUTE.LIBRARY} className="header-menu_link">Library</Link>
               </li>
@@ -167,13 +168,13 @@ const Header = () => {
           </div>
           <div className="header-login">
 
-            {(user.find(item => item.loggedIn === true))
+            {(user.loggedIn === true)
 
               ? <button
                 type="button"
                 className="logout-btn"
                 onClick={() => {
-                  logoutUser(user.find(user => user).id)
+                  logoutUser(user.id)
                     .then(() => {
                       console.log('userData')
                       dispatch(logOutUser());
