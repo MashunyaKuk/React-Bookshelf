@@ -3,10 +3,12 @@ import { useHistory, useLocation } from "react-router-dom";
 import styled from 'styled-components';
 import bookCover from '../assets/img/bookcover.jpg';
 import { Link } from 'react-router-dom';
-import { ROUTE } from '../Root/routes';
+import { ROUTE, PATHS } from '../Root/routes';
 import { getBooks } from '../api/libraryInstance';
 import { Formik, Field, Form } from 'formik';
 import FormikCheckboxes from '../Components/FormikInputs/FormikCheckboxes';
+import ReactPaginate from "react-paginate";
+
 
 const StyledLibraryScene = styled.div`
 font-family: 'Montserrat';
@@ -81,7 +83,8 @@ max-width: 1170px;
   .bookholder-container {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
+    flex-direction: column;
     flex-wrap: wrap;
   }
 
@@ -141,13 +144,38 @@ max-width: 1170px;
     text-align: center;
     margin-top: 5px;
   }
+
+  .paginationBttns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .previousBttn, .nextBttn, .paginationDisabled, .paginationActive, .paginationAll {
+    margin-right: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    color: #6E7064;
+    
+  }
+
+  .paginationActive {
+    font-size: 20px;
+    color: #212020;
+  }
 `;
 
 const LibraryScene = () => {
   const history = useHistory();
   const location = useLocation();
   const [books, setBooks] = useState(null);
+  const [pageNumber, setPageNumber] = useState(0);
+  const booksPerPage = 15;
+  const pagesVisited = pageNumber * booksPerPage;
 
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
 
   return (
     <StyledLibraryScene className="library-holder">
@@ -239,8 +267,9 @@ const LibraryScene = () => {
           Get Books
         </button> */}
         <div className="bookcard-container">
-          {books &&
-            books.map((book, index) => {
+          {books && books
+            .slice(pagesVisited, pagesVisited + booksPerPage)
+            .map((book, index) => {
               const authors = book.author_name.join(", ");
               const covers = () => {
                 let result = book.isbn === undefined ? '1' : book.isbn[0];
@@ -257,14 +286,32 @@ const LibraryScene = () => {
                       {authors}
                     </p>
                   </div>
-                  <Link to={ROUTE.BOOK}
+                  <button
+                    onClick={() => {
+                      history.push({ pathname: ROUTE.BOOK, search: "?" + new URLSearchParams(`author=${authors}&title=${book.title}`) }
+                      );
+                    }}
                     className="want-read_btn">
                     Want to read
-                  </Link>
+                  </button>
                 </div>
               );
-            })}
+            })
+          }
         </div>
+        <ReactPaginate
+          previousLabel="< "
+          nextLabel=" >"
+          pageCount={Math.ceil(100 / booksPerPage)}
+          onPageChange={changePage}
+          containerClassName={"paginationBttns"}
+          previousLinkClassName={"previousBttn"}
+          nextLinkClassName={"nextBttn"}
+          disabledClassName={"paginationDisabled"}
+          activeClassName={"paginationActive"}
+          pageClassName={"paginationAll"}
+        />
+
       </div>
     </StyledLibraryScene >
   );

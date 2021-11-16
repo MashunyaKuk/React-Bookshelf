@@ -4,46 +4,28 @@ import { getBooks } from '../api/libraryInstance';
 
 const StyledBookScene = styled.div`
 font-family: 'Montserrat';
+margin: auto;
+max-width: 1170px;
 `;
 
-const BookScene = () => {
-  const [books, setBooks] = useState(null);
-  return (
-    <StyledBookScene className="bookcard-container">
-      <div className="bookcard-about">
-        <h4 className="bookcard-name">
-          Book scene
-        </h4>
-        <button
-          type="button"
-          onClick={() => {
-            getBooks('rowling')
-              .then((data) => {
-                setBooks(data);
-              })
-          }}
-        >
-          Get Books
-        </button>
-        <div>
-          {books &&
-            books.map((book, index) => {
-              const authors = book.author_name.join(", ");
-              const covers = () => {
-                let result = book.isbn === undefined ? '0385472579' : book.isbn[0]
-                return result;
-              }
-              return (
-                <div className="book" key={index}>
-                  <p>Book {index + 1}</p>
-                  <p>Author {authors}</p>
-                  <p>{book.title}</p>
-                  <img src={`https://covers.openlibrary.org/b/isbn/${covers()}-M.jpg`} alt="" />
+const BookScene = (props) => {
 
-                </div>
-              );
-            })}
+  return (
+    <StyledBookScene className="bookscene-container">
+      <div className="bookholder">
+        <div className="bookholder-cover"
+        >
+          <img src="#" alt="book-cover" className="bookholder-cover_img" />
         </div>
+        <h4 className="bookholder-title">
+          Book name
+        </h4>
+        <div className="bookholder-author">
+          <p className="bookholder-author_p">
+            Book author
+          </p>
+        </div>
+        <div>BOOKS</div>
       </div>
     </StyledBookScene >
   );
