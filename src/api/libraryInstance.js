@@ -9,11 +9,6 @@ remoteLibraryInstance.interceptors.request.use((config) => {
 
   // spinning start to show
   document.body.classList.add('loading-indicator');
-
-  const token = window.localStorage.token;
-  if (token) {
-     config.headers.Authorization = `token ${token}`
-  }
   return config
 }, function (error) {
   return Promise.reject(error);
