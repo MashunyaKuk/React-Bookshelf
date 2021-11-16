@@ -73,7 +73,7 @@ const Bookcard = (props) => {
       </div>
       <button
         onClick={() => {
-          history.push({ pathname: ROUTE.BOOK, state: { title: props.title }, search: "?" + new URLSearchParams(`author=${props.authors}&title=${props.title}`) });
+          history.push({ pathname: ROUTE.BOOK, state: { all: props.all }, search: "?" + new URLSearchParams(`author=${props.authors}&title=${props.title}`) });
         }}
         className="want-read_btn">
         Details

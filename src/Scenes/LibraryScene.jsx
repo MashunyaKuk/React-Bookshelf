@@ -226,28 +226,7 @@ const LibraryScene = () => {
                 return result;
               }
               return (
-                <Bookcard key={index} title={book.title} authors={authors} cover={covers}>
-                  {/* <div className="bookcard" key={index}>
-                    <div className="bookcard-cover" >
-                      <img src={`https://covers.openlibrary.org/b/isbn/${covers()}-M.jpg`} alt="" className="bookcard-cover_img" />
-                    </div>
-                    <h4 className="bookcard-name">{book.title}</h4>
-                    <div className="bookcard-author">
-                      <p className="bookcard-author_p">
-                        {authors}
-                      </p>
-                    </div>
-                    <button
-                      onClick={() => {
-                        history.push({ pathname: ROUTE.BOOK, search: "?" + new URLSearchParams(`author=${authors}&title=${book.title}`) }
-                        );
-                      }}
-                      className="want-read_btn">
-                      Want to read
-                    </button>
-                  </div> */}
-                </Bookcard>
-
+                <Bookcard key={index} title={book.title} authors={authors} cover={covers} all={book} />
               );
             })
           }
