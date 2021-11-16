@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useHistory, useLocation } from "react-router-dom";
 import styled from 'styled-components';
-import bookCover from '../assets/img/bookcover.jpg';
-import { Link } from 'react-router-dom';
-import { ROUTE, PATHS } from '../Root/routes';
 import { getBooks } from '../api/libraryInstance';
 import { Formik, Field, Form } from 'formik';
 import FormikCheckboxes from '../Components/FormikInputs/FormikCheckboxes';
 import ReactPaginate from "react-paginate";
+import Bookcard from "../Components/Bookcard";
 
 
 const StyledLibraryScene = styled.div`
@@ -95,55 +93,7 @@ max-width: 1170px;
   }
   
 
-  .bookcard {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 150px;
-    margin: 0 0 30px 30px;
-  }
   
-  .bookcard-cover {
-    margin-bottom: 5px;
-    background-image: url(${bookCover});
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    display: flex;
-  }
-
-  .bookcard-cover_img {
-    border-radius: 4px;
-    width: 120px;
-    height: 200px;
-    object-fit: cover;
-  }
-
-  .bookcard-author {
-    overflow: hidden;
-    max-height: 80px;
-  }
-
-  .bookcard-name, .bookcard-author_p {
-    color: #212020;
-    font-size: 14px;
-    margin: 0 0 5px 0;
-    text-align: center;
-  }
-
-  .want-read_btn {
-    color: #F6F5F3;
-    font-family: 'Montserrat';
-    padding: 10px 15px;
-    cursor: pointer;
-    background-color: #C89566;
-    border: none;
-    border-radius: 4px;
-    font-size: 12px;
-    text-align: center;
-    margin-top: 5px;
-  }
 
   .paginationBttns {
     display: flex;
@@ -276,25 +226,28 @@ const LibraryScene = () => {
                 return result;
               }
               return (
-                <div className="bookcard" key={index}>
-                  <div className="bookcard-cover" >
-                    <img src={`https://covers.openlibrary.org/b/isbn/${covers()}-M.jpg`} alt="" className="bookcard-cover_img" />
-                  </div>
-                  <h4 className="bookcard-name">{book.title}</h4>
-                  <div className="bookcard-author">
-                    <p className="bookcard-author_p">
-                      {authors}
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => {
-                      history.push({ pathname: ROUTE.BOOK, search: "?" + new URLSearchParams(`author=${authors}&title=${book.title}`) }
-                      );
-                    }}
-                    className="want-read_btn">
-                    Want to read
-                  </button>
-                </div>
+                <Bookcard key={index} title={book.title} authors={authors} cover={covers}>
+                  {/* <div className="bookcard" key={index}>
+                    <div className="bookcard-cover" >
+                      <img src={`https://covers.openlibrary.org/b/isbn/${covers()}-M.jpg`} alt="" className="bookcard-cover_img" />
+                    </div>
+                    <h4 className="bookcard-name">{book.title}</h4>
+                    <div className="bookcard-author">
+                      <p className="bookcard-author_p">
+                        {authors}
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => {
+                        history.push({ pathname: ROUTE.BOOK, search: "?" + new URLSearchParams(`author=${authors}&title=${book.title}`) }
+                        );
+                      }}
+                      className="want-read_btn">
+                      Want to read
+                    </button>
+                  </div> */}
+                </Bookcard>
+
               );
             })
           }
