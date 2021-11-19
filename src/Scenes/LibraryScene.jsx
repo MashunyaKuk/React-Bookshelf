@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { useHistory, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { getBooks } from '../api/libraryInstance';
 import { Formik, Field, Form } from 'formik';
 import FormikCheckboxes from '../Components/FormikInputs/FormikCheckboxes';
 import ReactPaginate from "react-paginate";
 import Bookcard from "../Components/Bookcard";
+import { newLibraryAdd } from '../store/actions/libraryActions';
+import { librarySelector } from '../store/selectors/librarySelector';
+import bookCover from '../assets/img/bookcover.jpg';
 
 
 const StyledLibraryScene = styled.div`
@@ -92,9 +96,6 @@ max-width: 1170px;
     flex-wrap: wrap;
   }
   
-
-  
-
   .paginationBttns {
     display: flex;
     justify-content: space-between;
@@ -106,7 +107,6 @@ max-width: 1170px;
     font-size: 16px;
     cursor: pointer;
     color: #6E7064;
-    
   }
 
   .paginationActive {
@@ -117,11 +117,12 @@ max-width: 1170px;
 
 const LibraryScene = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const location = useLocation();
-  const [books, setBooks] = useState(null);
   const [pageNumber, setPageNumber] = useState(0);
   const booksPerPage = 15;
   const pagesVisited = pageNumber * booksPerPage;
+  const libraryList = useSelector(librarySelector);
 
   const changePage = ({ selected }) => {
     setPageNumber(selected);
@@ -138,7 +139,7 @@ const LibraryScene = () => {
             onSubmit={(values) =>
               getBooks(values.picked)
                 .then((data) => {
-                  setBooks(data);
+                  dispatch(newLibraryAdd(data));
                   history.push({ pathname: location.pathname, search: "?" + new URLSearchParams(`author=${values.picked}`) });
                 })
             }
@@ -205,31 +206,20 @@ const LibraryScene = () => {
         </div>
       </div>
       <div className="bookholder-container">
-        {/* <button
-          type="button"
-          onClick={() => {
-            getBooks('rowling')
-              .then((data) => {
-                setBooks(data);
-              })
-          }}
-        >
-          Get Books
-        </button> */}
         <div className="bookcard-container">
-          {books && books
+          {libraryList && libraryList
             .slice(pagesVisited, pagesVisited + booksPerPage)
-            .map((book, index) => {
+            .map((book) => {
               const authors = book.author_name.join(", ");
               const covers = () => {
                 let result = book.isbn === undefined ? '1' : book.isbn[0];
                 return result;
               }
               return (
-                <Bookcard key={index} title={book.title} authors={authors} cover={covers} all={book} />
+                <Bookcard key={book._version_} id={book._version_} title={book.title} authors={authors} cover={covers} all={book} />
               );
-            })
-          }
+            }
+            )}
         </div>
         <ReactPaginate
           previousLabel="< "

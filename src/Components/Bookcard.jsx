@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import bookCover from '../assets/img/bookcover.jpg';
-import { ROUTE } from '../Root/routes';
+import { PATHS } from '../Root/routes';
 import { useHistory } from "react-router-dom";
+
 
 const StyledBookcard = styled.div`
 font-family: 'Montserrat';
@@ -59,7 +60,9 @@ margin: 0 0 30px 30px;
 
 const Bookcard = (props) => {
   const history = useHistory();
-
+  const moveToBook = (id) => {
+    history.push(PATHS.BOOK(id))
+  }
   return (
     <StyledBookcard>
       <div className="bookcard-cover" >
@@ -73,7 +76,7 @@ const Bookcard = (props) => {
       </div>
       <button
         onClick={() => {
-          history.push({ pathname: ROUTE.BOOK, state: { all: props.all }, search: "?" + new URLSearchParams(`author=${props.authors}&title=${props.title}`) });
+          moveToBook(props.id);;
         }}
         className="want-read_btn">
         Details

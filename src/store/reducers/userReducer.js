@@ -1,4 +1,4 @@
-import USER_ACTIONS from '../actionTypes';
+import { USER_ACTIONS } from '../actionTypes';
 
 const userReducer = (state, action) => {
   let newUser = {}; 

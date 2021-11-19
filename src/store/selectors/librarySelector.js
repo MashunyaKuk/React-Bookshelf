@@ -1,0 +1,1 @@
+export const librarySelector = store => store.libraryReducer.libraryList;

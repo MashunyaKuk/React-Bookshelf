@@ -4,12 +4,15 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import hardSet from 'redux-persist/es/stateReconciler/hardSet';
 import rootReducer from './reducers/rootReducer';
+import thunk from 'redux-thunk';
 
 
 const newUser = {};
+const newLibraryList = [];
 
 const initialState = {
   userReducer: {user: newUser},
+  libraryReducer: {libraryList: newLibraryList},
 };
 
 
@@ -22,7 +25,7 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const middlewares = [];
+const middlewares = [thunk];
 const middlewareEnhancer = applyMiddleware(...middlewares);
 
 const enhancers = [middlewareEnhancer];

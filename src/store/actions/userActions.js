@@ -1,4 +1,4 @@
-import USER_ACTIONS from '../actionTypes';
+import { USER_ACTIONS } from '../actionTypes';
 
 export const newUserAdd = (userName, userEmail, userPassword, userId, userLoggedIn) => {
   return ( {

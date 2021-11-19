@@ -85,7 +85,8 @@ const StyledProfileScene = styled.div`
 
 const ProfileScene = (props) => {
   const urlParams = useParams();
-  const urlParamsId = urlParams.userId
+  const urlParamsId = urlParams.userId;
+  console.log('urlParamsId', urlParamsId);
   const history = useHistory();
   const dispatch = useDispatch();
 
