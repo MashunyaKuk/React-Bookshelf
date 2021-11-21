@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { librarySelector } from '../store/selectors/librarySelector';
+import { userSelector } from '../store/selectors/userSelectors';
 import bookCover from '../assets/img/bookcover.jpg';
+import { bookToReadAdd } from '../store/actions/bookToReadAction';
+import { booksToReadSelector } from '../store/selectors/booksToReadSelector';
 
 const StyledBookScene = styled.div`
 font-family: 'Montserrat';
-margin: auto;
+margin: 0 auto 30px auto;
 max-width: 1170px;
 
 .bookholder {
@@ -21,6 +24,7 @@ max-width: 1170px;
     background-position: center;
     background-size: cover;
     display: flex;
+
     &_img {
       width: 350px;
       height: 550px;
@@ -57,17 +61,40 @@ max-width: 1170px;
   }
 
   &-text {
+    margin-bottom: 30px;
     &_p {
       font-size: 14px;
     }
   }
 }
+
+.addbook-btn__before {
+  color: #F6F5F3;
+  font-family: 'Montserrat';
+  padding: 10px 30px;
+  cursor: pointer;
+  background-color: #C89566;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+} 
+
+.addbook-btn__after {
+  color: #212020;
+  font-family: 'Montserrat';
+  font-weight: 600;
+  border: none;
+  padding: 0;
+  font-size: 14px;
+} 
 `;
 
 const BookScene = () => {
   const params = useParams();
   const urlParams = params.userId;
   const libraryList = useSelector(librarySelector);
+  const user = useSelector(userSelector);
+  const dispatch = useDispatch();
   const currentBook = () => {
     const book = libraryList.filter(book => book._version_ == urlParams);
     if (book) {
@@ -78,39 +105,65 @@ const BookScene = () => {
     let result = currentBook().isbn === undefined ? '1' : currentBook().isbn[0];
     return result;
   }
-  console.log('currentBook', currentBook());
-  console.log('urlParams', urlParams);
+  const currentBookCover = covers();
+  const currentBookTitle = currentBook().title;
+  const currentBookAuthors = currentBook().author_name.join(", ");
+  const currentBookFirstPublishedYear = currentBook().first_publish_year;
+  const currentBookPages = currentBook().number_of_pages_median;
+  const currentBookText = currentBook().first_sentence && currentBook().first_sentence.join("/ ");
+
+  const [btnText, setBtnText] = useState("Want to read");
+  const btnStyles = () => {
+    if (btnText === "Want to read") {
+      return "addbook-btn__before"
+    }
+    else {
+      return "addbook-btn__after"
+    }
+  }
+  const myBooks = useSelector(booksToReadSelector);
   return (
     <StyledBookScene className="bookscene-container">
       <div className="bookholder">
         <div className="bookholder-cover">
-          <img src={`https://covers.openlibrary.org/b/isbn/${covers()}-L.jpg`} alt="book-cover" className="bookholder-cover_img" />
+          <img src={`https://covers.openlibrary.org/b/isbn/${currentBookCover}-L.jpg`} alt="book-cover" className="bookholder-cover_img" />
         </div>
         <div className="bookholder-book">
           <h4 className="bookholder-title">
-            {currentBook().title}
+            {currentBookTitle}
           </h4>
           <div className="bookholder-author">
             <p className="bookholder-author_p">
-              {currentBook().author_name.join(", ")}
+              {currentBookAuthors}
             </p>
           </div>
           <div className="bookholder-year">
             <p className="bookholder-year_p">
-              First year of publication: {currentBook().first_publish_year}
+              First year of publication: {currentBookFirstPublishedYear}
             </p>
           </div>
           <div className="bookholder-pages">
             <p className="bookholder-pages_p">
-              Number of pages: {currentBook().number_of_pages_median}
+              Number of pages: {currentBookPages}
             </p>
           </div>
           <div className="bookholder-text">
             <p className="bookholder-text_p">
-              {currentBook().first_sentence &&
-                currentBook().first_sentence.join(". ")}
+              {currentBookText}
             </p>
           </div>
+          {(user.loggedIn === true) && !(myBooks.find(book => book.bookId === urlParams)) &&
+            <button
+              type="button"
+              className={btnStyles()}
+              onClick={(event) => {
+                console.log('urlParams', urlParams);
+                dispatch(bookToReadAdd(urlParams, currentBookTitle, currentBookAuthors, currentBookCover, currentBookFirstPublishedYear));
+                setBtnText("In your profile already!");
+                event.currentTarget.disabled = true;
+              }}>
+              {btnText}
+            </button>}
         </div>
       </div>
     </StyledBookScene >

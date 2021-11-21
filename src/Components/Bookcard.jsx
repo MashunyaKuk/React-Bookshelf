@@ -7,8 +7,6 @@ import { useHistory } from "react-router-dom";
 
 const StyledBookcard = styled.div`
 font-family: 'Montserrat';
-margin: auto;
-max-width: 1170px;
 display: flex;
 align-items: center;
 flex-direction: column;
@@ -16,20 +14,21 @@ justify-content: space-between;
 width: 150px;
 margin: 0 0 30px 30px;
   
-  .bookcard-cover {
-    margin-bottom: 5px;
-    background-image: url(${bookCover});
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    display: flex;
-  }
+.bookcard-cover {
+  margin-bottom: 5px;
+  background-image: url(${bookCover});
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  border-radius: 4px;
+}
 
   .bookcard-cover_img {
-    border-radius: 4px;
     width: 120px;
     height: 200px;
     object-fit: cover;
+    border-radius: 4px;
   }
 
   .bookcard-author {
@@ -38,7 +37,6 @@ margin: 0 0 30px 30px;
   }
 
   .bookcard-name, .bookcard-author_p {
-    color: #212020;
     font-size: 14px;
     margin: 0 0 5px 0;
     text-align: center;

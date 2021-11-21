@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import logo from '../assets/img/logo.png';
+import IconLogo from '../assets/img/logo.svg';
 import { Link, useHistory } from 'react-router-dom';
 import { ROUTE, PATHS } from '../Root/routes';
 import { ModalContext } from '../HOC/GlobalModalProvider';
@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { userSelector } from '../store/selectors/userSelectors';
 import { logOutUser } from '../store/actions/userActions';
 import { logoutUser } from '../api/instance';
+import { ThemeContext } from '../HOC/GlobalThemeProvider';
 
 const StyledHeader = styled.header`
   font-family: 'Montserrat';
@@ -45,26 +46,37 @@ const StyledHeader = styled.header`
   .header-menu_link {
     font-family: 'Montserrat';
     font-size: 16px;
-    color: #212020;
     border: none;
     background-color: transparent;
     cursor: pointer;
     padding: 0;
   }
 
+  .header-menu_link__dark {
+    font-family: 'Montserrat';
+    font-size: 16px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 0;
+    color: #F6F5F3;
+  }
+
   .header-logo{
     display: flex;
     align-items: center;
-    //justify-content: space-between;
     &_link {
-      color: #212020;
+      //color: #212020;
       font-size: 18px;
       display: inline-block;
       height: 100%;
       vertical-align: middle;
+      margin-right: 10px;
+      
     }
     &_img{
-      width: 90%;
+      width: 50px;
+      color: #7e9f8b;
     }
   }
 
@@ -100,6 +112,7 @@ const StyledHeader = styled.header`
 const Header = () => {
   const setModalContent = useContext(ModalContext);
   const history = useHistory();
+  const [theme, setTheme] = useContext(ThemeContext);
   const dispatch = useDispatch();
   const user = useSelector(userSelector);
   const moveToProfile = (userId) => {
@@ -111,7 +124,7 @@ const Header = () => {
         <div className="header-item">
           <div className="header-logo">
             <Link to="/" className="header-logo_link">
-              <img className="header-logo_img" src={logo} />
+              <IconLogo className="header-logo_img" />
             </Link>
             <Link to="/" className="header-logo_link">
               BookShelf
@@ -130,7 +143,7 @@ const Header = () => {
 
                 ? <li className="header-menu_item">
                   <button
-                    className="header-menu_link"
+                    className={(theme === 'light' ? "header-menu_link" : "header-menu_link__dark")}
                     type="button"
                     onClick={() => {
                       console.log('user', user.id);
@@ -142,7 +155,7 @@ const Header = () => {
 
                 : <li className="header-menu_item">
                   <button
-                    className="header-menu_link"
+                    className={(theme === 'light' ? "header-menu_link" : "header-menu_link__dark")}
                     type="button"
                     onClick={() => {
                       setModalContent(

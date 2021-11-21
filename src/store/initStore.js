@@ -9,13 +9,13 @@ import thunk from 'redux-thunk';
 
 const newUser = {};
 const newLibraryList = [];
+const newBooksList = [];
 
 const initialState = {
   userReducer: {user: newUser},
   libraryReducer: {libraryList: newLibraryList},
+  booksToReadReducer: {booksList: newBooksList},
 };
-
-
 
 const persistConfig = {
   key: 'root',

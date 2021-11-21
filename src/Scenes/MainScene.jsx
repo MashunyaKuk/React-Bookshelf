@@ -9,6 +9,7 @@ import iconReturn from '../assets/img/icons/icon-return.png';
 import iconLibrary from '../assets/img/icons/icon-library.png';
 import iconOffline from '../assets/img/icons/icon-offline.png';
 import iconCollections from '../assets/img/icons/icon-collections.png';
+import { ThemeContext } from '../HOC/GlobalThemeProvider';
 
 const StyledMainScene = styled.div`
   font-family: 'Montserrat';
@@ -22,7 +23,15 @@ const StyledMainScene = styled.div`
     background-position: center;
     background-size: cover;
     margin-bottom: 100px;
-    //opacity: ${props => props.theme};
+  }
+
+  .main-screen-container__dark {
+    height: 500px;
+    margin-bottom: 100px;
+    background-color: #212020;
+    border: 1px solid white;
+    border-radius: 4px;
+    box-shadow: inset 0 0 25px;
   }
 
   .main-screen-textholder {
@@ -260,9 +269,10 @@ const StyledMainScene = styled.div`
 
 const MainScene = () => {
   const setModalContent = useContext(ModalContext);
+  const [theme, setTheme] = useContext(ThemeContext);
   return (
     <StyledMainScene>
-      <div className="main-screen-container">
+      <div className={(theme === 'light' ? "main-screen-container" : "main-screen-container__dark")}>
         <div className="main-screen-textholder">
           <h1 className="main-screen-title">
             Thousands of books you have always with you

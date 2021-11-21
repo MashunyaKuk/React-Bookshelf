@@ -14,6 +14,7 @@ import RegisterModal from '../Modal/ModalContent/RegisterModal';
 const StyledFooter = styled.footer`
   font-family: 'Montserrat';
   background-color: #212020;
+  border-top: 1px solid white;
 
   .footer-holder {
     margin: 0 15px;
@@ -25,7 +26,7 @@ const StyledFooter = styled.footer`
       justify-content: space-between;
       padding: 15px 0px;
       max-width: 1170px;
-      margin: 30px auto 0px auto;
+      margin: 0px auto;
     }
 
     .footer-item {

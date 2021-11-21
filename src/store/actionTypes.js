@@ -7,3 +7,8 @@ export const USER_ACTIONS = {
 export const LIBRARY_ACTIONS = {
   addLibrary: 'add books in library',
 };
+
+export const BOOK_TO_READ_ACTIONS = {
+  addBook: 'add book in profile',
+  removeBook: 'remove book from profile',
+};
