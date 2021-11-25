@@ -11,6 +11,7 @@ const userReducer = (state, action) => {
             password: action.payload.password,
             id: action.payload.id,
             loggedIn: action.payload.loggedIn,
+            booksToReadIds: action.payload.booksToReadIds
           };
         return { ...state, user: newUser };
       case (USER_ACTIONS.logOut):
@@ -25,6 +26,7 @@ const userReducer = (state, action) => {
             password: action.payload.password,
             id: action.payload.id,
             loggedIn: action.payload.loggedIn,
+            booksToReadIds: action.payload.booksToReadIds
           };
         return { ...state, user: newUser };
       

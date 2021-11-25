@@ -5,7 +5,7 @@ const remoteLibraryInstance = axios.create ({
 });
 
 
-remoteLibraryInstance.interceptors.request.use((config) => {
+/* remoteLibraryInstance.interceptors.request.use((config) => {
 
   // spinning start to show
   document.body.classList.add('loading-indicator');
@@ -22,7 +22,7 @@ remoteLibraryInstance.interceptors.response.use((response) => {
   return response;
 }, function (error) {
   return Promise.reject(error);
-});
+}); */
 
 
 export const getBooks = (searchQuery) => {

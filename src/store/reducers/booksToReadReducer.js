@@ -10,7 +10,8 @@ const booksToReadReducer = (state, action) => {
           bookTitle: action.payload.bookTitle,
           bookAuthors: action.payload.bookAuthors,
           bookCover: action.payload.bookCover,
-          bookFirstYear: action.payload.bookFirstYear
+          bookFirstYear: action.payload.bookFirstYear,
+          userId: action.payload.userId
         })
         return { ...state, booksList: newBooksList };
 

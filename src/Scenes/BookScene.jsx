@@ -7,6 +7,7 @@ import { userSelector } from '../store/selectors/userSelectors';
 import bookCover from '../assets/img/bookcover.jpg';
 import { bookToReadAdd } from '../store/actions/bookToReadAction';
 import { booksToReadSelector } from '../store/selectors/booksToReadSelector';
+import { booksToReadAdd, bookToRead } from '../api/booksToReadInstance';
 
 const StyledBookScene = styled.div`
 font-family: 'Montserrat';
@@ -91,10 +92,12 @@ max-width: 1170px;
 
 const BookScene = () => {
   const params = useParams();
-  const urlParams = params.userId;
+  const urlParams = params.bookId;
   const libraryList = useSelector(librarySelector);
   const user = useSelector(userSelector);
+  const userId = user.id;
   const dispatch = useDispatch();
+
   const currentBook = () => {
     const book = libraryList.filter(book => book._version_ == urlParams);
     if (book) {
@@ -105,6 +108,8 @@ const BookScene = () => {
     let result = currentBook().isbn === undefined ? '1' : currentBook().isbn[0];
     return result;
   }
+
+  const currentBookId = currentBook()._version_;
   const currentBookCover = covers();
   const currentBookTitle = currentBook().title;
   const currentBookAuthors = currentBook().author_name.join(", ");
@@ -121,6 +126,7 @@ const BookScene = () => {
       return "addbook-btn__after"
     }
   }
+
   const myBooks = useSelector(booksToReadSelector);
   return (
     <StyledBookScene className="bookscene-container">
@@ -157,9 +163,12 @@ const BookScene = () => {
               type="button"
               className={btnStyles()}
               onClick={(event) => {
-                console.log('urlParams', urlParams);
-                dispatch(bookToReadAdd(urlParams, currentBookTitle, currentBookAuthors, currentBookCover, currentBookFirstPublishedYear));
-                setBtnText("In your profile already!");
+                booksToReadAdd(currentBookId, currentBookTitle, currentBookAuthors, currentBookCover, currentBookFirstPublishedYear, userId)
+                  .then(({ dataBook }) => {
+                    console.log('data', dataBook)
+                    dispatch(bookToReadAdd(dataBook.bookId, dataBook.bookTitle, dataBook.bookAuthors, dataBook.bookCover, dataBook.bookFirstYear, dataBook.dataBookId));
+                    setBtnText("In your profile already!");
+                  })
                 event.currentTarget.disabled = true;
               }}>
               {btnText}

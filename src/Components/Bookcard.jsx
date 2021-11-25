@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import bookCover from '../assets/img/bookcover.jpg';
 import { PATHS } from '../Root/routes';
 import { useHistory } from "react-router-dom";
-
+import LazyImage from '../Components/LazyImage';
 
 const StyledBookcard = styled.div`
 font-family: 'Montserrat';
@@ -16,19 +16,30 @@ margin: 0 0 30px 30px;
   
 .bookcard-cover {
   margin-bottom: 5px;
-  background-image: url(${bookCover});
+  /* background-image: url(${bookCover});
   background-repeat: no-repeat;
   background-position: center;
-  background-size: cover;
+  background-size: cover; */
   display: flex;
   border-radius: 4px;
 }
+  .bookcard-cover_back {
+    width: 120px;
+    height: 200px;
+    border-radius: 4px;
+    
+  }
 
   .bookcard-cover_img {
     width: 120px;
-    height: 200px;
+    height: 199px;
     object-fit: cover;
     border-radius: 4px;
+    position: absolute;
+    left: -121px;
+    top: 0px;
+    border: 1px solid black;
+    z-index: 1;
   }
 
   .bookcard-author {
@@ -64,7 +75,12 @@ const Bookcard = (props) => {
   return (
     <StyledBookcard>
       <div className="bookcard-cover" >
-        <img src={`https://covers.openlibrary.org/b/isbn/${props.cover()}-M.jpg`} alt="" className="bookcard-cover_img" />
+        <img className="bookcard-cover_back" src={bookCover} />
+        <LazyImage
+          className={"bookcard-cover_img"}
+          alt={"book-cover"}
+          src={`https://covers.openlibrary.org/b/isbn/${props.cover()}-M.jpg`}
+        />
       </div>
       <h4 className="bookcard-name">{props.title}</h4>
       <div className="bookcard-author">

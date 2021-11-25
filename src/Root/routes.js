@@ -6,7 +6,7 @@ export const ROUTE = {
   PROFILE_WANT: "/profile/:userId/want",
   PROFILE_FINISHED: "/profile/:userId/finished",
   LIBRARY: "/library",
-  BOOK: "/library/book/:userId",
+  BOOK: "/library/book/:bookId",
 }
 
 export const PATHS = {

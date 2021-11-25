@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import bookCover from '../../assets/img/bookcover.jpg';
+import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { booksToReadSelector } from '../../store/selectors/booksToReadSelector';
 import { bookToReadRemove } from '../../store/actions/bookToReadAction';
@@ -92,11 +93,18 @@ flex-wrap: wrap;
 `;
 
 const WantToReadScene = () => {
-  const myBooksList = useSelector(booksToReadSelector);
+  const params = useParams();
+  const urlParams = params.id;
+  const myBooksList = useSelector(booksToReadSelector); //заменить персист на бэк (из бэка подтягивать книги)
+  const myBooksListById = myBooksList.filter((book) => {
+    if (book.userId === urlParams) {
+      return book;
+    }
+  })
   const dispatch = useDispatch();
   return (
     <StyledWantToReadScene>
-      {myBooksList && myBooksList.map((book) => {
+      {myBooksListById && myBooksListById.map((book) => {
         return (
           <React.Fragment key={book.bookId}>
             <div className="want-library-container">
@@ -121,11 +129,11 @@ const WantToReadScene = () => {
                   type="button"
                   className="reading-book_btn"
                   onClick={() => {
-                    dispatch(bookToReadRemove(book.bookId));
+                    dispatch(bookToReadRemove(book.bookId)); //плюс удалить из бэка
                   }}>
-                  Reading now book
+                  Remove book
                 </button>
-                <button
+                {/* <button
                   type="button"
                   className="read-book_btn"
                   onClick={() => {
@@ -139,8 +147,8 @@ const WantToReadScene = () => {
                   onClick={() => {
                     dispatch(bookToReadRemove(book.bookId));
                   }}>
-                  Remove book
-                </button>
+                  Reading now
+                </button> */}
               </div>
 
             </div>

@@ -10,6 +10,7 @@ import Bookcard from "../Components/Bookcard";
 import { newLibraryAdd } from '../store/actions/libraryActions';
 import { librarySelector } from '../store/selectors/librarySelector';
 import bookCover from '../assets/img/bookcover.jpg';
+import MyLoader from '../Components/LibraryLoaderSceleton';
 
 
 const StyledLibraryScene = styled.div`
@@ -128,6 +129,8 @@ const LibraryScene = () => {
     setPageNumber(selected);
   };
 
+  const [loading, setLoading] = useState(false);
+
   return (
     <StyledLibraryScene className="library-holder">
       <div className="sidebar-container">
@@ -137,11 +140,14 @@ const LibraryScene = () => {
               picked: '',
             }}
             onSubmit={(values) =>
-              getBooks(values.picked)
-                .then((data) => {
-                  dispatch(newLibraryAdd(data));
-                  history.push({ pathname: location.pathname, search: "?" + new URLSearchParams(`author=${values.picked}`) });
-                })
+              setLoading(true)
+                (getBooks(values.picked)
+                  .then((data) => {
+                    setLoading(true);
+                    dispatch(newLibraryAdd(data));
+                    history.push({ pathname: location.pathname, search: "?" + new URLSearchParams(`author=${values.picked}`) });
+                    setLoading(false)
+                  }))
             }
           >
             {({ values }) => (
@@ -205,21 +211,24 @@ const LibraryScene = () => {
           </button> */}
         </div>
       </div>
+
       <div className="bookholder-container">
         <div className="bookcard-container">
-          {libraryList && libraryList
-            .slice(pagesVisited, pagesVisited + booksPerPage)
-            .map((book) => {
-              const authors = book.author_name.join(", ");
-              const covers = () => {
-                let result = book.isbn === undefined ? '1' : book.isbn[0];
-                return result;
+          {loading ? <MyLoader /> :
+
+            libraryList
+              .slice(pagesVisited, pagesVisited + booksPerPage)
+              .map((book) => {
+                const authors = book.author_name.join(", ");
+                const covers = () => {
+                  let result = book.isbn === undefined ? '1' : book.isbn[0];
+                  return result;
+                }
+                return (
+                  <Bookcard key={book._version_} id={book._version_} title={book.title} authors={authors} cover={covers} all={book} />
+                );
               }
-              return (
-                <Bookcard key={book._version_} id={book._version_} title={book.title} authors={authors} cover={covers} all={book} />
-              );
-            }
-            )}
+              )}
         </div>
         <ReactPaginate
           previousLabel="< "

@@ -1,6 +1,6 @@
 import { BOOK_TO_READ_ACTIONS } from '../actionTypes';
 
-export const bookToReadAdd = (bookId, bookTitle, bookAuthors, bookCover, bookFirstYear) => {
+export const bookToReadAdd = (bookId, bookTitle, bookAuthors, bookCover, bookFirstYear, userId) => {
   return ( {
     type: BOOK_TO_READ_ACTIONS.addBook,
     payload: {
@@ -8,7 +8,8 @@ export const bookToReadAdd = (bookId, bookTitle, bookAuthors, bookCover, bookFir
       bookTitle,
       bookAuthors,
       bookCover,
-      bookFirstYear
+      bookFirstYear,
+      userId
     }
   })
 };
