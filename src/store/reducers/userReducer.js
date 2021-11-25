@@ -5,13 +5,12 @@ const userReducer = (state, action) => {
   switch (action.type) {
       case (USER_ACTIONS.addUser):
         newUser =
-         {
-            name: action.payload.name,
+         {  name: action.payload.name,
+            surname: action.payload.surname,
             email: action.payload.email,
             password: action.payload.password,
             id: action.payload.id,
             loggedIn: action.payload.loggedIn,
-            booksToReadIds: action.payload.booksToReadIds
           };
         return { ...state, user: newUser };
       case (USER_ACTIONS.logOut):
@@ -20,13 +19,12 @@ const userReducer = (state, action) => {
 
       case (USER_ACTIONS.logIn):
         newUser =
-          {
-            name: action.payload.name,
+          { name: action.payload.name,
+            surname: action.payload.surname,
             email: action.payload.email,
             password: action.payload.password,
             id: action.payload.id,
-            loggedIn: action.payload.loggedIn,
-            booksToReadIds: action.payload.booksToReadIds
+            loggedIn: action.payload.loggedIn
           };
         return { ...state, user: newUser };
       

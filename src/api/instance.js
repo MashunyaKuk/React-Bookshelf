@@ -1,4 +1,4 @@
-export const registerUser = (userName, userEmail, userPassword) => {
+export const registerUser = (userName, userSurname, userEmail, userPassword) => {
   return new Promise((res, rej) => {
       let usersList = JSON.parse(window.localStorage.getItem('registeredUsersList'));
       if (!usersList) {
@@ -7,7 +7,7 @@ export const registerUser = (userName, userEmail, userPassword) => {
 
       const userId = Math.floor((Math.random() * 1000) + 1);
       const loggedIn = true;
-      usersList.push({ userName, userEmail, userPassword, userId, loggedIn });
+      usersList.push({ userName, userSurname, userEmail, userPassword, userId, loggedIn });
       window.localStorage.setItem('registeredUsersList', JSON.stringify(usersList));
       res({ dataId: userId, dataLogged: loggedIn });
   })

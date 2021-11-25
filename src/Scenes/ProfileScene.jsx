@@ -4,7 +4,10 @@ import { useDispatch } from "react-redux";
 import styled from 'styled-components';
 import { PATHS } from '../Root/routes';
 import { logOutUser } from '../store/actions/userActions';
+import { booksToReadRemoveAll } from '../store/actions/bookToReadAction';
 import testUser from '../assets/img/testUser.png';
+import { useSelector } from 'react-redux';
+import { userSelector } from '../store/selectors/userSelectors';
 
 const StyledProfileScene = styled.div`
   font-family: 'Montserrat';
@@ -86,9 +89,9 @@ const StyledProfileScene = styled.div`
 const ProfileScene = (props) => {
   const urlParams = useParams();
   const urlParamsId = urlParams.userId;
-  console.log('urlParamsId', urlParamsId);
   const history = useHistory();
   const dispatch = useDispatch();
+  const user = useSelector(userSelector);
 
   const { children } = props;
   return (
@@ -100,8 +103,12 @@ const ProfileScene = (props) => {
               <img src={testUser} alt="userphoto" className="profile-screen-userphoto_img" />
             </div>
             <div className="profile-screen-username">
-              <p className="profile-screen-username_p">Your name</p>
-              <p className="profile-screen-username_p">Your surname</p>
+              <p className="profile-screen-username_p">
+                {user.name}
+              </p>
+              <p className="profile-screen-username_p">
+                {user.surname}
+              </p>
             </div>
             <h3 className="profile-screen-navblock">
               Profile
@@ -155,6 +162,7 @@ const ProfileScene = (props) => {
             className="logout-btn"
             onClick={() => {
               dispatch(logOutUser());
+              dispatch(booksToReadRemoveAll());
               history.push("/");
             }}>
             Logout

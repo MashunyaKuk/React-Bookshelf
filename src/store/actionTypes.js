@@ -11,4 +11,5 @@ export const LIBRARY_ACTIONS = {
 export const BOOK_TO_READ_ACTIONS = {
   addBook: 'add book in profile',
   removeBook: 'remove book from profile',
+  removeAllBooks: 'remove all books from profile'
 };

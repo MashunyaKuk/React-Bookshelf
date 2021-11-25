@@ -10,6 +10,14 @@ export const registerValidation = (formData) => {
     isFormValid = false;
   }
 
+  if (!formData.surname) {
+    errorObj.surname = 'Please input surname'
+    isFormValid = false;
+  } else if (formData.surname.length < 3) {
+    errorObj.surname = 'Please input correct surname - at least 3 characters'
+    isFormValid = false;
+  }
+
   if (!formData.email) {
     errorObj.email = 'Please input email'
     isFormValid = false;
@@ -25,7 +33,7 @@ export const registerValidation = (formData) => {
     errorObj.password = 'Please input password'
     isFormValid = false;
   } else if (formData.password.length < 5) {
-    errorObj.password = 'Please input correct email - at least 5 characters'
+    errorObj.password = 'Please input correct password - at least 5 characters'
     isFormValid = false;
   } else if (!/[a-z]/.test(formData.password)) {
     errorObj.password = ('Please input correct password - at least one lowercase letter')

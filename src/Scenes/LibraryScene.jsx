@@ -230,18 +230,20 @@ const LibraryScene = () => {
               }
               )}
         </div>
-        <ReactPaginate
-          previousLabel="< "
-          nextLabel=" >"
-          pageCount={Math.ceil(100 / booksPerPage)}
-          onPageChange={changePage}
-          containerClassName={"paginationBttns"}
-          previousLinkClassName={"previousBttn"}
-          nextLinkClassName={"nextBttn"}
-          disabledClassName={"paginationDisabled"}
-          activeClassName={"paginationActive"}
-          pageClassName={"paginationAll"}
-        />
+        {libraryList.length !== 0 &&
+          <ReactPaginate
+            previousLabel="< "
+            nextLabel=" >"
+            pageCount={Math.ceil(100 / booksPerPage)}
+            onPageChange={changePage}
+            containerClassName={"paginationBttns"}
+            previousLinkClassName={"previousBttn"}
+            nextLinkClassName={"nextBttn"}
+            disabledClassName={"paginationDisabled"}
+            activeClassName={"paginationActive"}
+            pageClassName={"paginationAll"}
+          />
+        }
 
       </div>
     </StyledLibraryScene >

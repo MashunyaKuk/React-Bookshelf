@@ -20,7 +20,12 @@ const booksToReadReducer = (state, action) => {
           const bookToRemove = newBooksList.findIndex(book => book.bookId === action.payload.bookId)
           newBooksList.splice(bookToRemove, 1)
           return { ...state, booksList: newBooksList };
+
+          case (BOOK_TO_READ_ACTIONS.removeAllBooks): //при logout удалять все книги из persist
+            newBooksList = [];
+            return { ...state, booksList: newBooksList };
       
+          
       default: 
         return {...state}
   }

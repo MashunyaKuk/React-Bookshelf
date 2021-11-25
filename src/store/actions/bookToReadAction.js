@@ -22,3 +22,11 @@ export const bookToReadRemove = (bookId) => {
     }
   })
 };
+
+export const booksToReadRemoveAll = () => {
+  return ( {
+    type: BOOK_TO_READ_ACTIONS.removeAllBooks,
+    payload: {
+    }
+  })
+};

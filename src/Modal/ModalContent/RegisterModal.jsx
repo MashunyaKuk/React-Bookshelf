@@ -77,12 +77,12 @@ const RegisterModal = () => {
         <h2 className="registerform-title_p">Registration</h2>
       </div>
       <Formik
-        initialValues={{ name: '', email: '', password: '' }}
+        initialValues={{ name: '', surname: '', email: '', password: '' }}
         onSubmit={(formData) => {
-          registerUser(formData.name, formData.email, formData.password)
+          registerUser(formData.name, formData.surname, formData.email, formData.password)
             .then(({ dataId, dataLogged }) => {
               console.log('data', dataId, dataLogged)
-              dispatch(newUserAdd(formData.name, formData.email, formData.password, dataId, dataLogged));
+              dispatch(newUserAdd(formData.name, formData.surname, formData.email, formData.password, dataId, dataLogged));
               history.push(PATHS.PROFILE_ABOUT(dataId));
               setModalContent(false);
             })
@@ -92,6 +92,10 @@ const RegisterModal = () => {
           <div className="registerform-item">
             <label htmlFor="name" className="registerform-item_formlabel">Name</label>
             <FormikInput name="name" />
+          </div>
+          <div className="registerform-item">
+            <label htmlFor="surname" className="registerform-item_formlabel">Surname</label>
+            <FormikInput name="surname" />
           </div>
           <div className="registerform-item">
             <label htmlFor="email" className="registerform-item_formlabel">Email</label>

@@ -1,15 +1,15 @@
 import { USER_ACTIONS } from '../actionTypes';
 
-export const newUserAdd = (userName, userEmail, userPassword, userId, userLoggedIn, booksToReadIds) => {
+export const newUserAdd = (userName, userSurname, userEmail, userPassword, userId, userLoggedIn) => {
   return ( {
     type: USER_ACTIONS.addUser,
     payload: {
       name: userName,
+      surname: userSurname,
       email: userEmail,
       password: userPassword,
       id: userId,
-      loggedIn: userLoggedIn,
-      booksToReadIds: booksToReadIds
+      loggedIn: userLoggedIn
   },
   
   })
@@ -23,16 +23,16 @@ export const logOutUser = () => {
 })
 };
 
-export const logInUser = (userName, userEmail, userPassword, userId, userLoggedIn, booksToReadIds) => {
+export const logInUser = (userName, userSurname, userEmail, userPassword, userId, userLoggedIn) => {
   return ({
     type: USER_ACTIONS.logIn,
     payload: {
       name: userName,
+      surname: userSurname,
       email: userEmail,
       password: userPassword,
       id: userId,
-      loggedIn: userLoggedIn,
-      booksToReadIds: booksToReadIds
+      loggedIn: userLoggedIn
   }
 })
 };

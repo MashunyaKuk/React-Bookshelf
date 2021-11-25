@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import testUser from '../../assets/img/testUser.png';
+import { useSelector } from 'react-redux';
+import { userSelector } from '../../store/selectors/userSelectors';
 
 const StyledMyProfileScene = styled.div`
   font-family: 'Montserrat';
@@ -33,6 +35,7 @@ const StyledMyProfileScene = styled.div`
 `;
 
 const MyProfileScene = () => {
+  const user = useSelector(userSelector);
   return (
     <StyledMyProfileScene>
       <div className="my-profile-container">
@@ -41,16 +44,16 @@ const MyProfileScene = () => {
         </div>
         <div className="my-profile-item">
           <p className="my-profile-title">Name:</p>
-          <p className="my-profile-userdata">Test name</p>
+          <p className="my-profile-userdata">{user.name}</p>
         </div>
         <div className="my-profile-item">
           <p className="my-profile-title">Surname:</p>
-          <p className="my-profile-userdata">Test surname</p>
+          <p className="my-profile-userdata">{user.surname}</p>
         </div>
-        <div className="my-profile-item">
+        {/* <div className="my-profile-item">
           <p className="my-profile-title">About:</p>
           <p className="my-profile-userdata">Information about user</p>
-        </div>
+        </div> */}
       </div>
     </StyledMyProfileScene>
   );

@@ -9,6 +9,7 @@ import RegisterModal from '../Modal/ModalContent/RegisterModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { userSelector } from '../store/selectors/userSelectors';
 import { logOutUser } from '../store/actions/userActions';
+import { booksToReadRemoveAll } from '../store/actions/bookToReadAction';
 import { logoutUser } from '../api/instance';
 import { ThemeContext } from '../HOC/GlobalThemeProvider';
 
@@ -191,6 +192,7 @@ const Header = () => {
                     .then(() => {
                       console.log('userData')
                       dispatch(logOutUser());
+                      dispatch(booksToReadRemoveAll());
                       history.push("/");
                       setModalContent(false);
                     })

@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import bookCover from '../../assets/img/bookcover.jpg';
 import { useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { booksToReadSelector } from '../../store/selectors/booksToReadSelector';
+import { useDispatch } from 'react-redux';
 import { bookToReadRemove } from '../../store/actions/bookToReadAction';
+import { booksToRead, booksToReadRemove } from '../../api/booksToReadInstance';
+import { useHistory } from 'react-router-dom';
+import { PATHS } from '../../Root/routes';
+
 
 const StyledWantToReadScene = styled.div`
 font-family: 'Montserrat';
 display: flex;
 align-items: center;
 flex-wrap: wrap;
-//justify-content: space-between;
   
 .bookcard-cover {
   margin-bottom: 5px;
@@ -94,17 +96,22 @@ flex-wrap: wrap;
 
 const WantToReadScene = () => {
   const params = useParams();
-  const urlParams = params.id;
-  const myBooksList = useSelector(booksToReadSelector); //заменить персист на бэк (из бэка подтягивать книги)
-  const myBooksListById = myBooksList.filter((book) => {
-    if (book.userId === urlParams) {
-      return book;
-    }
-  })
+  const urlParams = Number(params.userId);
+  const [books, setBooks] = useState([]);
+  const history = useHistory();
+
+  //достаю данные из localstorage, но он очищается только после обновления страницы браузера!
+  useEffect(() => {
+    booksToRead(urlParams)
+      .then((currentUsersBooks) => {
+        setBooks(currentUsersBooks);
+      })
+  }, []);
+
   const dispatch = useDispatch();
   return (
     <StyledWantToReadScene>
-      {myBooksListById && myBooksListById.map((book) => {
+      {books && books.map((book) => {
         return (
           <React.Fragment key={book.bookId}>
             <div className="want-library-container">
@@ -129,7 +136,11 @@ const WantToReadScene = () => {
                   type="button"
                   className="reading-book_btn"
                   onClick={() => {
-                    dispatch(bookToReadRemove(book.bookId)); //плюс удалить из бэка
+                    booksToReadRemove(book.bookId)
+                      .then(() => {
+                        dispatch(bookToReadRemove(book.bookId));
+                        history.push(PATHS.PROFILE(book.userId));
+                      })
                   }}>
                   Remove book
                 </button>
