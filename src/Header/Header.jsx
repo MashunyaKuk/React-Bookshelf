@@ -9,9 +9,11 @@ import RegisterModal from '../Modal/ModalContent/RegisterModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { userSelector } from '../store/selectors/userSelectors';
 import { logOutUser } from '../store/actions/userActions';
-import { booksToReadRemoveAll } from '../store/actions/bookToReadAction';
+import { booksToReadRemoveAll } from '../store/actions/bookToReadActions';
 import { logoutUser } from '../api/instance';
 import { ThemeContext } from '../HOC/GlobalThemeProvider';
+import { readingBookRemoveAll } from '../store/actions/readingNowBooksActions';
+import { readBookRemoveAll } from '../store/actions/readBooksActions';
 
 const StyledHeader = styled.header`
   font-family: 'Montserrat';
@@ -193,6 +195,8 @@ const Header = () => {
                       console.log('userData')
                       dispatch(logOutUser());
                       dispatch(booksToReadRemoveAll());
+                      dispatch(readingBookRemoveAll());
+                      dispatch(readBookRemoveAll());
                       history.push("/");
                       setModalContent(false);
                     })

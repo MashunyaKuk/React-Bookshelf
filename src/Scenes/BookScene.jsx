@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { librarySelector } from '../store/selectors/librarySelector';
 import { userSelector } from '../store/selectors/userSelectors';
 import bookCover from '../assets/img/bookcover.jpg';
-import { bookToReadAdd } from '../store/actions/bookToReadAction';
+import { bookToReadAdd } from '../store/actions/bookToReadActions';
 import { booksToReadSelector } from '../store/selectors/booksToReadSelector';
 import { booksToReadAdd, bookToRead } from '../api/booksToReadInstance';
 
@@ -69,7 +69,7 @@ max-width: 1170px;
   }
 }
 
-.addbook-btn__before {
+.addbook-btn {
   color: #F6F5F3;
   font-family: 'Montserrat';
   padding: 10px 30px;
@@ -80,19 +80,19 @@ max-width: 1170px;
   font-size: 14px;
 } 
 
-.addbook-btn__after {
+.added-book_p {
   color: #212020;
   font-family: 'Montserrat';
   font-weight: 600;
   border: none;
   padding: 0;
-  font-size: 14px;
+  font-size: 16px;
 } 
 `;
 
 const BookScene = () => {
   const params = useParams();
-  const urlParams = params.bookId;
+  const urlParams = Number(params.bookId);
   const libraryList = useSelector(librarySelector);
   const user = useSelector(userSelector);
   const userId = user.id;
@@ -116,16 +116,6 @@ const BookScene = () => {
   const currentBookFirstPublishedYear = currentBook().first_publish_year;
   const currentBookPages = currentBook().number_of_pages_median;
   const currentBookText = currentBook().first_sentence && currentBook().first_sentence.join("/ ");
-
-  const [btnText, setBtnText] = useState("Want to read");
-  const btnStyles = () => {
-    if (btnText === "Want to read") {
-      return "addbook-btn__before"
-    }
-    else {
-      return "addbook-btn__after"
-    }
-  }
 
   const myBooks = useSelector(booksToReadSelector);
   return (
@@ -158,21 +148,26 @@ const BookScene = () => {
               {currentBookText}
             </p>
           </div>
-          {(user.loggedIn === true) && !(myBooks.find(book => book.bookId === urlParams)) &&
+          {(user.loggedIn === true) && !(myBooks.find(book => book.bookId === urlParams)) ?
             <button
               type="button"
-              className={btnStyles()}
+              className="addbook-btn"
               onClick={(event) => {
                 booksToReadAdd(currentBookId, currentBookTitle, currentBookAuthors, currentBookCover, currentBookFirstPublishedYear, userId)
                   .then(({ dataBook }) => {
                     console.log('data', dataBook)
                     dispatch(bookToReadAdd(dataBook.bookId, dataBook.bookTitle, dataBook.bookAuthors, dataBook.bookCover, dataBook.bookFirstYear, dataBook.dataBookId));
-                    setBtnText("In your profile already!");
                   })
                 event.currentTarget.disabled = true;
               }}>
-              {btnText}
-            </button>}
+              Want to read
+            </button>
+            :
+            <div className="added-book">
+              <p className="added-book_p">
+                In your library already!
+              </p>
+            </div>}
         </div>
       </div>
     </StyledBookScene >

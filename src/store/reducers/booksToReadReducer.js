@@ -21,7 +21,7 @@ const booksToReadReducer = (state, action) => {
           newBooksList.splice(bookToRemove, 1)
           return { ...state, booksList: newBooksList };
 
-          case (BOOK_TO_READ_ACTIONS.removeAllBooks): //при logout удалять все книги из persist
+          case (BOOK_TO_READ_ACTIONS.removeAllBooks):
             newBooksList = [];
             return { ...state, booksList: newBooksList };
       

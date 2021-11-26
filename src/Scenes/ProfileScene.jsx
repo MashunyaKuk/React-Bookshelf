@@ -4,10 +4,12 @@ import { useDispatch } from "react-redux";
 import styled from 'styled-components';
 import { PATHS } from '../Root/routes';
 import { logOutUser } from '../store/actions/userActions';
-import { booksToReadRemoveAll } from '../store/actions/bookToReadAction';
+import { booksToReadRemoveAll } from '../store/actions/bookToReadActions';
 import testUser from '../assets/img/testUser.png';
 import { useSelector } from 'react-redux';
 import { userSelector } from '../store/selectors/userSelectors';
+import { readingBookRemoveAll } from '../store/actions/readingNowBooksActions';
+import { readBookRemoveAll } from '../store/actions/readBooksActions';
 
 const StyledProfileScene = styled.div`
   font-family: 'Montserrat';
@@ -163,6 +165,8 @@ const ProfileScene = (props) => {
             onClick={() => {
               dispatch(logOutUser());
               dispatch(booksToReadRemoveAll());
+              dispatch(readingBookRemoveAll());
+              dispatch(readBookRemoveAll());
               history.push("/");
             }}>
             Logout

@@ -80,7 +80,7 @@ const LoginModal = () => {
           loginUser(formData.email, formData.password)
             .then(({ userData }) => {
               console.log('userdata', userData.loggedIn);
-              dispatch(logInUser(userData.Name, formData.email, formData.password, userData.userId, userData.loggedIn));
+              dispatch(logInUser(userData.userName, userData.userSurname, formData.email, formData.password, userData.userId, userData.loggedIn));
               history.push(PATHS.PROFILE_ABOUT(userData.userId));
               setModalContent(false)
             })

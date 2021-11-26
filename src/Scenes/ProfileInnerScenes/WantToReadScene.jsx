@@ -3,11 +3,14 @@ import styled from 'styled-components';
 import bookCover from '../../assets/img/bookcover.jpg';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { bookToReadRemove } from '../../store/actions/bookToReadAction';
+import { bookToReadRemove } from '../../store/actions/bookToReadActions';
 import { booksToRead, booksToReadRemove } from '../../api/booksToReadInstance';
 import { useHistory } from 'react-router-dom';
 import { PATHS } from '../../Root/routes';
-
+import { readingNowBooksAdd, readingNowBooksRemove } from '../../api/readingNowBooksInstance';
+import { readingBookAdd } from '../../store/actions/readingNowBooksActions';
+import { readBooksAdd } from '../../api/readBooksInstance';
+import { readBookAdd } from '../../store/actions/readBooksActions';
 
 const StyledWantToReadScene = styled.div`
 font-family: 'Montserrat';
@@ -92,6 +95,11 @@ flex-wrap: wrap;
     margin-bottom: 0;
     background-color: #925039;
   }
+
+  .bookcard-none_p {
+    font-size: 18px;
+    margin: 20px 0 0 20px;
+  }
 `;
 
 const WantToReadScene = () => {
@@ -106,67 +114,101 @@ const WantToReadScene = () => {
       .then((currentUsersBooks) => {
         setBooks(currentUsersBooks);
       })
+      .catch(() => {
+      }
+
+      )
   }, []);
 
   const dispatch = useDispatch();
   return (
     <StyledWantToReadScene>
-      {books && books.map((book) => {
-        return (
-          <React.Fragment key={book.bookId}>
-            <div className="want-library-container">
-              <div className="bookcard-cover" >
-                <img src={`https://covers.openlibrary.org/b/isbn/${book.bookCover}-L.jpg`} alt="" className="bookcard-cover_img" />
-              </div>
-              <div className="bookcard-text">
-                <h4 className="bookcard-name">{book.bookTitle}</h4>
-                <div className="bookcard-author">
-                  <p className="bookcard-author_p">
-                    {book.bookAuthors}
-                  </p>
+      {books.length !== 0
+        ?
+        books.map((book) => {
+          return (
+            <React.Fragment key={book.bookId}>
+              <div className="want-library-container">
+                <div className="bookcard-cover" >
+                  <img src={`https://covers.openlibrary.org/b/isbn/${book.bookCover}-L.jpg`} alt="" className="bookcard-cover_img" />
                 </div>
-                <div className="bookcard-pages">
-                  <p className="bookcard-pages">
-                    First published year - {book.bookFirstYear}
-                  </p>
+                <div className="bookcard-text">
+                  <h4 className="bookcard-name">{book.bookTitle}</h4>
+                  <div className="bookcard-author">
+                    <p className="bookcard-author_p">
+                      {book.bookAuthors}
+                    </p>
+                  </div>
+                  <div className="bookcard-pages">
+                    <p className="bookcard-pages">
+                      First published year - {book.bookFirstYear}
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className="bookcard-btn-group">
-                <button
-                  type="button"
-                  className="reading-book_btn"
-                  onClick={() => {
-                    booksToReadRemove(book.bookId)
-                      .then(() => {
-                        dispatch(bookToReadRemove(book.bookId));
-                        history.push(PATHS.PROFILE(book.userId));
-                      })
-                  }}>
-                  Remove book
-                </button>
-                {/* <button
-                  type="button"
-                  className="read-book_btn"
-                  onClick={() => {
-                    dispatch(bookToReadRemove(book.bookId));
-                  }}>
-                  Already read book
-                </button>
-                <button
-                  type="button"
-                  className="remove-book_btn"
-                  onClick={() => {
-                    dispatch(bookToReadRemove(book.bookId));
-                  }}>
-                  Reading now
-                </button> */}
-              </div>
+                <div className="bookcard-btn-group">
+                  <button
+                    type="button"
+                    className="reading-book_btn"
+                    onClick={() => {
+                      readingNowBooksAdd(book.bookId, book.bookTitle, book.bookAuthors, book.bookCover, book.bookFirstYear, book.userId)
+                        .then(({ dataReadingBook }) => {
+                          console.log('data', dataReadingBook)
+                          dispatch(readingBookAdd(dataReadingBook.bookId, dataReadingBook.bookTitle, dataReadingBook.bookAuthors, dataReadingBook.bookCover, dataReadingBook.bookFirstYear, dataReadingBook.dataBookId));
 
-            </div>
-          </React.Fragment>
+                        })
+                      booksToReadRemove(book.bookId)
+                        .then(() => {
+                          dispatch(bookToReadRemove(book.bookId));
+                          history.push(PATHS.PROFILE_READING(book.userId));
+                        }
+                        )
+                    }}>
+                    Reading now
+                  </button>
+                  <button
+                    type="button"
+                    className="read-book_btn"
+                    onClick={() => {
+                      readBooksAdd(book.bookId, book.bookTitle, book.bookAuthors, book.bookCover, book.bookFirstYear, book.userId)
+                        .then(({ dataReadBook }) => {
+                          console.log('data', dataReadBook)
+                          dispatch(readBookAdd(dataReadBook.bookId, dataReadBook.bookTitle, dataReadBook.bookAuthors, dataReadBook.bookCover, dataReadBook.bookFirstYear, dataReadBook.dataBookId));
+
+                        })
+                      booksToReadRemove(book.bookId)
+                        .then(() => {
+                          dispatch(bookToReadRemove(book.bookId));
+                          history.push(PATHS.PROFILE_FINISHED(book.userId));
+                        }
+                        )
+                    }}>
+                    Already read book
+                  </button>
+                  <button
+                    type="button"
+                    className="remove-book_btn"
+                    onClick={() => {
+                      booksToReadRemove(book.bookId)
+                        .then(() => {
+                          dispatch(bookToReadRemove(book.bookId));
+                          history.push(PATHS.PROFILE_ABOUT(book.userId));
+                        })
+                    }}>
+                    Remove book
+                  </button>
+                </div>
+
+              </div>
+            </React.Fragment>
+          )
+        }
         )
-      }
-      )}
+        :
+        <div className="bookcard-none">
+          <p className="bookcard-none_p">
+            HERE will be your own want to read book list
+          </p>
+        </div>}
     </StyledWantToReadScene>
   );
 };

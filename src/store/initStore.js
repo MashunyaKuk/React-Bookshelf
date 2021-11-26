@@ -10,11 +10,15 @@ import thunk from 'redux-thunk';
 const newUser = {};
 const newLibraryList = [];
 const newBooksList = [];
+const newReadingBooksList = [];
+const newReadBooksList = [];
 
 const initialState = {
   userReducer: {user: newUser},
   libraryReducer: {libraryList: newLibraryList},
   booksToReadReducer: {booksList: newBooksList},
+  readingNowBooksReducer: {readingBooksList: newReadingBooksList},
+  readBooksReducer: {readBooksList: newReadBooksList}
 };
 
 const persistConfig = {

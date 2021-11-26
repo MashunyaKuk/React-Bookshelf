@@ -1,0 +1,1 @@
+export const readingNowBooksSelector = store => store.readingNowBooksReducer.readingBooksList;
