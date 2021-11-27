@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,7 +7,9 @@ import { userSelector } from '../store/selectors/userSelectors';
 import bookCover from '../assets/img/bookcover.jpg';
 import { bookToReadAdd } from '../store/actions/bookToReadActions';
 import { booksToReadSelector } from '../store/selectors/booksToReadSelector';
-import { booksToReadAdd, bookToRead } from '../api/booksToReadInstance';
+import { booksToReadAdd } from '../api/booksToReadInstance';
+import { getCover } from '../api/libraryInstance';
+import LazyImage from '../Components/LazyImage';
 
 const StyledBookScene = styled.div`
 font-family: 'Montserrat';
@@ -20,15 +22,14 @@ max-width: 1170px;
 
   &-cover {
     margin-right: 30px;
-    background-image: url(${bookCover});
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
     display: flex;
+    width: 350px;
+    height: 550px;
 
     &_img {
       width: 350px;
       height: 550px;
+      border-radius: 8px;
     }
   }
 
@@ -118,11 +119,34 @@ const BookScene = () => {
   const currentBookText = currentBook().first_sentence && currentBook().first_sentence.join("/ ");
 
   const myBooks = useSelector(booksToReadSelector);
+
+
+  const [coverImage, setCoverImage] = useState();
+
+  useEffect(() => {
+    let mounted = true; //переменная, отвечающая за то, чтобы не обновлять состояние, если компонент еще не смонтирован
+    getCover(currentBookCover)
+      .then((data) => {
+        if (mounted) {
+          if (data.size < 808) {
+            setCoverImage(bookCover);
+          } else {
+            setCoverImage(`https://covers.openlibrary.org/b/isbn/${currentBookCover}-L.jpg`);
+          }
+        }
+      })
+      .catch(() => {
+      }
+
+      )
+    return () => mounted = false;
+  }, []);
+
   return (
     <StyledBookScene className="bookscene-container">
       <div className="bookholder">
         <div className="bookholder-cover">
-          <img src={`https://covers.openlibrary.org/b/isbn/${currentBookCover}-L.jpg`} alt="book-cover" className="bookholder-cover_img" />
+          <LazyImage src={coverImage} alt="book-cover" className="bookholder-cover_img" />
         </div>
         <div className="bookholder-book">
           <h4 className="bookholder-title">
@@ -148,7 +172,7 @@ const BookScene = () => {
               {currentBookText}
             </p>
           </div>
-          {(user.loggedIn === true) && !(myBooks.find(book => book.bookId === urlParams)) ?
+          {/* {(user.loggedIn === true) && !(myBooks.find(book => book.bookId === urlParams)) ?
             <button
               type="button"
               className="addbook-btn"
@@ -167,7 +191,34 @@ const BookScene = () => {
               <p className="added-book_p">
                 In your library already!
               </p>
-            </div>}
+            </div>} */}
+          {(user.loggedIn !== true) ?
+            <div className="added-book">
+              <p className="added-book_p">
+                Please, register or login!
+              </p>
+            </div>
+            : !(myBooks.find(book => book.bookId === urlParams)) ?
+              <button
+                type="button"
+                className="addbook-btn"
+                onClick={(event) => {
+                  booksToReadAdd(currentBookId, currentBookTitle, currentBookAuthors, currentBookCover, currentBookFirstPublishedYear, userId)
+                    .then(({ dataBook }) => {
+                      console.log('data', dataBook)
+                      dispatch(bookToReadAdd(dataBook.bookId, dataBook.bookTitle, dataBook.bookAuthors, dataBook.bookCover, dataBook.bookFirstYear, dataBook.dataBookId));
+                    })
+                  event.currentTarget.disabled = true;
+                }}>
+                Want to read
+              </button>
+              :
+              <div className="added-book">
+                <p className="added-book_p">
+                  In your library already!
+                </p>
+              </div>
+          }
         </div>
       </div>
     </StyledBookScene >

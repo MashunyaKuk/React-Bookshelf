@@ -5,6 +5,11 @@ const remoteLibraryInstance = axios.create ({
 });
 
 
+const remoteCoversInstance = axios.create ({
+  baseURL: "https://covers.openlibrary.org/b/isbn",
+  responseType: 'blob',
+});
+
 /* remoteLibraryInstance.interceptors.request.use((config) => {
 
   // spinning start to show
@@ -37,3 +42,12 @@ export const getBooks = (searchQuery) => {
     
 }
 
+export const getCover = (coverId) => {
+  return new Promise((res, rej) => {
+    remoteCoversInstance.get(`/${coverId}-L.jpg`)
+      .then((response) => {
+        const data = (response.data);
+        res(data);
+      })
+  })
+}

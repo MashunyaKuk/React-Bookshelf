@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import bookCover from '../assets/img/bookcover.jpg';
 import { PATHS } from '../Root/routes';
 import { useHistory } from "react-router-dom";
 import LazyImage from '../Components/LazyImage';
+import { getCover } from '../api/libraryInstance';
 
 const StyledBookcard = styled.div`
 font-family: 'Montserrat';
@@ -16,30 +17,17 @@ margin: 0 0 30px 30px;
   
 .bookcard-cover {
   margin-bottom: 5px;
-  /* background-image: url(${bookCover});
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover; */
   display: flex;
   border-radius: 4px;
+  width: 120px;
+  height: 199px;
 }
-  .bookcard-cover_back {
-    width: 120px;
-    height: 200px;
-    border-radius: 4px;
-    
-  }
 
   .bookcard-cover_img {
     width: 120px;
     height: 199px;
     object-fit: cover;
     border-radius: 4px;
-    position: absolute;
-    left: -121px;
-    top: 0px;
-    border: 1px solid black;
-    z-index: 1;
   }
 
   .bookcard-author {
@@ -72,14 +60,36 @@ const Bookcard = (props) => {
   const moveToBook = (id) => {
     history.push(PATHS.BOOK(id))
   }
+
+  const [coverImage, setCoverImage] = useState();
+
+  useEffect(() => {
+    let mounted = true; //переменная, отвечающая за то, чтобы не обновлять состояние, если компонент еще не смонтирован
+    getCover(props.cover())
+      .then((data) => {
+        if (mounted) {
+          if (data.size < 808) {
+            setCoverImage(bookCover);
+          } else {
+            setCoverImage(`https://covers.openlibrary.org/b/isbn/${props.cover()}-M.jpg`);
+          }
+        }
+      })
+
+      .catch(() => {
+      }
+
+      )
+    return () => mounted = false;
+  }, []);
+
   return (
     <StyledBookcard>
       <div className="bookcard-cover" >
-        <img className="bookcard-cover_back" src={bookCover} />
         <LazyImage
           className={"bookcard-cover_img"}
           alt={"book-cover"}
-          src={`https://covers.openlibrary.org/b/isbn/${props.cover()}-M.jpg`}
+          src={coverImage}
         />
       </div>
       <h4 className="bookcard-name">{props.title}</h4>
