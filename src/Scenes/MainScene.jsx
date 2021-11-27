@@ -10,6 +10,10 @@ import iconLibrary from '../assets/img/icons/icon-library.png';
 import iconOffline from '../assets/img/icons/icon-offline.png';
 import iconCollections from '../assets/img/icons/icon-collections.png';
 import { ThemeContext } from '../HOC/GlobalThemeProvider';
+import { useSelector } from 'react-redux';
+import { userSelector } from '../store/selectors/userSelectors';
+import { useHistory } from 'react-router-dom';
+import { PATHS } from '../Root/routes';
 
 const StyledMainScene = styled.div`
   font-family: 'Montserrat';
@@ -54,7 +58,7 @@ const StyledMainScene = styled.div`
     }
   }
 
-  .register_btn {
+  .register_btn, .profile_btn {
     color: #F6F5F3;
     font-family: 'Montserrat';
     padding: 10px 30px;
@@ -63,6 +67,10 @@ const StyledMainScene = styled.div`
     border: none;
     border-radius: 4px;
     font-size: 14px;
+  }
+
+  .profile_btn {
+    background-color: #7E929F;
   }
 
   .advantages {
@@ -270,6 +278,8 @@ const StyledMainScene = styled.div`
 const MainScene = () => {
   const setModalContent = useContext(ModalContext);
   const [theme, setTheme] = useContext(ThemeContext);
+  const user = useSelector(userSelector);
+  const history = useHistory();
   return (
     <StyledMainScene>
       <div className={(theme === 'light' ? "main-screen-container" : "main-screen-container__dark")}>
@@ -282,15 +292,28 @@ const MainScene = () => {
               Online library
             </p>
           </div>
-          <button type="submit"
-            onClick={() => {
-              setModalContent(
-                <RegisterModal />,
-              );
-            }}
-            className="btn register_btn">
-            Register free
-          </button>
+          {(user.loggedIn !== true)
+
+            ?
+            <button type="submit"
+              onClick={() => {
+                setModalContent(
+                  <RegisterModal />,
+                );
+              }}
+              className="btn register_btn">
+              Register free
+            </button>
+
+            :
+            <button type="submit"
+              onClick={() => {
+                history.push(PATHS.PROFILE_ABOUT(user.id));
+              }}
+              className="btn profile_btn">
+              My profile
+            </button>
+          }
         </div>
       </div>
       <div className="advantages-container">
@@ -458,14 +481,6 @@ const MainScene = () => {
           </div>
         </div>
       </div>
-      {/* <div className="top-container">
-        <h3 className="top-title">
-          Top books of the week
-        </h3>
-        <div className="top-content">
-
-        </div>
-      </div> */}
       <div className="collections-container">
         <div className="collections-item collections-item_red">
           <p className="collections-title">

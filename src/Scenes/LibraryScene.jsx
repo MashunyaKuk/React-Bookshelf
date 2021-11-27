@@ -9,8 +9,8 @@ import ReactPaginate from "react-paginate";
 import Bookcard from "../Components/Bookcard";
 import { newLibraryAdd } from '../store/actions/libraryActions';
 import { librarySelector } from '../store/selectors/librarySelector';
-import bookCover from '../assets/img/bookcover.jpg';
 import MyLoader from '../Components/LibraryLoaderSceleton';
+import search from '../assets/img/icons/search.png';
 
 
 const StyledLibraryScene = styled.div`
@@ -26,19 +26,19 @@ max-width: 1170px;
   }
 
   .book-filter_form {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
 
   .book-filters_holder {
     border: 1px solid #212020;
     border-radius: 4px;
-    padding: 15px 30px 15px 30px;
+    padding: 15px 65px 15px 20px;
 }
 
   .book-filter {
     margin-bottom: 15px;
     &_p {
-      margin-bottom: 5px;
+      margin-bottom: 15px;
       color: #6E7064;
     }
   }
@@ -59,12 +59,16 @@ max-width: 1170px;
   }
 
     .book-searchfield {
-    border: none;
-    background-color: #e7e7e7;
-    border-radius: 4px;
-    height: 30px;
-    padding: 5px;
-    width: 100%;
+      background-image: url(${search});
+      background-repeat: no-repeat;
+      background-size: 15%;
+      background-position: left 10px center;
+      border: none;
+      background-color: #e7e7e7;
+      border-radius: 4px;
+      height: 30px;
+      padding: 5px 5px 5px 38px;
+      width: 100%;
     
 
     :focus-visible {
@@ -140,17 +144,16 @@ const LibraryScene = () => {
               picked: '',
             }}
             onSubmit={(values) =>
-              setLoading(true)
-                (getBooks(values.picked)
-                  .then((data) => {
-                    setLoading(true);
-                    dispatch(newLibraryAdd(data));
-                    history.push({ pathname: location.pathname, search: "?" + new URLSearchParams(`author=${values.picked}`) });
-                    setLoading(false)
-                  }))
-            }
-          >
-            {({ values }) => (
+              setLoading(true) ||
+              getBooks(values.picked)
+                .then((data) => {
+                  setLoading(true);
+                  dispatch(newLibraryAdd(data));
+                  history.push({ pathname: location.pathname, search: "?" + new URLSearchParams(`author=${values.picked}`) });
+                  setLoading(false)
+                })
+            }>
+            {() => (
               <Form className="book-filter_form">
                 <div className="book-filter">
                   <p className="book-filter_p">
@@ -177,45 +180,33 @@ const LibraryScene = () => {
                     <label htmlFor="classic">Pushkin</label>
                   </div>
                 </div>
-
-                {/* <div className="book-filter">
-                  <p className="book-filter_p">
-                    Language
-                  </p>
-                </div>
-                <div>
-                  <input type="checkbox" id="classic-books" name="classic" />
-                  <label htmlFor="classic">English</label>
-                </div>
-                <div>
-                  <input type="checkbox" id="classic-books" name="classic" />
-                  <label htmlFor="classic">Spanish</label>
-                </div>
-                <div>
-                  <input type="checkbox" id="classic-books" name="classic" />
-                  <label htmlFor="classic">Italian</label>
-                </div> */}
                 <button type="submit" className="book-filter_btn">Search</button>
               </Form>
             )}
           </Formik>
-          {/* <div className="book-search">
+          <div className="book-search">
             <input
               className="book-searchfield"
-              placeholder="Search..."
+              placeholder="Search by author..."
               type="text"
+              onChange={(event) =>
+                event.target.value.length > 3 &&
+                (setLoading(true) || getBooks(event.target.value)
+                  .then((data) => {
+                    setLoading(true);
+                    dispatch(newLibraryAdd(data));
+                    history.push({ pathname: location.pathname, search: "?" + new URLSearchParams(`author=${event.target.value}`) });
+                    setLoading(false)
+                  })
+                )
+              }
             />
           </div>
-          <button className="book-search_btn">
-            Search
-          </button> */}
         </div>
       </div>
-
       <div className="bookholder-container">
         <div className="bookcard-container">
           {loading ? <MyLoader /> :
-
             libraryList
               .slice(pagesVisited, pagesVisited + booksPerPage)
               .map((book) => {
@@ -228,13 +219,14 @@ const LibraryScene = () => {
                   <Bookcard key={book._version_} id={book._version_} title={book.title} authors={authors} cover={covers} all={book} />
                 );
               }
-              )}
+              )
+          }
         </div>
         {libraryList.length !== 0 &&
           <ReactPaginate
             previousLabel="< "
             nextLabel=" >"
-            pageCount={Math.ceil(100 / booksPerPage)}
+            pageCount={Math.ceil(libraryList.length / booksPerPage)}
             onPageChange={changePage}
             containerClassName={"paginationBttns"}
             previousLinkClassName={"previousBttn"}
@@ -244,7 +236,6 @@ const LibraryScene = () => {
             pageClassName={"paginationAll"}
           />
         }
-
       </div>
     </StyledLibraryScene >
   );

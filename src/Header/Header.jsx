@@ -168,8 +168,6 @@ const Header = () => {
                   >Registration
                   </button>
                 </li>}
-
-
               <li className="header-menu_item">
                 <Link to={ROUTE.LIBRARY} className="header-menu_link">Library</Link>
               </li>
@@ -178,10 +176,6 @@ const Header = () => {
           </nav>
         </div>
         <div className="header-item">
-          <div className="header-search">
-            <input type="search" className="header-searchfield" placeholder="Search..." />
-            {/* <img src="#"></img> */}
-          </div>
           <div className="header-login">
 
             {(user.loggedIn === true)
