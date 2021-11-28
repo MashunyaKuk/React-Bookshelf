@@ -6,10 +6,12 @@ import { librarySelector } from '../store/selectors/librarySelector';
 import { userSelector } from '../store/selectors/userSelectors';
 import bookCover from '../assets/img/bookcover.jpg';
 import { bookToReadAdd } from '../store/actions/bookToReadActions';
-import { booksToReadSelector } from '../store/selectors/booksToReadSelector';
 import { booksToReadAdd } from '../api/booksToReadInstance';
 import { getCover } from '../api/libraryInstance';
 import LazyImage from '../Components/LazyImage';
+import { booksToRead } from '../api/booksToReadInstance';
+import { readingNowBooks } from '../api/readingNowBooksInstance';
+import { readBooks } from '../api/readBooksInstance';
 
 const StyledBookScene = styled.div`
 font-family: 'Montserrat';
@@ -70,7 +72,7 @@ max-width: 1170px;
   }
 }
 
-.addbook-btn {
+.addbook-btn__before {
   color: #F6F5F3;
   font-family: 'Montserrat';
   padding: 10px 30px;
@@ -80,6 +82,17 @@ max-width: 1170px;
   border-radius: 4px;
   font-size: 14px;
 } 
+
+.addbook-btn__after {
+  background-color: transparent;
+  color: #212020;
+  font-family: 'Montserrat';
+  font-weight: 600;
+  border: none;
+  padding: 0;
+  font-size: 16px;
+  border: none;
+}
 
 .added-book_p {
   color: #212020;
@@ -118,11 +131,47 @@ const BookScene = () => {
   const currentBookPages = currentBook().number_of_pages_median;
   const currentBookText = currentBook().first_sentence && currentBook().first_sentence.join("/ ");
 
-  const myBooks = useSelector(booksToReadSelector);
+  const [btnText, setBtnText] = useState("Want to read");
+  const btnStyles = () => {
+    if (btnText === "Want to read") {
+      return "addbook-btn__before"
+    }
+    else {
+      return "addbook-btn__after"
+    }
+  }
 
+  const [myBooksToRead, setMyBooksToRead] = useState([]);
+  useEffect(() => {
+    booksToRead(userId)
+      .then((currentUsersBooks) => {
+        setMyBooksToRead(currentUsersBooks);
+      })
+      .catch(() => {
+      })
+  }, []);
+
+  const [myReadingBooks, setMyReadingBooks] = useState([]);
+  useEffect(() => {
+    readingNowBooks(userId)
+      .then((currentUsersReadingBooks) => {
+        setMyReadingBooks(currentUsersReadingBooks);
+      })
+      .catch(() => {
+      })
+  }, []);
+
+  const [myReadBooks, setMyReadBooks] = useState([]);
+  useEffect(() => {
+    readBooks(userId)
+      .then((currentUsersReadBooks) => {
+        setMyReadBooks(currentUsersReadBooks);
+      })
+      .catch(() => {
+      })
+  }, []);
 
   const [coverImage, setCoverImage] = useState();
-
   useEffect(() => {
     let mounted = true; //переменная, отвечающая за то, чтобы не обновлять состояние, если компонент еще не смонтирован
     getCover(currentBookCover)
@@ -172,45 +221,25 @@ const BookScene = () => {
               {currentBookText}
             </p>
           </div>
-          {/* {(user.loggedIn === true) && !(myBooks.find(book => book.bookId === urlParams)) ?
-            <button
-              type="button"
-              className="addbook-btn"
-              onClick={(event) => {
-                booksToReadAdd(currentBookId, currentBookTitle, currentBookAuthors, currentBookCover, currentBookFirstPublishedYear, userId)
-                  .then(({ dataBook }) => {
-                    console.log('data', dataBook)
-                    dispatch(bookToReadAdd(dataBook.bookId, dataBook.bookTitle, dataBook.bookAuthors, dataBook.bookCover, dataBook.bookFirstYear, dataBook.dataBookId));
-                  })
-                event.currentTarget.disabled = true;
-              }}>
-              Want to read
-            </button>
-            :
-            <div className="added-book">
-              <p className="added-book_p">
-                In your library already!
-              </p>
-            </div>} */}
           {(user.loggedIn !== true) ?
             <div className="added-book">
               <p className="added-book_p">
                 Please, register or login!
               </p>
             </div>
-            : !(myBooks.find(book => book.bookId === urlParams)) ?
+            : (!(myBooksToRead.find(book => book.bookId === urlParams)) && !(myReadingBooks.find(book => book.bookId === urlParams)) && !(myReadBooks.find(book => book.bookId === urlParams))) ?
               <button
                 type="button"
-                className="addbook-btn"
+                className={btnStyles()}
                 onClick={(event) => {
                   booksToReadAdd(currentBookId, currentBookTitle, currentBookAuthors, currentBookCover, currentBookFirstPublishedYear, userId)
                     .then(({ dataBook }) => {
-                      console.log('data', dataBook)
                       dispatch(bookToReadAdd(dataBook.bookId, dataBook.bookTitle, dataBook.bookAuthors, dataBook.bookCover, dataBook.bookFirstYear, dataBook.dataBookId));
+                      setBtnText("In your library already!");
                     })
                   event.currentTarget.disabled = true;
                 }}>
-                Want to read
+                {btnText}
               </button>
               :
               <div className="added-book">

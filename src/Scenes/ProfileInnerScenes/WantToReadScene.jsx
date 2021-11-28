@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import styled from 'styled-components';
 import bookCover from '../../assets/img/bookcover.jpg';
 import { useParams } from 'react-router-dom';
@@ -11,6 +11,7 @@ import { readingNowBooksAdd, readingNowBooksRemove } from '../../api/readingNowB
 import { readingBookAdd } from '../../store/actions/readingNowBooksActions';
 import { readBooksAdd } from '../../api/readBooksInstance';
 import { readBookAdd } from '../../store/actions/readBooksActions';
+import { bookToReadAdd } from '../../store/actions/bookToReadActions';
 
 const StyledWantToReadScene = styled.div`
 font-family: 'Montserrat';
@@ -107,20 +108,37 @@ const WantToReadScene = () => {
   const urlParams = Number(params.userId);
   const [books, setBooks] = useState([]);
   const history = useHistory();
-
-  //достаю данные из localstorage, но он очищается только после обновления страницы браузера!
-  useEffect(() => {
+  const dispatch = useDispatch();
+  //достаю данные из localstorage, но они обновляется только после обновления страницы браузера!
+  /* useEffect(() => {
     booksToRead(urlParams)
       .then((currentUsersBooks) => {
         setBooks(currentUsersBooks);
+        currentUsersBooks.map((book) => {
+          dispatch(bookToReadAdd(book.bookId, book.bookTitle, book.bookAuthors, book.bookCover, book.bookFirstYear, book.userId))
+        })
       })
       .catch(() => {
       }
 
       )
-  }, []);
+  }, [dispatch, setBooks]);
+ */
+  const setBooksToRead = useCallback(() => {
+    booksToRead(urlParams)
+      .then((currentUsersBooks) => {
+        setBooks(currentUsersBooks);
+        currentUsersBooks.map((book) => {
+          dispatch(bookToReadAdd(book.bookId, book.bookTitle, book.bookAuthors, book.bookCover, book.bookFirstYear, book.userId))
+        })
+      })
+  }, [booksToRead])
 
-  const dispatch = useDispatch();
+  useEffect(() => {
+    setBooksToRead()
+  }, [setBooksToRead])
+
+
   return (
     <StyledWantToReadScene>
       {books.length !== 0
@@ -152,9 +170,7 @@ const WantToReadScene = () => {
                     onClick={() => {
                       readingNowBooksAdd(book.bookId, book.bookTitle, book.bookAuthors, book.bookCover, book.bookFirstYear, book.userId)
                         .then(({ dataReadingBook }) => {
-                          console.log('data', dataReadingBook)
                           dispatch(readingBookAdd(dataReadingBook.bookId, dataReadingBook.bookTitle, dataReadingBook.bookAuthors, dataReadingBook.bookCover, dataReadingBook.bookFirstYear, dataReadingBook.dataBookId));
-
                         })
                       booksToReadRemove(book.bookId)
                         .then(() => {
@@ -171,7 +187,6 @@ const WantToReadScene = () => {
                     onClick={() => {
                       readBooksAdd(book.bookId, book.bookTitle, book.bookAuthors, book.bookCover, book.bookFirstYear, book.userId)
                         .then(({ dataReadBook }) => {
-                          console.log('data', dataReadBook)
                           dispatch(readBookAdd(dataReadBook.bookId, dataReadBook.bookTitle, dataReadBook.bookAuthors, dataReadBook.bookCover, dataReadBook.bookFirstYear, dataReadBook.dataBookId));
 
                         })

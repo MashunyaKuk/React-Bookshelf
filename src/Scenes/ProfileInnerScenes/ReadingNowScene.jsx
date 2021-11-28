@@ -104,7 +104,7 @@ const ReadingNowScene = () => {
   const [books, setBooks] = useState([]);
   const history = useHistory();
 
-  //достаю данные из localstorage, но он очищается только после обновления страницы браузера!
+  //достаю данные из localstorage, но они обновляется только после обновления страницы браузера!
   useEffect(() => {
     readingNowBooks(urlParams)
       .then((currentUsersReadingBooks) => {
