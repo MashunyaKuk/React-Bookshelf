@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import bookCover from '../../assets/img/bookcover.jpg';
 import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { PATHS } from '../../Root/routes';
-import { readBookRemove } from '../../store/actions/readBooksActions';
+import { useDispatch, useSelector } from 'react-redux';
+import { readBookAdd, readBookRemove } from '../../store/actions/readBooksActions';
 import { readBooks, readBooksRemove } from '../../api/readBooksInstance';
+import { readBooksSelector } from '../../store/selectors/readBooksSelector';
 
 const StyledAlreadyReadScene = styled.div`
 font-family: 'Montserrat';
@@ -26,6 +25,12 @@ flex-wrap: wrap;
 }
 
 .finished-library-container {
+  @media (max-width: 1200px) {
+    max-width: 550px;
+  }
+  @media (max-width: 992px) {
+    max-width: 450px;
+  }
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -71,6 +76,10 @@ flex-wrap: wrap;
   }
 
   .remove-book_btn  {
+    @media (max-width: 992px) {
+      min-width: 120px;
+  }
+    min-width: 170px;
     color: #F6F5F3;
     font-family: 'Montserrat';
     padding: 10px 20px;
@@ -91,27 +100,30 @@ flex-wrap: wrap;
 const AlreadyReadScene = () => {
   const params = useParams();
   const urlParams = Number(params.userId);
-  const [books, setBooks] = useState([]);
-  const history = useHistory();
+  const dispatch = useDispatch();
 
-  //достаю данные из localstorage, но они обновляются только после обновления страницы браузера!
-  useEffect(() => {
+  const readBooksList = useSelector(readBooksSelector);
+
+  const setBooksToRead = useCallback(() => {
     readBooks(urlParams)
       .then((currentUsersReadBooks) => {
-        setBooks(currentUsersReadBooks);
+        if (readBooksList.length !== currentUsersReadBooks.length) {
+          currentUsersReadBooks.map((book) => {
+            dispatch(readBookAdd(book.bookId, book.bookTitle, book.bookAuthors, book.bookCover, book.bookFirstYear, book.userId))
+          })
+        }
       })
-      .catch(() => {
-      }
+  }, [])
 
-      )
-  }, []);
+  useEffect(() => {
+    setBooksToRead()
+  }, [])
 
-  const dispatch = useDispatch();
   return (
     <StyledAlreadyReadScene>
-      {books.length !== 0
+      {readBooksList.length !== 0
         ?
-        books.map((book) => {
+        readBooksList.map((book) => {
           return (
             <React.Fragment key={book.bookId}>
               <div className="finished-library-container">
@@ -139,7 +151,6 @@ const AlreadyReadScene = () => {
                       readBooksRemove(book.bookId)
                         .then(() => {
                           dispatch(readBookRemove(book.bookId));
-                          history.push(PATHS.PROFILE_ABOUT(book.userId));
                         })
                     }}>
                     Remove book
@@ -148,8 +159,7 @@ const AlreadyReadScene = () => {
               </div>
             </React.Fragment>
           )
-        }
-        )
+        })
         :
         <div className="bookcard-none">
           <p className="bookcard-none_p">

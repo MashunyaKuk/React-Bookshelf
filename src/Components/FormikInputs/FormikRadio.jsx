@@ -1,7 +1,7 @@
 import React from 'react';
 import { useField } from 'formik';
 
-const FormikCheckboxes = (props) => {
+const FormikRadio = (props) => {
   const [field, meta, helpers] = useField(props);
   //console.log('props.value', props)
 
@@ -17,4 +17,4 @@ const FormikCheckboxes = (props) => {
   )
 }
 
-export default FormikCheckboxes;
+export default FormikRadio;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useParams, useHistory } from 'react-router-dom';
+import { Link, NavLink, useParams, useHistory } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import styled from 'styled-components';
 import { PATHS } from '../Root/routes';
@@ -13,19 +13,20 @@ import { readBookRemoveAll } from '../store/actions/readBooksActions';
 
 const StyledProfileScene = styled.div`
   font-family: 'Montserrat';
-  margin: 0 15px;
+  display: flex;
+  align-items: flex-start;
+  margin: auto 15px;
+  max-width: 1170px;
+  min-height: calc(100vh - 265px);
 
   .profile-screen {
-    
-    &-container {
-      display: flex;
-      align-items: flex-start;
-      margin: auto;
-      max-width: 1170px;
-    }
-
     &-sidebar {
+      @media (max-width: 992px) {
+        margin-right: 20px;
+        padding: 15px 30px 15px 30px;
+  }
       margin-right: 60px;
+      margin-bottom: 30px;
       border: 1px solid #212020;
       border-radius: 4px;
       padding: 15px 50px 15px 50px;
@@ -62,16 +63,21 @@ const StyledProfileScene = styled.div`
       margin-bottom: 30px;
     }
 
-    &-item {
+    &-item, &-item__active {
+      min-width: 95px;
       font-size: 14px;
       margin-bottom: 15px;
       padding: 10px 10px;
-      //border: 1px solid #212020;
       border-radius: 4px;
       background-color:#e7e7e7;
 
+      &__active {
+        background-color: #a7a7a7;
+        color: #e7e7e7;
+        }
       &_a {
         color: #212020;
+        
       }
     }  
 }
@@ -95,88 +101,91 @@ const ProfileScene = (props) => {
   const dispatch = useDispatch();
   const user = useSelector(userSelector);
 
+
+  const currentUrl = window.location.pathname;
+  let path = currentUrl.split('/')[3];
+  console.log('currentUrl', path);
+
   const { children } = props;
   return (
     <StyledProfileScene>
-      <div className="profile-screen-container">
-        <div className="profile-screen-sidebar">
-          <div className="profile-screen-user">
-            <div className="profile-screen-userphoto">
-              <img src={testUser} alt="userphoto" className="profile-screen-userphoto_img" />
-            </div>
-            <div className="profile-screen-username">
-              <p className="profile-screen-username_p">
-                {user.name}
-              </p>
-              <p className="profile-screen-username_p">
-                {user.surname}
-              </p>
-            </div>
-            <h3 className="profile-screen-navblock">
-              Profile
-            </h3>
+      <div className="profile-screen-sidebar">
+        <div className="profile-screen-user">
+          <div className="profile-screen-userphoto">
+            <img src={testUser} alt="userphoto" className="profile-screen-userphoto_img" />
           </div>
-          <nav className="profile-screen-navigation">
-            <ul>
-
-              <Link to={PATHS.PROFILE_ABOUT(urlParamsId)} className="profile-screen-item_a">
-                <li className="profile-screen-item">
-                  My profile
-                </li>
-              </Link>
-
-              <Link to={PATHS.PROFILE_EDIT(urlParamsId)} className="profile-screen-item_a">
-                <li className="profile-screen-item">
-                  Edit profile
-                </li>
-              </Link>
-            </ul>
-          </nav>
-
+          <div className="profile-screen-username">
+            <p className="profile-screen-username_p">
+              {user.name}
+            </p>
+            <p className="profile-screen-username_p">
+              {user.surname}
+            </p>
+          </div>
           <h3 className="profile-screen-navblock">
-            My library
+            Profile
           </h3>
-
-          <nav className="profile-screen-navigation">
-            <ul>
-              <Link to={PATHS.PROFILE_READING(urlParamsId)} className="profile-screen-item_a">
-                <li className="profile-screen-item">
-                  Reading now
-                </li>
-              </Link>
-
-              <Link to={PATHS.PROFILE_WANT(urlParamsId)} className="profile-screen-item_a">
-                <li className="profile-screen-item">
-                  Want to read
-                </li>
-              </Link>
-
-              <Link to={PATHS.PROFILE_FINISHED(urlParamsId)} className="profile-screen-item_a">
-                <li className="profile-screen-item">
-                  Already read
-                </li>
-              </Link>
-
-            </ul>
-          </nav>
-          <button
-            type="button"
-            className="logout-btn"
-            onClick={() => {
-              dispatch(logOutUser());
-              dispatch(booksToReadRemoveAll());
-              dispatch(readingBookRemoveAll());
-              dispatch(readBookRemoveAll());
-              history.push("/");
-            }}>
-            Logout
-          </button>
         </div>
-        <div className="profile-screen-content">
-          {children}
-        </div>
+        <nav className="profile-screen-navigation">
+          <ul>
+
+            <Link to={PATHS.PROFILE_ABOUT(urlParamsId)} className="profile-screen-item_a">
+              <li className={path === "about" ? "profile-screen-item__active" : "profile-screen-item"}>
+                My profile
+              </li>
+            </Link>
+
+            <Link to={PATHS.PROFILE_EDIT(urlParamsId)} className="profile-screen-item_a">
+              <li className={path === "edit" ? "profile-screen-item__active" : "profile-screen-item"}>
+                Edit profile
+              </li>
+            </Link>
+          </ul>
+        </nav>
+
+        <h3 className="profile-screen-navblock">
+          My library
+        </h3>
+
+        <nav className="profile-screen-navigation">
+          <ul>
+            <Link to={PATHS.PROFILE_READING(urlParamsId)} className="profile-screen-item_a">
+              <li className={path === "reading" ? "profile-screen-item__active" : "profile-screen-item"}>
+                Reading now
+              </li>
+            </Link>
+
+            <Link to={PATHS.PROFILE_WANT(urlParamsId)} className="profile-screen-item_a">
+              <li className={path === "want" ? "profile-screen-item__active" : "profile-screen-item"}>
+                Want to read
+              </li>
+            </Link>
+
+            <Link to={PATHS.PROFILE_FINISHED(urlParamsId)} className="profile-screen-item_a">
+              <li className={path === "finished" ? "profile-screen-item__active" : "profile-screen-item"}>
+                Already read
+              </li>
+            </Link>
+
+          </ul>
+        </nav>
+        <button
+          type="button"
+          className="logout-btn"
+          onClick={() => {
+            dispatch(logOutUser());
+            dispatch(booksToReadRemoveAll());
+            dispatch(readingBookRemoveAll());
+            dispatch(readBookRemoveAll());
+            history.push("/");
+          }}>
+          Logout
+        </button>
       </div>
-    </StyledProfileScene>
+      <div className="profile-screen-content">
+        {children}
+      </div>
+    </StyledProfileScene >
   );
 };
 

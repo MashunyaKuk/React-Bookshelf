@@ -84,6 +84,9 @@ const StyledMainScene = styled.div`
     }
 
     &-row {
+      @media (max-width: 1200px) {
+        margin-bottom: 20px;
+  }
       display: flex;
       justify-content: center;
       align-items: stretch;
@@ -94,6 +97,10 @@ const StyledMainScene = styled.div`
     }
 
     &-item {
+      @media (max-width: 1200px) {
+        padding: 20px;
+        margin-right: 20px;
+  }
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -105,6 +112,10 @@ const StyledMainScene = styled.div`
         margin-right: 0;
       }
     }
+    
+    &-icon_img {
+      width: 80px;
+    }
 
     &-text {
       margin-left: 20px;
@@ -112,12 +123,28 @@ const StyledMainScene = styled.div`
     }
 
     &-title {
+      @media (max-width: 1200px) {
+        font-size: 16px;
+        line-height: 20px;
+  }
+      @media (max-width: 992px) {
+        font-size: 14px;
+        line-height: 16px;
+  }
       font-size: 18px;
       margin-bottom: 10px;
       line-height: 24px;
     }
 
     &-description_p {
+      @media (max-width: 1200px) {
+        font-size: 12px;
+        line-height: 18px;
+  }  
+      @media (max-width: 992px) {
+        font-size: 10px;
+        line-height: 14px;
+  }
       font-size: 14px;
       line-height: 20px;
     }
@@ -266,6 +293,14 @@ const StyledMainScene = styled.div`
     }
 
     &-title {
+      @media (max-width: 1200px) {
+        padding: 50px;
+  }
+      @media (max-width: 992px) {
+        padding: 30px;
+        font-size: 16px;
+        line-height: 20px;
+  }
       //font-weight: 600;
       font-size: 18px;
       padding: 70px;

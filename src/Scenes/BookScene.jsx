@@ -9,14 +9,15 @@ import { bookToReadAdd } from '../store/actions/bookToReadActions';
 import { booksToReadAdd } from '../api/booksToReadInstance';
 import { getCover } from '../api/libraryInstance';
 import LazyImage from '../Components/LazyImage';
-import { booksToRead } from '../api/booksToReadInstance';
-import { readingNowBooks } from '../api/readingNowBooksInstance';
-import { readBooks } from '../api/readBooksInstance';
+import { booksToReadSelector } from '../store/selectors/booksToReadSelector';
+import { readingNowBooksSelector } from '../store/selectors/readingNowBooksSelector';
+import { readBooksSelector } from '../store/selectors/readBooksSelector';
 
 const StyledBookScene = styled.div`
 font-family: 'Montserrat';
 margin: 0 auto 30px auto;
 max-width: 1170px;
+min-height: calc(100vh - 295px);
 
 .bookholder {
   display: flex;
@@ -141,35 +142,9 @@ const BookScene = () => {
     }
   }
 
-  const [myBooksToRead, setMyBooksToRead] = useState([]);
-  useEffect(() => {
-    booksToRead(userId)
-      .then((currentUsersBooks) => {
-        setMyBooksToRead(currentUsersBooks);
-      })
-      .catch(() => {
-      })
-  }, []);
-
-  const [myReadingBooks, setMyReadingBooks] = useState([]);
-  useEffect(() => {
-    readingNowBooks(userId)
-      .then((currentUsersReadingBooks) => {
-        setMyReadingBooks(currentUsersReadingBooks);
-      })
-      .catch(() => {
-      })
-  }, []);
-
-  const [myReadBooks, setMyReadBooks] = useState([]);
-  useEffect(() => {
-    readBooks(userId)
-      .then((currentUsersReadBooks) => {
-        setMyReadBooks(currentUsersReadBooks);
-      })
-      .catch(() => {
-      })
-  }, []);
+  const myBooksToRead = useSelector(booksToReadSelector);
+  const myReadingBooks = useSelector(readingNowBooksSelector);
+  const myReadBooks = useSelector(readBooksSelector);
 
   const [coverImage, setCoverImage] = useState();
   useEffect(() => {
@@ -185,9 +160,7 @@ const BookScene = () => {
         }
       })
       .catch(() => {
-      }
-
-      )
+      })
     return () => mounted = false;
   }, []);
 

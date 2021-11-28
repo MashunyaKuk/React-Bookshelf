@@ -1,17 +1,16 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import bookCover from '../../assets/img/bookcover.jpg';
 import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { bookToReadRemove } from '../../store/actions/bookToReadActions';
 import { booksToRead, booksToReadRemove } from '../../api/booksToReadInstance';
-import { useHistory } from 'react-router-dom';
-import { PATHS } from '../../Root/routes';
-import { readingNowBooksAdd, readingNowBooksRemove } from '../../api/readingNowBooksInstance';
+import { readingNowBooksAdd } from '../../api/readingNowBooksInstance';
 import { readingBookAdd } from '../../store/actions/readingNowBooksActions';
 import { readBooksAdd } from '../../api/readBooksInstance';
 import { readBookAdd } from '../../store/actions/readBooksActions';
 import { bookToReadAdd } from '../../store/actions/bookToReadActions';
+import { booksToReadSelector } from '../../store/selectors/booksToReadSelector';
 
 const StyledWantToReadScene = styled.div`
 font-family: 'Montserrat';
@@ -31,6 +30,12 @@ flex-wrap: wrap;
 }
 
 .want-library-container {
+  @media (max-width: 1200px) {
+    max-width: 550px;
+  }
+  @media (max-width: 992px) {
+    max-width: 450px;
+  }
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -76,6 +81,10 @@ flex-wrap: wrap;
   }
 
   .reading-book_btn, .read-book_btn, .remove-book_btn  {
+    @media (max-width: 992px) {
+      min-width: 120px;
+  }
+    min-width: 170px;
     color: #F6F5F3;
     font-family: 'Montserrat';
     padding: 10px 20px;
@@ -106,44 +115,31 @@ flex-wrap: wrap;
 const WantToReadScene = () => {
   const params = useParams();
   const urlParams = Number(params.userId);
-  const [books, setBooks] = useState([]);
-  const history = useHistory();
   const dispatch = useDispatch();
-  //достаю данные из localstorage, но они обновляется только после обновления страницы браузера!
-  /* useEffect(() => {
-    booksToRead(urlParams)
-      .then((currentUsersBooks) => {
-        setBooks(currentUsersBooks);
-        currentUsersBooks.map((book) => {
-          dispatch(bookToReadAdd(book.bookId, book.bookTitle, book.bookAuthors, book.bookCover, book.bookFirstYear, book.userId))
-        })
-      })
-      .catch(() => {
-      }
 
-      )
-  }, [dispatch, setBooks]);
- */
+  const booksToReadList = useSelector(booksToReadSelector);
+
   const setBooksToRead = useCallback(() => {
     booksToRead(urlParams)
       .then((currentUsersBooks) => {
-        setBooks(currentUsersBooks);
-        currentUsersBooks.map((book) => {
-          dispatch(bookToReadAdd(book.bookId, book.bookTitle, book.bookAuthors, book.bookCover, book.bookFirstYear, book.userId))
-        })
+        if (booksToReadList.length !== currentUsersBooks.length) {
+          currentUsersBooks.map((book) => {
+            dispatch(bookToReadAdd(book.bookId, book.bookTitle, book.bookAuthors, book.bookCover, book.bookFirstYear, book.userId))
+          })
+        }
       })
-  }, [booksToRead])
+  }, [])
 
   useEffect(() => {
     setBooksToRead()
-  }, [setBooksToRead])
+  }, [])
 
 
   return (
     <StyledWantToReadScene>
-      {books.length !== 0
+      {booksToReadList.length !== 0
         ?
-        books.map((book) => {
+        booksToReadList.map((book) => {
           return (
             <React.Fragment key={book.bookId}>
               <div className="want-library-container">
@@ -170,14 +166,12 @@ const WantToReadScene = () => {
                     onClick={() => {
                       readingNowBooksAdd(book.bookId, book.bookTitle, book.bookAuthors, book.bookCover, book.bookFirstYear, book.userId)
                         .then(({ dataReadingBook }) => {
-                          dispatch(readingBookAdd(dataReadingBook.bookId, dataReadingBook.bookTitle, dataReadingBook.bookAuthors, dataReadingBook.bookCover, dataReadingBook.bookFirstYear, dataReadingBook.dataBookId));
+                          dispatch(readingBookAdd(dataReadingBook.bookId, dataReadingBook.bookTitle, dataReadingBook.bookAuthors, dataReadingBook.bookCover, dataReadingBook.bookFirstYear, dataReadingBook.userId));
                         })
                       booksToReadRemove(book.bookId)
                         .then(() => {
                           dispatch(bookToReadRemove(book.bookId));
-                          history.push(PATHS.PROFILE_READING(book.userId));
-                        }
-                        )
+                        })
                     }}>
                     Reading now
                   </button>
@@ -187,15 +181,12 @@ const WantToReadScene = () => {
                     onClick={() => {
                       readBooksAdd(book.bookId, book.bookTitle, book.bookAuthors, book.bookCover, book.bookFirstYear, book.userId)
                         .then(({ dataReadBook }) => {
-                          dispatch(readBookAdd(dataReadBook.bookId, dataReadBook.bookTitle, dataReadBook.bookAuthors, dataReadBook.bookCover, dataReadBook.bookFirstYear, dataReadBook.dataBookId));
-
+                          dispatch(readBookAdd(dataReadBook.bookId, dataReadBook.bookTitle, dataReadBook.bookAuthors, dataReadBook.bookCover, dataReadBook.bookFirstYear, dataReadBook.userId));
                         })
                       booksToReadRemove(book.bookId)
                         .then(() => {
                           dispatch(bookToReadRemove(book.bookId));
-                          history.push(PATHS.PROFILE_FINISHED(book.userId));
-                        }
-                        )
+                        })
                     }}>
                     Already read book
                   </button>
@@ -206,7 +197,6 @@ const WantToReadScene = () => {
                       booksToReadRemove(book.bookId)
                         .then(() => {
                           dispatch(bookToReadRemove(book.bookId));
-                          history.push(PATHS.PROFILE_ABOUT(book.userId));
                         })
                     }}>
                     Remove book
@@ -216,8 +206,7 @@ const WantToReadScene = () => {
               </div>
             </React.Fragment>
           )
-        }
-        )
+        })
         :
         <div className="bookcard-none">
           <p className="bookcard-none_p">

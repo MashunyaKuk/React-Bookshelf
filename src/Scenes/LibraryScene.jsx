@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { getBooks } from '../api/libraryInstance';
 import { Formik, Field, Form } from 'formik';
-import FormikCheckboxes from '../Components/FormikInputs/FormikCheckboxes';
+import FormikRadio from '../Components/FormikInputs/FormikRadio';
 import ReactPaginate from "react-paginate";
 import Bookcard from "../Components/Bookcard";
 import { newLibraryAdd } from '../store/actions/libraryActions';
@@ -15,7 +15,7 @@ import search from '../assets/img/icons/search.png';
 
 const StyledLibraryScene = styled.div`
 font-family: 'Montserrat';
-margin: auto;
+margin: auto 15px;
 display: flex;
 align-items: flex-start;
 max-width: 1170px;
@@ -93,6 +93,7 @@ max-width: 1170px;
     justify-content: center;
     flex-direction: column;
     flex-wrap: wrap;
+    min-height: calc(100vh - 265px);
   }
 
   .bookcard-container {
@@ -160,23 +161,23 @@ const LibraryScene = () => {
                     Author
                   </p>
                   <div>
-                    <FormikCheckboxes name="picked" value="rowling" />
+                    <FormikRadio name="picked" value="rowling" />
                     <label htmlFor="classic">Rowling</label>
                   </div>
                   <div>
-                    <FormikCheckboxes name="picked" value="tolkien" />
+                    <FormikRadio name="picked" value="tolkien" />
                     <label htmlFor="classic">Tolkien</label>
                   </div>
                   <div>
-                    <FormikCheckboxes name="picked" value="twain" />
+                    <FormikRadio name="picked" value="twain" />
                     <label htmlFor="classic">Twain</label>
                   </div>
                   <div>
-                    <FormikCheckboxes name="picked" value="tolstoy" />
+                    <FormikRadio name="picked" value="tolstoy" />
                     <label htmlFor="classic">Tolstoy</label>
                   </div>
                   <div>
-                    <FormikCheckboxes name="picked" value="pushkin" />
+                    <FormikRadio name="picked" value="pushkin" />
                     <label htmlFor="classic">Pushkin</label>
                   </div>
                 </div>
