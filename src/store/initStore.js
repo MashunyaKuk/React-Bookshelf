@@ -12,13 +12,15 @@ const newLibraryList = [];
 const newBooksList = [];
 const newReadingBooksList = [];
 const newReadBooksList = [];
+const newUserTheme = {};
 
 const initialState = {
   userReducer: {user: newUser},
   libraryReducer: {libraryList: newLibraryList},
   booksToReadReducer: {booksList: newBooksList},
   readingNowBooksReducer: {readingBooksList: newReadingBooksList},
-  readBooksReducer: {readBooksList: newReadBooksList}
+  readBooksReducer: {readBooksList: newReadBooksList},
+  userThemeReducer: {userTheme: newUserTheme}
 };
 
 const persistConfig = {

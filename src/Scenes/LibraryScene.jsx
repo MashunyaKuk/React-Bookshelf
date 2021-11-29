@@ -15,14 +15,14 @@ import search from '../assets/img/icons/search.png';
 
 const StyledLibraryScene = styled.div`
 font-family: 'Montserrat';
-margin: auto 15px;
+margin: auto;
 display: flex;
 align-items: flex-start;
 max-width: 1170px;
 
   .sidebar-container {
     width: 200px;
-    margin-right: 20px;
+    margin: 0 20px 0 15px;
   }
 
   .book-filter_form {

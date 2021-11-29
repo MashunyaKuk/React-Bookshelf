@@ -15,14 +15,14 @@ const StyledProfileScene = styled.div`
   font-family: 'Montserrat';
   display: flex;
   align-items: flex-start;
-  margin: auto 15px;
+  margin: auto;
   max-width: 1170px;
   min-height: calc(100vh - 265px);
 
   .profile-screen {
     &-sidebar {
       @media (max-width: 992px) {
-        margin-right: 20px;
+        margin: 0 20px 30px 15px;
         padding: 15px 30px 15px 30px;
   }
       margin-right: 60px;

@@ -17,7 +17,7 @@ import { readBookRemoveAll } from '../store/actions/readBooksActions';
 
 const StyledHeader = styled.header`
   font-family: 'Montserrat';
-  margin: 0px 15px;
+  margin: auto 15px;
   
   .header-row {
     display: flex;

@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import bookCover from '../../assets/img/bookcover.jpg';
 import { useParams } from 'react-router-dom';
@@ -104,7 +104,7 @@ const AlreadyReadScene = () => {
 
   const readBooksList = useSelector(readBooksSelector);
 
-  const setBooksToRead = useCallback(() => {
+  useEffect(() => {
     readBooks(urlParams)
       .then((currentUsersReadBooks) => {
         if (readBooksList.length !== currentUsersReadBooks.length) {
@@ -113,10 +113,6 @@ const AlreadyReadScene = () => {
           })
         }
       })
-  }, [])
-
-  useEffect(() => {
-    setBooksToRead()
   }, [])
 
   return (

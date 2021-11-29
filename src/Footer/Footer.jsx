@@ -10,6 +10,8 @@ import { useSelector } from 'react-redux';
 import { ModalContext } from '../HOC/GlobalModalProvider';
 import { userSelector } from '../store/selectors/userSelectors';
 import RegisterModal from '../Modal/ModalContent/RegisterModal';
+import { useDispatch } from 'react-redux';
+import { userTheme } from '../store/actions/userThemeAction';
 
 const StyledFooter = styled.footer`
   font-family: 'Montserrat';
@@ -17,7 +19,7 @@ const StyledFooter = styled.footer`
   border-top: 1px solid white;
 
   .footer-holder {
-    margin: 0 15px;
+    margin: auto 15px;
   }
 
     .footer-row {
@@ -98,10 +100,12 @@ const Footer = () => {
   const [theme, setTheme] = useContext(ThemeContext);
   const setModalContent = useContext(ModalContext);
   const history = useHistory();
+  const dispatch = useDispatch();
   const user = useSelector(userSelector);
   const moveToProfile = (userId) => {
     history.push(PATHS.PROFILE_ABOUT(userId))
   }
+
   return (
     <StyledFooter className="footer-container">
       <div className="footer-holder">
@@ -169,7 +173,11 @@ const Footer = () => {
             <button
               className="change-theme_btn"
               onClick={() => {
-                theme === 'light' ? setTheme('dark') : setTheme('light')
+                theme !== 'dark'
+                  ?
+                  dispatch(userTheme('dark')) && setTheme('dark')
+                  :
+                  dispatch(userTheme('light')) && setTheme('light')
               }}>
               Switch Theme
             </button>

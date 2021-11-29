@@ -4,7 +4,6 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
 const StyledMainLayout = styled.div`
-    margin: auto;
 
 `;
 

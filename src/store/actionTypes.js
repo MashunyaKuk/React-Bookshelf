@@ -25,3 +25,7 @@ export const READ_BOOK_ACTIONS = {
   removeBook: 'remove already read book from profile',
   removeAllBooks: 'remove all already read books from profile'
 };
+
+export const USER_THEME = {
+  addTheme: 'add theme by user',
+}
