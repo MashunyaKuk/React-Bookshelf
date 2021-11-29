@@ -1,5 +1,5 @@
 import React, { memo, useState } from 'react';
-import ModalWindow from '../Modal/ModalWindow';
+import ModalWindow from '../Components/ModalWindow';
 
 export const ModalContext = React.createContext(false);
 

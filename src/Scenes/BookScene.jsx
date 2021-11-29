@@ -24,7 +24,7 @@ min-height: calc(100vh - 295px);
   align-items: center;
 
   &-cover {
-    margin-right: 30px;
+    margin: 0 30px 0 20px;
     display: flex;
     width: 350px;
     height: 550px;
@@ -96,13 +96,13 @@ min-height: calc(100vh - 295px);
 }
 
 .added-book_p {
-  color: #212020;
   font-family: 'Montserrat';
   font-weight: 600;
   border: none;
   padding: 0;
   font-size: 16px;
 } 
+
 `;
 
 const BookScene = () => {
@@ -200,14 +200,14 @@ const BookScene = () => {
                 Please, register or login!
               </p>
             </div>
-            : (!(myBooksToRead.find(book => book.bookId === urlParams)) && !(myReadingBooks.find(book => book.bookId === urlParams)) && !(myReadBooks.find(book => book.bookId === urlParams))) ?
+            : (!(myBooksToRead.find(book => book.bookId === urlParams)) && !(myReadingBooks.find(book => book.bookId === urlParams)) && !(myReadBooks.find(book => book.bookId === urlParams)) ?
               <button
                 type="button"
                 className={btnStyles()}
                 onClick={(event) => {
                   booksToReadAdd(currentBookId, currentBookTitle, currentBookAuthors, currentBookCover, currentBookFirstPublishedYear, userId)
                     .then(({ dataBook }) => {
-                      dispatch(bookToReadAdd(dataBook.bookId, dataBook.bookTitle, dataBook.bookAuthors, dataBook.bookCover, dataBook.bookFirstYear, dataBook.dataBookId));
+                      dispatch(bookToReadAdd(dataBook.bookId, dataBook.bookTitle, dataBook.bookAuthors, dataBook.bookCover, dataBook.bookFirstYear, dataBook.userId));
                       setBtnText("In your library already!");
                     })
                   event.currentTarget.disabled = true;
@@ -219,7 +219,7 @@ const BookScene = () => {
                 <p className="added-book_p">
                   In your library already!
                 </p>
-              </div>
+              </div>)
           }
         </div>
       </div>

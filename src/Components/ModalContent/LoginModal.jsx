@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import { Formik, Form } from 'formik';
 import FormikInput from '../../Components/FormikInputs/FormikInputs';
 import { ModalContext } from '../../HOC/GlobalModalProvider';
-import RegisterModal from '../../Modal/ModalContent/RegisterModal';
+import RegisterModal from '../../Components/ModalContent/RegisterModal';
 import { useHistory } from "react-router-dom";
 import { PATHS } from '../../Root/routes';
 import { logInUser } from '../../store/actions/userActions';
 import { loginUser } from '../../api/instance';
 import { useDispatch } from 'react-redux';
-import { loginValidation } from '../ModalContent/validation/loginValidation';
+import { loginValidation } from '../../validation/loginValidation';
 
 const StyledLoginModal = styled.div`
   font-family: 'Montserrat';

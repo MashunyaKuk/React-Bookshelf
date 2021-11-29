@@ -4,16 +4,16 @@ import IconLogo from '../assets/img/logo.svg';
 import { Link, useHistory } from 'react-router-dom';
 import { ROUTE, PATHS } from '../Root/routes';
 import { ModalContext } from '../HOC/GlobalModalProvider';
-import LoginModal from '../Modal/ModalContent/LoginModal';
-import RegisterModal from '../Modal/ModalContent/RegisterModal';
+import LoginModal from '../Components/ModalContent/LoginModal';
+import RegisterModal from '../Components/ModalContent/RegisterModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { userSelector } from '../store/selectors/userSelectors';
 import { logOutUser } from '../store/actions/userActions';
 import { booksToReadRemoveAll } from '../store/actions/bookToReadActions';
 import { logoutUser } from '../api/instance';
-import { ThemeContext } from '../HOC/GlobalThemeProvider';
 import { readingBookRemoveAll } from '../store/actions/readingNowBooksActions';
 import { readBookRemoveAll } from '../store/actions/readBooksActions';
+import { userThemeSelector } from '../store/selectors/userThemeSelector';
 
 const StyledHeader = styled.header`
   font-family: 'Montserrat';
@@ -46,22 +46,17 @@ const StyledHeader = styled.header`
     }
   }
 
-  .header-menu_link {
+  .header-menu_link, .header-menu_link__dark {
     font-family: 'Montserrat';
     font-size: 16px;
     border: none;
     background-color: transparent;
     cursor: pointer;
     padding: 0;
+    color: #212020;
   }
 
   .header-menu_link__dark {
-    font-family: 'Montserrat';
-    font-size: 16px;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    padding: 0;
     color: #F6F5F3;
   }
 
@@ -115,12 +110,13 @@ const StyledHeader = styled.header`
 const Header = () => {
   const setModalContent = useContext(ModalContext);
   const history = useHistory();
-  const [theme, setTheme] = useContext(ThemeContext);
   const dispatch = useDispatch();
   const user = useSelector(userSelector);
   const moveToProfile = (userId) => {
     history.push(PATHS.PROFILE_ABOUT(userId))
   }
+  const currentTheme = useSelector(userThemeSelector);
+
   return (
     <StyledHeader className="header-container">
       <div className="header-row">
@@ -139,14 +135,14 @@ const Header = () => {
             <ul className="header-menu_list">
 
               <li className="header-menu_item">
-                <Link to="/" className="header-menu_link">About</Link>
+                <Link to="/" className={(currentTheme.theme === 'light' ? "header-menu_link" : "header-menu_link__dark")}> About</Link>
               </li>
 
               {(user.loggedIn === true)
 
                 ? <li className="header-menu_item">
                   <button
-                    className={(theme === 'light' ? "header-menu_link" : "header-menu_link__dark")}
+                    className={(currentTheme.theme === 'light' ? "header-menu_link" : "header-menu_link__dark")}
                     type="button"
                     onClick={() => {
                       console.log('user', user.id);
@@ -158,7 +154,7 @@ const Header = () => {
 
                 : <li className="header-menu_item">
                   <button
-                    className={(theme === 'light' ? "header-menu_link" : "header-menu_link__dark")}
+                    className={(currentTheme.theme === 'light' ? "header-menu_link" : "header-menu_link__dark")}
                     type="button"
                     onClick={() => {
                       setModalContent(
@@ -169,7 +165,7 @@ const Header = () => {
                   </button>
                 </li>}
               <li className="header-menu_item">
-                <Link to={ROUTE.LIBRARY} className="header-menu_link">Library</Link>
+                <Link to={ROUTE.LIBRARY} className={(currentTheme.theme === 'light' ? "header-menu_link" : "header-menu_link__dark")}>Library</Link>
               </li>
 
             </ul>

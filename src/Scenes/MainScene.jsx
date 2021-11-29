@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import background from '../assets/img/main-bg.png';
-import RegisterModal from '../Modal/ModalContent/RegisterModal';
+import RegisterModal from '../Components/ModalContent/RegisterModal';
 import { ModalContext } from '../HOC/GlobalModalProvider';
 import iconTariff from '../assets/img/icons/icon-tariff.png';
 import iconLanguage from '../assets/img/icons/icon-language.png';
@@ -317,7 +317,7 @@ const MainScene = () => {
   const history = useHistory();
   return (
     <StyledMainScene>
-      <div className={(theme === 'light' ? "main-screen-container" : "main-screen-container__dark")}>
+      <div className={(theme !== 'dark' ? "main-screen-container" : "main-screen-container__dark")}>
         <div className="main-screen-textholder">
           <h1 className="main-screen-title">
             Thousands of books you have always with you

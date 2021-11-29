@@ -11,6 +11,7 @@ import { readBooksAdd } from '../../api/readBooksInstance';
 import { readBookAdd } from '../../store/actions/readBooksActions';
 import { bookToReadAdd } from '../../store/actions/bookToReadActions';
 import { booksToReadSelector } from '../../store/selectors/booksToReadSelector';
+import LazyImage from '../../Components/LazyImage';
 
 const StyledWantToReadScene = styled.div`
 font-family: 'Montserrat';
@@ -39,7 +40,7 @@ flex-wrap: wrap;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 0 0 30px 30px;
+  margin-bottom: 30px;
   max-width: 650px;
   border: 1px solid #212121;
   border-radius: 4px;
@@ -52,6 +53,7 @@ flex-wrap: wrap;
     height: 200px;
     object-fit: cover;
     border-radius: 4px;
+    display: flex;
   }
 
   .bookcard-author {
@@ -120,14 +122,20 @@ const WantToReadScene = () => {
   const booksToReadList = useSelector(booksToReadSelector);
 
   useEffect(() => {
+    let mounted = true; //переменная, отвечающая за то, чтобы не обновлять состояние, если компонент еще не смонтирован
     booksToRead(urlParams)
       .then((currentUsersBooks) => {
-        if (booksToReadList.length !== currentUsersBooks.length) {
-          currentUsersBooks.map((book) => {
-            dispatch(bookToReadAdd(book.bookId, book.bookTitle, book.bookAuthors, book.bookCover, book.bookFirstYear, book.userId))
-          })
+        if (mounted) {
+          if (booksToReadList.length !== currentUsersBooks.length) {
+            currentUsersBooks.map((book) => {
+              dispatch(bookToReadAdd(book.bookId, book.bookTitle, book.bookAuthors, book.bookCover, book.bookFirstYear, book.userId))
+            })
+          }
         }
       })
+      .catch(() => {
+      })
+    return () => mounted = false;
   }, [])
 
 
@@ -140,7 +148,7 @@ const WantToReadScene = () => {
             <React.Fragment key={book.bookId}>
               <div className="want-library-container">
                 <div className="bookcard-cover" >
-                  <img src={`https://covers.openlibrary.org/b/isbn/${book.bookCover}-L.jpg`} alt="" className="bookcard-cover_img" />
+                  <LazyImage src={`https://covers.openlibrary.org/b/isbn/${book.bookCover}-L.jpg`} alt="" className="bookcard-cover_img" />
                 </div>
                 <div className="bookcard-text">
                   <h4 className="bookcard-name">{book.bookTitle}</h4>

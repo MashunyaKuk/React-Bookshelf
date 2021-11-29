@@ -79,7 +79,11 @@ const StyledProfileScene = styled.div`
         color: #212020;
         
       }
+      
     }  
+      &-content {
+        margin-left: 30px;
+      }
 }
 
     .logout-btn {
@@ -149,15 +153,15 @@ const ProfileScene = (props) => {
 
         <nav className="profile-screen-navigation">
           <ul>
-            <Link to={PATHS.PROFILE_READING(urlParamsId)} className="profile-screen-item_a">
-              <li className={path === "reading" ? "profile-screen-item__active" : "profile-screen-item"}>
-                Reading now
-              </li>
-            </Link>
-
             <Link to={PATHS.PROFILE_WANT(urlParamsId)} className="profile-screen-item_a">
               <li className={path === "want" ? "profile-screen-item__active" : "profile-screen-item"}>
                 Want to read
+              </li>
+            </Link>
+
+            <Link to={PATHS.PROFILE_READING(urlParamsId)} className="profile-screen-item_a">
+              <li className={path === "reading" ? "profile-screen-item__active" : "profile-screen-item"}>
+                Reading now
               </li>
             </Link>
 

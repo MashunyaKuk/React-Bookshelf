@@ -7,9 +7,9 @@ import FormikInput from '../../Components/FormikInputs/FormikInputs';
 import { ModalContext } from '../../HOC/GlobalModalProvider';
 import { newUserAdd } from '../../store/actions/userActions';
 import { PATHS } from '../../Root/routes';
-import LoginModal from '../../Modal/ModalContent/LoginModal';
+import LoginModal from '../../Components/ModalContent/LoginModal';
 import { registerUser } from '../../api/instance';
-import { registerValidation } from './validation/registerValidation';
+import { registerValidation } from '../../validation/registerValidation';
 
 
 const StyledRegisterModal = styled.div`

@@ -9,7 +9,7 @@ import { ThemeContext } from '../HOC/GlobalThemeProvider';
 import { useSelector } from 'react-redux';
 import { ModalContext } from '../HOC/GlobalModalProvider';
 import { userSelector } from '../store/selectors/userSelectors';
-import RegisterModal from '../Modal/ModalContent/RegisterModal';
+import RegisterModal from '../Components/ModalContent/RegisterModal';
 import { useDispatch } from 'react-redux';
 import { userTheme } from '../store/actions/userThemeAction';
 
