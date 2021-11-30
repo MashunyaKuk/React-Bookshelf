@@ -53,7 +53,6 @@ const StyledHeader = styled.header`
     background-color: transparent;
     cursor: pointer;
     padding: 0;
-    color: #212020;
   }
 
   .header-menu_link__dark {
@@ -135,14 +134,14 @@ const Header = () => {
             <ul className="header-menu_list">
 
               <li className="header-menu_item">
-                <Link to="/" className={(currentTheme.theme === 'light' ? "header-menu_link" : "header-menu_link__dark")}> About</Link>
+                <Link to="/" className="header-menu_link"> About</Link>
               </li>
 
               {(user.loggedIn === true)
 
                 ? <li className="header-menu_item">
                   <button
-                    className={(currentTheme.theme === 'light' ? "header-menu_link" : "header-menu_link__dark")}
+                    className={(currentTheme.theme !== 'dark' ? "header-menu_link" : "header-menu_link__dark")}
                     type="button"
                     onClick={() => {
                       console.log('user', user.id);
@@ -154,7 +153,7 @@ const Header = () => {
 
                 : <li className="header-menu_item">
                   <button
-                    className={(currentTheme.theme === 'light' ? "header-menu_link" : "header-menu_link__dark")}
+                    className={(currentTheme.theme !== 'dark' ? "header-menu_link" : "header-menu_link__dark")}
                     type="button"
                     onClick={() => {
                       setModalContent(
@@ -165,7 +164,7 @@ const Header = () => {
                   </button>
                 </li>}
               <li className="header-menu_item">
-                <Link to={ROUTE.LIBRARY} className={(currentTheme.theme === 'light' ? "header-menu_link" : "header-menu_link__dark")}>Library</Link>
+                <Link to={ROUTE.LIBRARY} className="header-menu_link">Library</Link>
               </li>
 
             </ul>
