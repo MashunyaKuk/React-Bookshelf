@@ -41,6 +41,11 @@ max-width: 1170px;
       margin-bottom: 15px;
       color: #6E7064;
     }
+    &_div {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+    }
   }
 
   .book-filter_btn {
@@ -160,23 +165,23 @@ const LibraryScene = () => {
                   <p className="book-filter_p">
                     Author
                   </p>
-                  <div>
+                  <div className="book-filter_div">
                     <FormikRadio name="picked" value="rowling" />
                     <label htmlFor="classic">Rowling</label>
                   </div>
-                  <div>
+                  <div className="book-filter_div">
                     <FormikRadio name="picked" value="tolkien" />
                     <label htmlFor="classic">Tolkien</label>
                   </div>
-                  <div>
+                  <div className="book-filter_div">
                     <FormikRadio name="picked" value="twain" />
                     <label htmlFor="classic">Twain</label>
                   </div>
-                  <div>
+                  <div className="book-filter_div">
                     <FormikRadio name="picked" value="tolstoy" />
                     <label htmlFor="classic">Tolstoy</label>
                   </div>
-                  <div>
+                  <div className="book-filter_div">
                     <FormikRadio name="picked" value="pushkin" />
                     <label htmlFor="classic">Pushkin</label>
                   </div>

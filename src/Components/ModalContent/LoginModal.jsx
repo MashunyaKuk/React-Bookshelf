@@ -40,14 +40,6 @@ const StyledLoginModal = styled.div`
   }
   }
 
-  input {
-    width: 250px;
-    font-size: 16px;
-    padding: 10px;
-    border: 1px solid #212020;
-    border-radius: 4px;
-  }
-  
   .login_btn, .register_btn {
     color: #F6F5F3;
     font-family: 'Montserrat';

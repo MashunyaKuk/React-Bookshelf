@@ -39,10 +39,6 @@ const StyledModalWindow = styled.div`
         background-color: #C89566;
         cursor: pointer;
         transition: 0.4s;
-
-        :hover {
-          transform: scale(1.2);
-        }
       }
 `;
 
