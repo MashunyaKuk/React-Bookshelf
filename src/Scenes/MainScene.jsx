@@ -14,6 +14,8 @@ import { useSelector } from 'react-redux';
 import { userSelector } from '../store/selectors/userSelectors';
 import { useHistory } from 'react-router-dom';
 import { PATHS } from '../Root/routes';
+import { COLORS } from '../assets/styles/colors';
+import Button from '../Components/Button';
 
 const StyledMainScene = styled.div`
   font-family: 'Montserrat';
@@ -32,7 +34,7 @@ const StyledMainScene = styled.div`
   .main-screen-container__dark {
     height: 500px;
     margin-bottom: 100px;
-    background-color: #212020;
+    background-color: ${COLORS.BLACK};
     border: 1px solid white;
     border-radius: 4px;
     box-shadow: inset 0 0 25px;
@@ -56,21 +58,6 @@ const StyledMainScene = styled.div`
     &_p {
       font-size: 16px;
     }
-  }
-
-  .register_btn, .profile_btn {
-    color: #F6F5F3;
-    font-family: 'Montserrat';
-    padding: 10px 30px;
-    cursor: pointer;
-    background-color: #C89566;
-    border: none;
-    border-radius: 4px;
-    font-size: 14px;
-  }
-
-  .profile_btn {
-    background-color: #7E929F;
   }
 
   .advantages {
@@ -104,7 +91,7 @@ const StyledMainScene = styled.div`
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border: 1px solid #212020;
+      border: 1px solid ${COLORS.BLACK};
       padding: 30px;
       border-radius: 4px;
       margin-right: 40px;
@@ -176,7 +163,7 @@ const StyledMainScene = styled.div`
       align-items: center;
       justify-content: space-between;
       flex-direction: column;
-      border: 1px solid #212020;
+      border: 1px solid ${COLORS.BLACK};
       padding: 30px;
       border-radius: 4px;
       margin-right: 40px;
@@ -205,7 +192,7 @@ const StyledMainScene = styled.div`
         display: inline-block;
         width: 10px;
         height: 10px;
-        background-color: #6E7064;
+        background-color: ${COLORS.DARK_GREY};
         border-radius: 50%;
         vertical-align: middle;
         margin-right: 10px;
@@ -220,21 +207,6 @@ const StyledMainScene = styled.div`
       font-weight: 600;
       font-size: 18px;
     }
-    }
-
-    &-tariff-button {
-      color: #F6F5F3;
-      font-family: 'Montserrat';
-      padding: 10px 30px;
-      cursor: pointer;
-      background-color: #6E7064;
-      border: none;
-      border-radius: 4px;
-      font-size: 14px;
-      
-      &_premium {
-        background-color: #925039;
-      }
     }
   }
 
@@ -251,7 +223,7 @@ const StyledMainScene = styled.div`
     }
 
     &-content {
-      border: 1px solid #212020;
+      border: 1px solid ${COLORS.BLACK};
       border-radius: 4px;
       padding: 30px 40px 0 0;
       display: flex;
@@ -270,7 +242,7 @@ const StyledMainScene = styled.div`
     }
 
     &-item {
-      border: 1px solid #212020;
+      border: 1px solid ${COLORS.BLACK};
       border-radius: 4px;
       text-align: center;
       margin-right: 20px;
@@ -280,15 +252,15 @@ const StyledMainScene = styled.div`
       }
 
       &_red {
-        background-color: #925039;
+        background-color: ${COLORS.RED};
       }
 
       &_blue {
-        background-color: #7E929F;
+        background-color: ${COLORS.BLUE};
       }
 
       &_green {
-        background-color: #6E7064;
+        background-color: ${COLORS.DARK_GREY};
       }
     }
 
@@ -304,7 +276,7 @@ const StyledMainScene = styled.div`
       //font-weight: 600;
       font-size: 18px;
       padding: 70px;
-      color: #F6F5F3;
+      color: ${COLORS.WHITE};
       line-height: 24px;
     }
   }
@@ -330,24 +302,24 @@ const MainScene = () => {
           {(user.loggedIn !== true)
 
             ?
-            <button type="submit"
+            <Button type="submit"
               onClick={() => {
                 setModalContent(
                   <RegisterModal />,
                 );
               }}
-              className="btn register_btn">
+              color={COLORS.ORANGE}>
               Register free
-            </button>
+            </Button>
 
             :
-            <button type="submit"
+            <Button type="submit"
               onClick={() => {
                 history.push(PATHS.PROFILE_ABOUT(user.id));
               }}
-              className="btn profile_btn">
+              color={COLORS.BLUE}>
               My profile
-            </button>
+            </Button>
           }
         </div>
       </div>
@@ -480,9 +452,11 @@ const MainScene = () => {
                 $3.99 at month
               </span>
             </div>
-            <button className="subscription-tariff-button">
+            <Button
+              color={COLORS.DARK_GREY}
+            >
               Subscribe
-            </button>
+            </Button>
           </div>
           <div className="subscription-item">
             <h3 className="subscription-tariff-name">
@@ -510,9 +484,11 @@ const MainScene = () => {
                 $5.99 at month
               </span>
             </div>
-            <button className="subscription-tariff-button subscription-tariff-button_premium">
+            <Button
+              color={COLORS.RED}
+            >
               Subscribe
-            </button>
+            </Button>
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import React, { memo, useContext } from 'react';
 import styled from 'styled-components';
 import { ModalContext } from '../HOC/GlobalModalProvider';
+import { COLORS } from '../assets/styles/colors';
 
 const StyledModalWindow = styled.div`
     height: 100%;
@@ -9,7 +10,7 @@ const StyledModalWindow = styled.div`
     top: 0;
     left: 0;
     z-index: 100;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: ${COLORS.BLACK};
       
     .popup-body {
         display: flex;
@@ -19,8 +20,8 @@ const StyledModalWindow = styled.div`
       }
       
     .popup-content {
-        background-color: #f6f5f3;
-        color: #221c1d;
+        background-color: ${COLORS.WHITE};
+        color: ${COLORS.BLACK};
         width: 300px;
         padding: 20px 20px;
         border-radius: 4px;
@@ -33,10 +34,10 @@ const StyledModalWindow = styled.div`
         top: 20px;
         font-size: 18px;
         padding: 4px 10px 4px 10px;
-        color: #F6F5F3;
+        color: ${COLORS.WHITE};
         border-radius: 50%;
         border: none;
-        background-color: #C89566;
+        background-color: ${COLORS.ORANGE};
         cursor: pointer;
         transition: 0.4s;
       }

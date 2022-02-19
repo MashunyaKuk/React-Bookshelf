@@ -10,6 +10,8 @@ import { useSelector } from 'react-redux';
 import { userSelector } from '../store/selectors/userSelectors';
 import { readingBookRemoveAll } from '../store/actions/readingNowBooksActions';
 import { readBookRemoveAll } from '../store/actions/readBooksActions';
+import Button from '../Components/Button';
+import { COLORS } from '../assets/styles/colors';
 
 const StyledProfileScene = styled.div`
   font-family: 'Montserrat';
@@ -27,7 +29,7 @@ const StyledProfileScene = styled.div`
   }
       margin-right: 60px;
       margin-bottom: 30px;
-      border: 1px solid #212020;
+      border: 1px solid ${COLORS.BLACK};
       border-radius: 4px;
       padding: 15px 50px 15px 50px;
     }
@@ -69,14 +71,14 @@ const StyledProfileScene = styled.div`
       margin-bottom: 15px;
       padding: 10px 10px;
       border-radius: 4px;
-      background-color:#e7e7e7;
+      background-color: ${COLORS.GREY};
 
       &__active {
-        background-color: #a7a7a7;
-        color: #e7e7e7;
+        background-color: ${COLORS.LIGHT_GREY};
+        color: ${COLORS.GREY};
         }
       &_a {
-        color: #212020;
+        color: ${COLORS.BLACK};
         
       }
       
@@ -85,17 +87,6 @@ const StyledProfileScene = styled.div`
         margin-left: 30px;
       }
 }
-
-    .logout-btn {
-      color: #F6F5F3;
-      font-family: 'Montserrat';
-      padding: 10px 30px;
-      cursor: pointer;
-      background-color: #9f7e97;
-      border: none;
-      border-radius: 4px;
-      font-size: 14px;
-    }
 `;
 
 const ProfileScene = (props) => {
@@ -173,9 +164,9 @@ const ProfileScene = (props) => {
 
           </ul>
         </nav>
-        <button
+        <Button
           type="button"
-          className="logout-btn"
+          color={COLORS.PURPLE}
           onClick={() => {
             dispatch(logOutUser());
             dispatch(booksToReadRemoveAll());
@@ -184,7 +175,7 @@ const ProfileScene = (props) => {
             history.push("/");
           }}>
           Logout
-        </button>
+        </Button>
       </div>
       <div className="profile-screen-content">
         {children}

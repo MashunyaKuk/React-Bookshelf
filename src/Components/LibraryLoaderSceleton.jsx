@@ -23,7 +23,6 @@ flex-wrap: wrap;
 }
 `
 
-
 const MyLoader = () => {
   const bookArray = Array(15).fill('');
   return (
@@ -49,7 +48,6 @@ const MyLoader = () => {
             </div>
           </SkeletonTheme>
         )
-
       })}
 
     </StyledMyLoader>

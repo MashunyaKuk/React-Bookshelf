@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import IconTelegram from '../assets/img/icons/telegram-plane-brands.svg';
 import IconInstagram from '../assets/img/icons/instagram-brands.svg';
@@ -12,10 +12,12 @@ import { userSelector } from '../store/selectors/userSelectors';
 import RegisterModal from '../Components/ModalContent/RegisterModal';
 import { useDispatch } from 'react-redux';
 import { userTheme } from '../store/actions/userThemeAction';
+import Button from '../Components/Button';
+import { COLORS } from '../assets/styles/colors';
 
 const StyledFooter = styled.footer`
   font-family: 'Montserrat';
-  background-color: #212020;
+  background-color: ${COLORS.BLACK};
   border-top: 1px solid white;
 
   .footer-holder {
@@ -44,7 +46,7 @@ const StyledFooter = styled.footer`
     
     .footer-menu_link {
       font-family: 'Montserrat';
-      color: #F6F5F3;
+      color: ${COLORS.WHITE};
       font-size: 14px;
       border: none;
       background-color: transparent;
@@ -70,7 +72,7 @@ const StyledFooter = styled.footer`
     }
     
     .footer-icon {
-      color: #F6F5F3;
+      color: ${COLORS.WHITE};
       height: 30px;
     } 
 
@@ -78,22 +80,10 @@ const StyledFooter = styled.footer`
       margin-bottom: 15px;
         &_p {
           margin: 0px;
-          color: #F6F5F3;
+          color: ${COLORS.WHITE};
           font-size: 12px;
     }
     }
-
-    .change-theme_btn {
-      color: #F6F5F3;
-      font-family: 'Montserrat';
-      padding: 5px 10px;
-      cursor: pointer;
-      background-color: #7e9f8b;
-      border: none;
-      border-radius: 4px;
-      font-size: 12px;
-    }
-   
 `;
 
 const Footer = () => {
@@ -170,8 +160,8 @@ const Footer = () => {
             <div className="footer-text">
               <p className="footer-text_p">© 2021 Bookshelf</p>
             </div>
-            <button
-              className="change-theme_btn"
+            <Button
+              color={COLORS.GREEN}
               onClick={() => {
                 theme !== 'dark'
                   ?
@@ -180,7 +170,7 @@ const Footer = () => {
                   dispatch(userTheme('light')) && setTheme('light')
               }}>
               Switch Theme
-            </button>
+            </Button>
           </div>
         </div>
       </div>

@@ -1,11 +1,12 @@
+import { COLORS } from '../styles/colors';
 
 export const lightTheme = {
-  text: '#212020',
-  background: '#f6f5f3',
+  text: COLORS.BLACK,
+  background: COLORS.WHITE,
 
 }
 export const darkTheme = {
-  text: '#f6f5f3',
-  background: '#212020',
+  text: COLORS.WHITE,
+  background: COLORS.BLACK,
   
 }

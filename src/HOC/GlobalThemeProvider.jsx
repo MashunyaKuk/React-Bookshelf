@@ -37,7 +37,7 @@ const GlobalStyle = createGlobalStyle`
       color: ${({ theme }) => theme.text};
     }
 
-
+/* 
     @keyframes spinner {
   to {transform: rotate(360deg);}
 }
@@ -66,7 +66,7 @@ const GlobalStyle = createGlobalStyle`
       border: 5px solid #F6F5F3;
       border-top-color: #000000cc;
       animation: spinner .6s linear infinite;      
-    }
+    } */
 `;
 
 const GlobalThemeProvider = (props) => {

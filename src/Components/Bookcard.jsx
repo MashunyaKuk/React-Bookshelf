@@ -5,6 +5,8 @@ import { PATHS } from '../Root/routes';
 import { useHistory } from "react-router-dom";
 import LazyImage from '../Components/LazyImage';
 import { getCover } from '../api/libraryInstance';
+import Button from '../Components/Button';
+import { COLORS } from '../assets/styles/colors';
 
 const StyledBookcard = styled.div`
 font-family: 'Montserrat';
@@ -41,18 +43,6 @@ margin: 0 0 30px 30px;
     text-align: center;
   }
 
-  .want-read_btn {
-    color: #F6F5F3;
-    font-family: 'Montserrat';
-    padding: 10px 15px;
-    cursor: pointer;
-    background-color: #C89566;
-    border: none;
-    border-radius: 4px;
-    font-size: 12px;
-    text-align: center;
-    margin-top: 5px;
-  }
 `;
 
 const Bookcard = (props) => {
@@ -98,13 +88,14 @@ const Bookcard = (props) => {
           {props.authors}
         </p>
       </div>
-      <button
+      <Button
+        color={COLORS.ORANGE}
         onClick={() => {
-          moveToBook(props.id);;
+          moveToBook(props.id);
         }}
-        className="want-read_btn">
+      >
         Details
-      </button>
+      </Button>
     </StyledBookcard >
   );
 };

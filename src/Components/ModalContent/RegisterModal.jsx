@@ -10,7 +10,8 @@ import { PATHS } from '../../Root/routes';
 import LoginModal from '../../Components/ModalContent/LoginModal';
 import { registerUser } from '../../api/instance';
 import { registerValidation } from '../../validation/registerValidation';
-
+import Button from '../../Components/Button';
+import { COLORS } from '../../assets/styles/colors';
 
 const StyledRegisterModal = styled.div`
   font-family: 'Montserrat';
@@ -22,7 +23,7 @@ const StyledRegisterModal = styled.div`
   &-title_p {
     font-size: 22px;
     margin-bottom: 20px;
-    color: #212020;
+    color: ${COLORS.BLACK};
     }
 
   &-item {
@@ -32,7 +33,7 @@ const StyledRegisterModal = styled.div`
   &-item_formlabel {
     display: block;
     font-size: 14px;
-    color: #212020;
+    color: ${COLORS.BLACK};
     margin-bottom: 2px;
   }
   &-login_p {
@@ -40,29 +41,6 @@ const StyledRegisterModal = styled.div`
     margin-bottom: 10px;
   }
 }
-
-  input {
-    width: 250px;
-    font-size: 16px;
-    padding: 10px;
-    border: 1px solid #212020;
-    border-radius: 4px;
-  }
-  
-  .register_btn, .login_btn {
-    color: #F6F5F3;
-    font-family: 'Montserrat';
-    padding: 10px 30px;
-    cursor: pointer;
-    background-color: #C89566;
-    border: none;
-    border-radius: 4px;
-    font-size: 14px;
-  }
-
-  .login_btn {
-    background-color: #7E929F;
-  }
 
 `;
 
@@ -81,7 +59,6 @@ const RegisterModal = () => {
         onSubmit={(formData) => {
           registerUser(formData.name, formData.surname, formData.email, formData.password)
             .then(({ dataId, dataLogged }) => {
-              console.log('data', dataId, dataLogged)
               dispatch(newUserAdd(formData.name, formData.surname, formData.email, formData.password, dataId, dataLogged));
               history.push(PATHS.PROFILE_ABOUT(dataId));
               setModalContent(false);
@@ -105,18 +82,18 @@ const RegisterModal = () => {
             <label htmlFor="password" className="registerform-item_formlabel">Password</label>
             <FormikInput name="password" />
           </div>
-          <button
-            className="btn register_btn"
+          <Button
+            color={COLORS.ORANGE}
             type="submit"
           >Register
-          </button>
+          </Button>
         </Form>
       </Formik>
       <div className="registerform-login">
         <p className="registerform-login_p">Do you have the account? Please, login</p>
       </div>
-      <button
-        className="btn login_btn"
+      <Button
+        color={COLORS.BLUE}
         type="button"
         onClick={() => {
           setModalContent(
@@ -124,7 +101,7 @@ const RegisterModal = () => {
           )
         }}>
         Login
-      </button>
+      </Button>
     </StyledRegisterModal >
   );
 };

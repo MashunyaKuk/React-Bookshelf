@@ -10,6 +10,8 @@ import { logInUser } from '../../store/actions/userActions';
 import { loginUser } from '../../api/instance';
 import { useDispatch } from 'react-redux';
 import { loginValidation } from '../../validation/loginValidation';
+import Button from '../../Components/Button';
+import { COLORS } from '../../assets/styles/colors';
 
 const StyledLoginModal = styled.div`
   font-family: 'Montserrat';
@@ -21,7 +23,7 @@ const StyledLoginModal = styled.div`
     &-title_p {
     font-size: 22px;
     margin-bottom: 20px;
-    color: #212020;
+    color: ${COLORS.BLACK};
     }
     
     &-item {
@@ -31,28 +33,13 @@ const StyledLoginModal = styled.div`
     &-item_formlabel {
     display: block;
     font-size: 14px;
-    color: #212020;
+    color: ${COLORS.BLACK};
     margin-bottom: 2px;
     }
     &-register_p {
     font-size: 14px;
     margin-bottom: 10px;
   }
-  }
-
-  .login_btn, .register_btn {
-    color: #F6F5F3;
-    font-family: 'Montserrat';
-    padding: 10px 30px;
-    cursor: pointer;
-    background-color: #C89566;
-    border: none;
-    border-radius: 4px;
-    font-size: 14px;
-  }
-
-  .login_btn {
-    background-color:  #7E929F;
   }
   
 `;
@@ -71,7 +58,6 @@ const LoginModal = () => {
         onSubmit={(formData) => {
           loginUser(formData.email, formData.password)
             .then(({ userData }) => {
-              console.log('userdata', userData.loggedIn);
               dispatch(logInUser(userData.userName, userData.userSurname, formData.email, formData.password, userData.userId, userData.loggedIn));
               history.push(PATHS.PROFILE_ABOUT(userData.userId));
               setModalContent(false)
@@ -87,25 +73,25 @@ const LoginModal = () => {
             <label htmlFor="password" className="loginform-item_formlabel">Password</label>
             <FormikInput name="password" />
           </div>
-          <button
+          <Button
             type="submit"
-            className="login_btn"
-          >Login</button>
+            color={COLORS.BLUE}
+          >Login</Button>
         </Form>
       </Formik>
       <div className="loginform-register">
         <p className="loginform-register_p">Don't you have the account? Please, register</p>
       </div>
-      <button
-        className="btn register_btn"
+      <Button
         type="button"
+        color={COLORS.ORANGE}
         onClick={() => {
           setModalContent(
             <RegisterModal />
           )
         }}>
         Register
-      </button>
+      </Button>
     </StyledLoginModal>
   );
 };

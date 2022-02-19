@@ -9,6 +9,8 @@ import { readBooksAdd } from '../../api/readBooksInstance';
 import { readBookAdd } from '../../store/actions/readBooksActions';
 import { readingNowBooksSelector } from '../../store/selectors/readingNowBooksSelector';
 import LazyImage from '../../Components/LazyImage';
+import Button from '../../Components/Button';
+import { COLORS } from '../../assets/styles/colors';
 
 const StyledReadingNowScene = styled.div`
 font-family: 'Montserrat';
@@ -39,10 +41,10 @@ flex-wrap: wrap;
   justify-content: space-between;
   margin-bottom: 30px;
   max-width: 650px;
-  border: 1px solid #212121;
+  border: 1px solid ${COLORS.BLACK};
   border-radius: 4px;
   padding: 10px 20px;
-  background-color: #c8956621;
+  background-color: ${COLORS.DARK_ORANGE};
 }
 
   .bookcard-cover_img {
@@ -75,30 +77,11 @@ flex-wrap: wrap;
   }
 
   .bookcard-btn-group {
+    min-height: 90px;
     display: flex;
     flex-direction: column;
-  }
-
-  .read-book_btn, .remove-book_btn  {
-    @media (max-width: 992px) {
-      min-width: 120px;
-  }
-    min-width: 170px;
-    color: #F6F5F3;
-    font-family: 'Montserrat';
-    padding: 10px 20px;
-    cursor: pointer;
-    background-color: #C89566;
-    border: none;
-    border-radius: 4px;
-    font-size: 14px;
-    text-align: center;
-    margin-bottom: 15px;
-  }
-
-  .remove-book_btn {
-    margin-bottom: 0;
-    background-color: #925039;
+    align-items: stretch;
+    justify-content: space-between;
   }
 
   .bookcard-none_p {
@@ -157,9 +140,9 @@ const ReadingNowScene = () => {
                   </div>
                 </div>
                 <div className="bookcard-btn-group">
-                  <button
+                  <Button
                     type="button"
-                    className="read-book_btn"
+                    color={COLORS.ORANGE}
                     onClick={() => {
                       readBooksAdd(book.bookId, book.bookTitle, book.bookAuthors, book.bookCover, book.bookFirstYear, book.userId)
                         .then(({ dataReadBook }) => {
@@ -171,10 +154,10 @@ const ReadingNowScene = () => {
                         })
                     }}>
                     Already read book
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     type="button"
-                    className="remove-book_btn"
+                    color={COLORS.RED}
                     onClick={() => {
                       readingNowBooksRemove(book.bookId)
                         .then(() => {
@@ -182,7 +165,7 @@ const ReadingNowScene = () => {
                         })
                     }}>
                     Remove book
-                  </button>
+                  </Button>
                 </div>
 
               </div>

@@ -12,6 +12,7 @@ import LazyImage from '../Components/LazyImage';
 import { booksToReadSelector } from '../store/selectors/booksToReadSelector';
 import { readingNowBooksSelector } from '../store/selectors/readingNowBooksSelector';
 import { readBooksSelector } from '../store/selectors/readBooksSelector';
+import { COLORS } from '../assets/styles/colors';
 
 const StyledBookScene = styled.div`
 font-family: 'Montserrat';
@@ -74,11 +75,11 @@ min-height: calc(100vh - 295px);
 }
 
 .addbook-btn__before {
-  color: #F6F5F3;
+  color: ${COLORS.WHITE};
   font-family: 'Montserrat';
   padding: 10px 30px;
   cursor: pointer;
-  background-color: #C89566;
+  background-color: ${COLORS.ORANGE};
   border: none;
   border-radius: 4px;
   font-size: 14px;
@@ -86,7 +87,7 @@ min-height: calc(100vh - 295px);
 
 .addbook-btn__after {
   background-color: transparent;
-  color: #212020;
+  color: ${COLORS.BLACK};
   font-family: 'Montserrat';
   font-weight: 600;
   border: none;

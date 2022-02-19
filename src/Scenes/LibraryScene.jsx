@@ -11,7 +11,8 @@ import { newLibraryAdd } from '../store/actions/libraryActions';
 import { librarySelector } from '../store/selectors/librarySelector';
 import MyLoader from '../Components/LibraryLoaderSceleton';
 import search from '../assets/img/icons/search.png';
-
+import { COLORS } from '../assets/styles/colors';
+import Button from '../Components/Button';
 
 const StyledLibraryScene = styled.div`
 font-family: 'Montserrat';
@@ -30,7 +31,7 @@ max-width: 1170px;
   }
 
   .book-filters_holder {
-    border: 1px solid #212020;
+    border: 1px solid ${COLORS.BLACK};
     border-radius: 4px;
     padding: 15px 65px 15px 20px;
 }
@@ -39,7 +40,7 @@ max-width: 1170px;
     margin-bottom: 15px;
     &_p {
       margin-bottom: 15px;
-      color: #6E7064;
+      color: ${COLORS.DARK_GREY};
     }
     &_div {
       display: flex;
@@ -49,14 +50,14 @@ max-width: 1170px;
   }
 
   .book-filter_btn {
-    color: #F6F5F3;
-      font-family: 'Montserrat';
-      padding: 10px 30px;
-      cursor: pointer;
-      background-color: #6E7064;
-      border: none;
-      border-radius: 4px;
-      font-size: 14px;
+    color: ${COLORS.WHITE};
+    font-family: 'Montserrat';
+    padding: 10px 30px;
+    cursor: pointer;
+    background-color: ${COLORS.DARK_GREY};
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
   }
 
   .book-search {
@@ -69,7 +70,7 @@ max-width: 1170px;
       background-size: 15%;
       background-position: left 10px center;
       border: none;
-      background-color: #e7e7e7;
+      background-color: ${COLORS.GREY};
       border-radius: 4px;
       height: 30px;
       padding: 5px 5px 5px 38px;
@@ -81,17 +82,6 @@ max-width: 1170px;
     }
   }
 
-  .book-search_btn {
-    color: #F6F5F3;
-      font-family: 'Montserrat';
-      padding: 10px 30px;
-      cursor: pointer;
-      background-color: #7E929F;
-      border: none;
-      border-radius: 4px;
-      font-size: 14px;
-  }
-  
   .bookholder-container {
     display: flex;
     align-items: center;
@@ -117,12 +107,12 @@ max-width: 1170px;
     margin-right: 10px;
     font-size: 16px;
     cursor: pointer;
-    color: #6E7064;
+    color: ${COLORS.DARK_GREY};
   }
 
   .paginationActive {
     font-size: 20px;
-    color: #212020;
+    color: ${COLORS.BLACK};
   }
 `;
 
@@ -186,7 +176,12 @@ const LibraryScene = () => {
                     <label htmlFor="classic">Pushkin</label>
                   </div>
                 </div>
-                <button type="submit" className="book-filter_btn">Search</button>
+                <Button
+                  type="submit"
+                  color={COLORS.BLUE}
+                >
+                  Search
+                </Button>
               </Form>
             )}
           </Formik>

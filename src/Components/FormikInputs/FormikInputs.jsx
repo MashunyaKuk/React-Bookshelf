@@ -1,12 +1,13 @@
 import React from 'react';
 import { useField } from 'formik';
 import styled from 'styled-components';
+import { COLORS } from '../../assets/styles/colors';
 
 const StyledInput = styled.input`
   width: 250px;
   font-size: 16px;
   padding: 10px;
-  border: 1px solid #212020;
+  border: 1px solid ${COLORS.BLACK};
   border-radius: 4px;
 `
 

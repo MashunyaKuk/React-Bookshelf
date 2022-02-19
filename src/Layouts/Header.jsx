@@ -14,6 +14,8 @@ import { logoutUser } from '../api/instance';
 import { readingBookRemoveAll } from '../store/actions/readingNowBooksActions';
 import { readBookRemoveAll } from '../store/actions/readBooksActions';
 import { userThemeSelector } from '../store/selectors/userThemeSelector';
+import Button from '../Components/Button';
+import { COLORS } from '../assets/styles/colors';
 
 const StyledHeader = styled.header`
   font-family: 'Montserrat';
@@ -56,14 +58,13 @@ const StyledHeader = styled.header`
   }
 
   .header-menu_link__dark {
-    color: #F6F5F3;
+    color: ${COLORS.WHITE};
   }
 
   .header-logo{
     display: flex;
     align-items: center;
     &_link {
-      //color: #212020;
       font-size: 18px;
       display: inline-block;
       height: 100%;
@@ -73,7 +74,7 @@ const StyledHeader = styled.header`
     }
     &_img{
       width: 50px;
-      color: #7e9f8b;
+      color: ${COLORS.GREEN};
     }
   }
 
@@ -83,7 +84,7 @@ const StyledHeader = styled.header`
 
   .header-searchfield {
     border: none;
-    background-color: #e7e7e7;
+    background-color: ${COLORS.GREY};
     border-radius: 4px;
     height: 30px;
     padding: 5px;
@@ -92,18 +93,6 @@ const StyledHeader = styled.header`
       outline: none;
     }
  }
-    
-    .login_btn, .logout-btn {
-      color: #F6F5F3;
-      font-family: 'Montserrat';
-      padding: 10px 30px;
-      cursor: pointer;
-      background-color: #7E929F;
-      border: none;
-      border-radius: 4px;
-      font-size: 14px;
-  }
-
 `;
 
 const Header = () => {
@@ -175,9 +164,9 @@ const Header = () => {
 
             {(user.loggedIn === true)
 
-              ? <button
+              ? <Button
                 type="button"
-                className="logout-btn"
+                color={COLORS.BLUE}
                 onClick={() => {
                   logoutUser(user.id)
                     .then(() => {
@@ -191,19 +180,19 @@ const Header = () => {
                     })
                 }}>
                 Logout
-              </button>
+              </Button>
 
-              : <button
+              : <Button
                 type="submit"
+                color={COLORS.BLUE}
                 onClick={() => {
                   setModalContent(
                     <LoginModal />,
                   );
                 }}
-                className="login_btn"
               >
                 Login
-              </button>}
+              </Button>}
 
           </div>
         </div>
