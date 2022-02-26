@@ -18,7 +18,7 @@ import { COLORS } from '../assets/styles/colors';
 const StyledFooter = styled.footer`
   font-family: 'Montserrat';
   background-color: ${COLORS.BLACK};
-  border-top: 1px solid white;
+  
 
   .footer-holder {
     margin: auto 15px;
@@ -42,16 +42,27 @@ const StyledFooter = styled.footer`
 
     .footer-menu_item {
       margin-bottom: 15px;
-}
+
+      @media (max-width: 767px) {
+        margin-bottom: 10px;
+      }
+    }
     
     .footer-menu_link {
       font-family: 'Montserrat';
       color: ${COLORS.WHITE};
-      font-size: 14px;
+      font-size: 16px;
       border: none;
       background-color: transparent;
       padding: 0;
       cursor: pointer;
+      
+      @media (max-width: 992px) {
+        font-size: 14px;
+      }
+      @media (max-width: 767px) {
+        font-size: 12px;
+      }
     }
 
     .footer-social_row {
@@ -74,6 +85,10 @@ const StyledFooter = styled.footer`
     .footer-icon {
       color: ${COLORS.WHITE};
       height: 30px;
+
+      @media (max-width: 767px) {
+        height: 20px;
+      }
     } 
 
     .footer-text {
@@ -82,7 +97,14 @@ const StyledFooter = styled.footer`
           margin: 0px;
           color: ${COLORS.WHITE};
           font-size: 12px;
-    }
+            
+          @media (max-width: 992px) {
+            font-size: 10px;
+          }
+          @media (max-width: 767px) {
+            font-size: 8px;
+          }
+        }
     }
 `;
 

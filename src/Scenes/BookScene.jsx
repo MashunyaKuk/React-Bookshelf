@@ -20,9 +20,13 @@ margin: 0 auto 30px auto;
 max-width: 1170px;
 min-height: calc(100vh - 295px);
 
+  @media (max-width: 767px) {
+    min-height: calc(100vh - 235px);
+  }
+
 .bookholder {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 
   &-cover {
     margin: 0 30px 0 20px;
@@ -30,46 +34,114 @@ min-height: calc(100vh - 295px);
     width: 350px;
     height: 550px;
 
+    @media (max-width: 992px) {
+      width: 250px;
+      height: 450px;
+    }
+    @media (max-width: 767px) {
+      width: 200px;
+      height: 350px;
+      margin: 0 20px 0 20px;
+    }
+    @media (max-width: 480px) {
+      width: 130px;
+      height: 240px;
+      margin: 0 15px 0 10px;
+    }
+
     &_img {
       width: 350px;
       height: 550px;
       border-radius: 8px;
+
+      @media (max-width: 992px) {
+        width: 250px;
+        height: 450px;
+      }
+      @media (max-width: 767px) {
+        width: 200px;
+        height: 350px;
+      }
+      @media (max-width: 480px) {
+        width: 130px;
+        height: 240px;
+      }
     }
   }
 
   &-book {
     max-width: 500px;
+
+    @media (max-width: 992px) {
+      max-width: 400px;
+    }
+    @media (max-width: 767px) {
+      padding-right: 20px;
+    }
+    @media (max-width: 480px) {
+      margin: 0 10px 0 0;
+      padding-right: 0;
+    }
   }
 
   &-title {
     font-size: 28px;
     margin-bottom: 10px;
+
+    @media (max-width: 767px) {
+      font-size: 20px;
+    }
+    @media (max-width: 480px) {
+      font-size: 18px;
+    }
   }
 
   &-author {
     margin-bottom: 30px;
+
+    @media (max-width: 767px) {
+        margin-bottom: 15px;
+      }
     &_p {
       font-size: 18px;
+
+      @media (max-width: 767px) {
+        font-size: 16px;
+      }
+      @media (max-width: 480px) {
+        font-size: 14px;
+      }
     }
 }
   &-year {
     margin-bottom: 10px;
     &_p {
       font-size: 14px;
+
+      @media (max-width: 767px) {
+        font-size: 12px;
+      }
+      @media (max-width: 480px) {
+        font-size: 10px;
+      }
     }
   }
 
-  &-pages {
+  &-pages, &-text {
     margin-bottom: 30px;
-    &_p {
-      font-size: 14px;
+    
+    @media (max-width: 767px) {
+      margin-bottom: 15px;
     }
-  }
-
-  &-text {
-    margin-bottom: 30px;
     &_p {
       font-size: 14px;
+
+      @media (max-width: 767px) {
+        font-size: 12px;
+      }
+      @media (max-width: 480px) {
+        font-size: 10px;
+      }
     }
   }
 }
@@ -83,6 +155,15 @@ min-height: calc(100vh - 295px);
   border: none;
   border-radius: 4px;
   font-size: 14px;
+
+  @media (max-width: 992px) {
+    padding: 9px 25px;
+    font-size: 13px;
+  }
+  @media (max-width: 767px) {
+    padding: 8px 13px;
+    font-size: 11px;
+  }
 } 
 
 .addbook-btn__after {
@@ -94,6 +175,13 @@ min-height: calc(100vh - 295px);
   padding: 0;
   font-size: 16px;
   border: none;
+
+  @media (max-width: 992px) {
+    font-size: 13px;
+  }
+  @media (max-width: 767px) {
+    font-size: 11px;
+  }
 }
 
 .added-book_p {

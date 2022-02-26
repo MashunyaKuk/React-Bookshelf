@@ -11,10 +11,15 @@ const StyledButton = styled.button`
   border: none;
   border-radius: 4px;
   font-size: 14px;
-  /* 
+  
   @media (max-width: 992px) {
-      min-width: 120px;
-  } */
+    padding: 9px 25px;
+    font-size: 13px;
+  }
+  @media (max-width: 767px) {
+    padding: 8px 13px;
+    font-size: 11px;
+  }
 `
 
 const Button = (props) => {

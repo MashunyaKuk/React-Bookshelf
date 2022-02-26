@@ -11,10 +11,21 @@ const StyledMyProfileScene = styled.div`
     &-photo {
       text-align: center;
       margin-bottom: 30px;
+
+      @media (max-width: 480px) {
+        margin-bottom: 20px;
+      }
     }
 
     &-photo_img {
-      width: 250px;
+      max-width: 250px;
+
+      @media (max-width: 767px) {
+        max-width: 200px;
+      }
+      @media (max-width: 480px) {
+        max-width: 130px;
+      }
     }
 
     &-item {
@@ -25,10 +36,25 @@ const StyledMyProfileScene = styled.div`
       font-size: 16px;
       font-weight: 600;
       margin-bottom: 10px;
+
+      @media (max-width: 767px) {
+        font-size: 14px;
+      }
+      @media (max-width: 480px) {
+        font-size: 12px;
+        margin-bottom: 5px;
+      }
     }
 
     &-userdata {
-      font-size: 12px;
+      font-size: 14px;
+
+      @media (max-width: 767px) {
+        font-size: 12px;
+      }
+      @media (max-width: 480px) {
+        font-size: 10px;
+      }
     }
   }
 

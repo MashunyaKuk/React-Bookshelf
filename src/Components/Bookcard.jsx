@@ -17,32 +17,70 @@ justify-content: space-between;
 width: 150px;
 margin: 0 0 30px 30px;
   
-.bookcard-cover {
-  margin-bottom: 5px;
-  display: flex;
-  border-radius: 4px;
-  width: 120px;
-  height: 199px;
+@media (max-width: 992px) {
+  margin: 0 0 15px 15px;
+}
+@media (max-width: 767px) {
+  width: 100px;
+  margin: 0 0 15px 0;
+}
+@media (max-width: 480px) {
+  width: 80px;
+  margin: 0 0 10px 0;
 }
 
-  .bookcard-cover_img {
+.bookcard {
+  &-cover {
+    margin-bottom: 5px;
+    display: flex;
+    border-radius: 4px;
+    width: 120px;
+    height: 199px;
+
+    @media (max-width: 767px) {
+      width: 90px;
+      height: 140px;
+    }
+    @media (max-width: 480px) {
+      width: 70px;
+      height: 110px;
+    }
+  }
+
+  &-cover_img {
     width: 120px;
     height: 199px;
     object-fit: cover;
     border-radius: 4px;
+
+    @media (max-width: 767px) {
+      width: 90px;
+      height: 140px;
+    }
+    @media (max-width: 480px) {
+      width: 70px;
+      height: 110px;
+    }
   }
 
-  .bookcard-author {
+  &-author {
     overflow: hidden;
     max-height: 80px;
   }
 
-  .bookcard-name, .bookcard-author_p {
+  &-name, &-author_p {
     font-size: 14px;
     margin: 0 0 5px 0;
     text-align: center;
+    
+    @media (max-width: 992px) {
+      font-size: 12px;
+    }
+    @media (max-width: 767px) {
+      font-size: 10px;
+    }
   }
-
+}
 `;
 
 const Bookcard = (props) => {

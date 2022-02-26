@@ -29,6 +29,18 @@ const StyledMainScene = styled.div`
     background-position: center;
     background-size: cover;
     margin-bottom: 100px;
+    
+    @media (max-width: 1200px) {
+      height: 450px;
+    }
+    @media (max-width: 767px) {
+      height: 330px;
+      margin-bottom: 60px;
+    }
+    @media (max-width: 480px) {
+      height: 250px;
+      margin-bottom: 30px;
+    }
   }
 
   .main-screen-container__dark {
@@ -38,6 +50,18 @@ const StyledMainScene = styled.div`
     border: 1px solid white;
     border-radius: 4px;
     box-shadow: inset 0 0 25px;
+
+    @media (max-width: 1200px) {
+      height: 450px;
+    }
+    @media (max-width: 767px) {
+      height: 330px;
+      margin-bottom: 60px;
+    }
+    @media (max-width: 480px) {
+      height: 250px;
+      margin-bottom: 30px;
+    }
   }
 
   .main-screen-textholder {
@@ -45,18 +69,48 @@ const StyledMainScene = styled.div`
     max-width: 500px;
     margin: auto;
     text-align: center;
+
+    @media (max-width: 767px) {
+      padding-top: 130px;
+      max-width: 300px;
     }
+    @media (max-width: 480px) {
+      padding-top: 85px;
+      max-width: 200px;
+    }
+  }
 
   .main-screen-title {
     font-size: 34px;
     line-height: 48px;
     margin-bottom: 30px;
+    
+    @media (max-width: 992px) {
+      font-size: 28px;
+      line-height: 36px;
+    }
+    @media (max-width: 767px) {
+      font-size: 24px;
+      line-height: 32px;
+    }
+    @media (max-width: 480px) {
+      font-size: 14px;
+      line-height: 24px;
+      margin-bottom: 15px;
+    }
   }
 
   .main-screen-description {
     margin-bottom: 30px;
     &_p {
       font-size: 16px;
+      
+      @media (max-width: 992px) {
+        font-size: 14px;
+      }
+      @media (max-width: 767px) {
+        font-size: 12px;
+      }
     }
   }
 
@@ -68,12 +122,24 @@ const StyledMainScene = styled.div`
       align-items: center;
       flex-direction: column;
       margin-bottom: 100px;
+      
+      @media (max-width: 1200px) {
+        margin-bottom: 70px;
+      }
+      @media (max-width: 992px) {
+        margin-bottom: 60px;
+        padding: 0 20px;
+      }
+      @media (max-width: 767px) {
+        margin-bottom: 40px;
+      }
+      @media (max-width: 480px) {
+        margin-bottom: 30px;
+        padding: 0 10px;
+      }
     }
 
     &-row {
-      @media (max-width: 1200px) {
-        margin-bottom: 20px;
-  }
       display: flex;
       justify-content: center;
       align-items: stretch;
@@ -81,13 +147,13 @@ const StyledMainScene = styled.div`
       :last-child {
         margin-bottom: 0;
       }
+      
+      @media (max-width: 1200px) {
+        margin-bottom: 20px;
+      }
     }
 
     &-item {
-      @media (max-width: 1200px) {
-        padding: 20px;
-        margin-right: 20px;
-  }
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -98,42 +164,71 @@ const StyledMainScene = styled.div`
       :nth-child(2n) {
         margin-right: 0;
       }
+
+      @media (max-width: 1200px) {
+        padding: 20px;
+        margin-right: 20px;
+      }
+      @media (max-width: 767px) {
+        padding: 10px;
+      }
+      @media (max-width: 480px) {
+        flex-direction: column;
+        justify-content: flex-start;
+        margin-right: 10px;
+        padding: 10px;
+      }
     }
     
     &-icon_img {
       width: 80px;
+
+      @media (max-width: 767px) {
+        width: 50px;
+      }
     }
 
     &-text {
       margin-left: 20px;
       max-width: 200px;
+
+      @media (max-width: 480px) {
+        margin-left: 0;
+        text-align: center;
+      }
     }
 
     &-title {
-      @media (max-width: 1200px) {
-        font-size: 16px;
-        line-height: 20px;
-  }
-      @media (max-width: 992px) {
-        font-size: 14px;
-        line-height: 16px;
-  }
       font-size: 18px;
       margin-bottom: 10px;
       line-height: 24px;
+      
+      @media (max-width: 992px) {
+        font-size: 16px;
+        line-height: 20px;
+      }
+      @media (max-width: 767px) {
+        font-size: 14px;
+        line-height: 18px;
+      }
+      @media (max-width: 480px) {
+        font-size: 12px;
+        line-height: 16px;
+      }
     }
 
     &-description_p {
-      @media (max-width: 1200px) {
-        font-size: 12px;
-        line-height: 18px;
-  }  
-      @media (max-width: 992px) {
-        font-size: 10px;
-        line-height: 14px;
-  }
       font-size: 14px;
       line-height: 20px;
+      
+      @media (max-width: 992px) {
+        font-size: 12px;
+        line-height: 18px;
+      }
+      @media (max-width: 767px) {
+        font-size: 10px;
+        line-height: 16px;
+      }
     }
   }
 
@@ -145,11 +240,37 @@ const StyledMainScene = styled.div`
       align-items: center;
       flex-direction: column;
       margin-bottom: 100px;
+      
+      @media (max-width: 1200px) {
+        margin-bottom: 70px;
+      }
+      @media (max-width: 992px) {
+        padding: 0 20px;
+        margin-bottom: 60px;
+      }
+      @media (max-width: 767px) {
+        margin-bottom: 40px;
+      }
+      @media (max-width: 480px) {
+        padding: 0 10px;
+      }
     }
 
     &-title {
       font-size: 26px;
       margin-bottom: 40px;
+      
+      @media (max-width: 992px) {
+        font-size: 22px;
+      }
+      @media (max-width: 767px) {
+        font-size: 20px;
+        margin-bottom: 20px;
+      }
+      @media (max-width: 480px) {
+        font-size: 16px;
+        margin-bottom: 16px;
+      }
     }
 
     &-row {
@@ -158,7 +279,7 @@ const StyledMainScene = styled.div`
       align-items: stretch;
     }
 
-    &-item {
+    &-item, &-item__dark {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -170,22 +291,60 @@ const StyledMainScene = styled.div`
       :last-child {
         margin-right: 0;
       }
+
+      @media (max-width: 767px) {
+        padding: 15px;
+      }
+      @media (max-width: 480px) {
+        margin-right: 10px;
+        padding: 10px;
+      }
+
+      &__dark {
+        border: 1px solid ${COLORS.WHITE};
+      }
     }
 
     &-tariff-name {
       font-size: 18px;
       line-height: 24px;
       margin-bottom: 20px;
+      
+      @media (max-width: 992px) {
+        font-size: 16px;
+      }
+      @media (max-width: 767px) {
+        font-size: 14px;
+        margin-bottom: 0;
+      }
     }
 
     &-tariff-description {
       margin-bottom: 20px;
+
+      @media (max-width: 767px) {
+        margin-bottom: 0;
+      }
+      @media (max-width: 480px) {
+        margin-top: 10px;
+      }
     }
 
     &-tariff-description_p {
       font-size: 14px;
       line-height: 20px;
       margin-bottom: 15px;
+      
+      @media (max-width: 992px) {
+        font-size: 12px;
+        margin-bottom: 10px;
+      }
+      @media (max-width: 767px) {
+        font-size: 10px;
+      }
+      @media (max-width: 480px) {
+        margin-bottom: 5px;
+      }
 
       ::before {
         content: "";
@@ -203,34 +362,23 @@ const StyledMainScene = styled.div`
       text-align: center;
       margin-bottom: 20px;
 
+      @media (max-width: 480px) {
+        margin-bottom: 10px;
+      }
+
       &_span {
       font-weight: 600;
       font-size: 18px;
-    }
-    }
-  }
-
-  .top {
-    &-container {
-      padding: 0 150px;
-      margin-bottom: 50px;
-    }
-
-    &-title {
-      font-size: 26px;
-      margin-bottom: 40px;
-      text-align: center;
-    }
-
-    &-content {
-      border: 1px solid ${COLORS.BLACK};
-      border-radius: 4px;
-      padding: 30px 40px 0 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      
+      @media (max-width: 992px) {
+        font-size: 16px;
+      }
+      @media (max-width: 767px) {
+        font-size: 14px;
+      }
     }
   }
+}
 
   .collections {
     &-container {
@@ -239,6 +387,22 @@ const StyledMainScene = styled.div`
       display: flex;
       justify-content: center;
       align-items: stretch;
+      
+      @media (max-width: 1200px) {
+        margin-bottom: 70px;
+      }
+      @media (max-width: 992px) {
+        margin-bottom: 60px;
+        padding: 0 100px;
+      }
+      @media (max-width: 767px) {
+        margin-bottom: 40px;
+        padding: 0 50px;
+      }
+      @media (max-width: 480px) {
+        margin-bottom: 30px;
+        padding: 0 10px;
+      }
     }
 
     &-item {
@@ -249,6 +413,10 @@ const StyledMainScene = styled.div`
       flex-basis: 100%;
       :last-child {
         margin-right: 0;
+      }
+
+      @media (max-width: 480px) {
+        margin-right: 10px;
       }
 
       &_red {
@@ -265,19 +433,29 @@ const StyledMainScene = styled.div`
     }
 
     &-title {
-      @media (max-width: 1200px) {
-        padding: 50px;
-  }
-      @media (max-width: 992px) {
-        padding: 30px;
-        font-size: 16px;
-        line-height: 20px;
-  }
-      //font-weight: 600;
-      font-size: 18px;
+      font-size: 16px;
       padding: 70px;
       color: ${COLORS.WHITE};
       line-height: 24px;
+      
+      @media (max-width: 1200px) {
+        padding: 50px;
+      }
+      @media (max-width: 992px) {
+        padding: 30px;
+        font-size: 14px;
+        line-height: 20px;
+      }
+      @media (max-width: 767px) {
+        padding: 15px;
+        font-size: 12px;
+        line-height: 18px;
+      }
+      @media (max-width: 480px) {
+        padding: 10px;
+        font-size: 10px;
+        line-height: 16px;
+      }
     }
   }
 `;
@@ -426,7 +604,7 @@ const MainScene = () => {
           Subscription
         </h2>
         <div className="subscription-row">
-          <div className="subscription-item">
+          <div className={(theme !== 'dark' ? "subscription-item" : "subscription-item__dark")}>
             <h3 className="subscription-tariff-name">
               Standart
             </h3>
@@ -458,7 +636,7 @@ const MainScene = () => {
               Subscribe
             </Button>
           </div>
-          <div className="subscription-item">
+          <div className={(theme !== 'dark' ? "subscription-item" : "subscription-item__dark")}>
             <h3 className="subscription-tariff-name">
               Premium
             </h3>

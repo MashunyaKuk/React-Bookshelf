@@ -20,6 +20,10 @@ import { COLORS } from '../assets/styles/colors';
 const StyledHeader = styled.header`
   font-family: 'Montserrat';
   margin: auto 15px;
+
+  @media (max-width: 480px) {
+    margin: auto 10px;
+  }  
   
   .header-row {
     display: flex;
@@ -27,6 +31,14 @@ const StyledHeader = styled.header`
     justify-content: space-between;
     max-width: 1170px;
     margin: 30px auto;
+
+    @media (max-width: 767px) {
+      margin: 20px auto;
+    }
+
+    @media (max-width: 480px) {
+      margin: 10px auto;
+    }
   }
 
   .header-item {
@@ -46,6 +58,13 @@ const StyledHeader = styled.header`
     :last-child {
       margin-right: 0px;
     }
+
+    @media (max-width: 767px) {
+      margin-right: 10px;
+    }
+    @media (max-width: 480px) {
+      margin-right: 5px;
+    }
   }
 
   .header-menu_link, .header-menu_link__dark {
@@ -55,6 +74,13 @@ const StyledHeader = styled.header`
     background-color: transparent;
     cursor: pointer;
     padding: 0;
+    
+    @media (max-width: 992px) {
+      font-size: 14px;
+    }      
+    @media (max-width: 767px) {
+      font-size: 12px;
+    }
   }
 
   .header-menu_link__dark {
@@ -71,10 +97,20 @@ const StyledHeader = styled.header`
       vertical-align: middle;
       margin-right: 10px;
       
+      @media (max-width: 992px) {
+        font-size: 16px;
+      }
+      @media (max-width: 767px) {
+        font-size: 14px;
+      }
     }
     &_img{
       width: 50px;
       color: ${COLORS.GREEN};
+
+      @media (max-width: 767px) {
+        width: 35px;
+      }
     }
   }
 
@@ -93,6 +129,12 @@ const StyledHeader = styled.header`
       outline: none;
     }
  }
+ 
+  .logo-text_link {
+    @media (max-width: 480px) {
+      display: none;
+    }
+  }
 `;
 
 const Header = () => {
@@ -113,7 +155,7 @@ const Header = () => {
             <Link to="/" className="header-logo_link">
               <IconLogo className="header-logo_img" />
             </Link>
-            <Link to="/" className="header-logo_link">
+            <Link to="/" className="header-logo_link logo-text_link">
               BookShelf
             </Link>
           </div>

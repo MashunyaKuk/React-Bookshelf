@@ -20,31 +20,60 @@ const StyledProfileScene = styled.div`
   margin: auto;
   max-width: 1170px;
   min-height: calc(100vh - 265px);
+  padding: 0 20px;
+
+  @media (max-width: 480px) {
+    padding: 0 10px;
+  }
 
   .profile-screen {
     &-sidebar {
-      @media (max-width: 992px) {
-        margin: 0 20px 30px 15px;
-        padding: 15px 30px 15px 30px;
-  }
       margin-right: 60px;
       margin-bottom: 30px;
       border: 1px solid ${COLORS.BLACK};
       border-radius: 4px;
       padding: 15px 50px 15px 50px;
+      
+      @media (max-width: 992px) {
+        padding: 15px 30px 20px 30px;
+      }
+      @media (max-width: 767px) {
+        padding: 10px 20px 15px 20px;
+        margin-right: 15px;
+      }
+      @media (max-width: 480px) {
+        padding: 7px 15px 13px 15px;
+        margin-right: 10px;
+        margin-bottom: 15px;
+      }
     }
 
     &-userphoto {
       text-align: center;
       margin-bottom: 20px;
 
+      @media (max-width: 767px) {
+        margin-bottom: 10px;
+      }
+
       &_img {
-        width: 100px;
+        max-width: 100px;
+
+        @media (max-width: 767px) {
+          max-width: 80px;
+        }
       }
     }
 
     &-username {
       margin-bottom: 30px;
+
+      @media (max-width: 767px) {
+        margin-bottom: 20px;
+      }
+      @media (max-width: 480px) {
+        margin-bottom: 15px;
+      }
 
       &_p {
         margin-bottom: 5px;
@@ -53,25 +82,52 @@ const StyledProfileScene = styled.div`
         :last-child {
           margin-bottom: 0px;
         }
+
+        @media (max-width: 767px) {
+          font-size: 12px;
+        }
+        @media (max-width: 480px) {
+          margin-bottom: 0;
+          font-size: 10px;
+      }
       }
     }
     
     &-navblock {
       font-size: 18px;
       margin-bottom: 20px;
+
+      @media (max-width: 767px) {
+        font-size: 16px;
+      }
+      @media (max-width: 480px) {
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
     }
 
     &-navigation {
       margin-bottom: 30px;
+
+      @media (max-width: 480px) {
+        margin-bottom: 15px;
+      }
     }
 
     &-item, &-item__active {
       min-width: 95px;
       font-size: 14px;
       margin-bottom: 15px;
-      padding: 10px 10px;
+      padding: 10px 0 10px 10px;
       border-radius: 4px;
       background-color: ${COLORS.GREY};
+
+      @media (max-width: 767px) {
+        margin-bottom: 10px;
+      }
+      @media (max-width: 480px) {
+        margin-bottom: 8px;
+      }
 
       &__active {
         background-color: ${COLORS.LIGHT_GREY};
@@ -79,14 +135,25 @@ const StyledProfileScene = styled.div`
         }
       &_a {
         color: ${COLORS.BLACK};
-        
       }
-      
+
+      @media (max-width: 992px) {
+        font-size: 13px;
+        padding: 9px 0 9px 9px;
+      }
+      @media (max-width: 480px) {
+        font-size: 12px;
+        padding: 8px 0 8px 8px;
+      }
     }  
       &-content {
-        margin-left: 30px;
+        margin-left: 15px;
+
+        @media (max-width: 992px) {
+          margin-left: 5px;
+        }
       }
-}
+    }
 `;
 
 const ProfileScene = (props) => {
