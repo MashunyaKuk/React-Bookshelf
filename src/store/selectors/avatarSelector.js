@@ -1,0 +1,1 @@
+export const userAvatarSelector = store => store.avatarReducer.avatar;

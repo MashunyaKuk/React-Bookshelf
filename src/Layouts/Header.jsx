@@ -16,6 +16,7 @@ import { readBookRemoveAll } from '../store/actions/readBooksActions';
 import { userThemeSelector } from '../store/selectors/userThemeSelector';
 import Button from '../Components/Button';
 import { COLORS } from '../assets/styles/colors';
+import { avatarRemove } from '../store/actions/avatarActions';
 
 const StyledHeader = styled.header`
   font-family: 'Montserrat';
@@ -212,13 +213,12 @@ const Header = () => {
                 onClick={() => {
                   logoutUser(user.id)
                     .then(() => {
-                      console.log('userData')
                       dispatch(logOutUser());
                       dispatch(booksToReadRemoveAll());
                       dispatch(readingBookRemoveAll());
                       dispatch(readBookRemoveAll());
+                      dispatch(avatarRemove());
                       history.push("/");
-                      setModalContent(false);
                     })
                 }}>
                 Logout

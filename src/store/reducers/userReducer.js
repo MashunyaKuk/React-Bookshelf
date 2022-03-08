@@ -27,6 +27,17 @@ const userReducer = (state, action) => {
             loggedIn: action.payload.loggedIn
           };
         return { ...state, user: newUser };
+
+        case (USER_ACTIONS.changeUserData):
+        newUser =
+          { name: action.payload.name,
+            surname: action.payload.surname,
+            email: action.payload.email,
+            password: action.payload.password,
+            id: action.payload.id,
+            loggedIn: action.payload.loggedIn
+          };
+        return { ...state, user: newUser };
       
       default: 
         return {...state}

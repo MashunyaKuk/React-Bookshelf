@@ -5,6 +5,7 @@ import booksToReadReducer from './booksToReadReducer';
 import readingNowBooksReducer from './readingNowBooksReducer';
 import readBooksReducer from './readBooksReducer';
 import userThemeReducer from './userThemeReducer';
+import avatarReducer from './avatarReducer';
 
 const rootReducer = combineReducers({
     userReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     readingNowBooksReducer,
     readBooksReducer,
     userThemeReducer,
+    avatarReducer,
 })
 
 export default rootReducer;

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import testUser from '../../assets/img/testUser.png';
 import { useSelector } from 'react-redux';
 import { userSelector } from '../../store/selectors/userSelectors';
+import { userAvatarSelector } from '../../store/selectors/avatarSelector';
 
 const StyledMyProfileScene = styled.div`
   font-family: 'Montserrat';
@@ -18,13 +19,18 @@ const StyledMyProfileScene = styled.div`
     }
 
     &-photo_img {
-      max-width: 250px;
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      object-fit: cover;
 
       @media (max-width: 767px) {
-        max-width: 200px;
+        width: 200px;
+        height: 200px;
       }
       @media (max-width: 480px) {
-        max-width: 130px;
+        width: 150px;
+        height: 150px;
       }
     }
 
@@ -62,11 +68,17 @@ const StyledMyProfileScene = styled.div`
 
 const MyProfileScene = () => {
   const user = useSelector(userSelector);
+  const userAvatar = useSelector(userAvatarSelector);
   return (
     <StyledMyProfileScene>
       <div className="my-profile-container">
         <div className="my-profile-photo">
-          <img src={testUser} alt="usertest" className="my-profile-photo_img" />
+          {userAvatar.avatarImage
+            ?
+            <img src={userAvatar.avatarImage} alt="usertest" className="my-profile-photo_img" />
+            :
+            <img src={testUser} alt="usertest" className="my-profile-photo_img" />
+          }
         </div>
         <div className="my-profile-item">
           <p className="my-profile-title">Name:</p>

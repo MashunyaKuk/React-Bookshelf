@@ -11,6 +11,7 @@ const StyledModalWindow = styled.div`
     left: 0;
     z-index: 100;
     background-color: ${COLORS.BLACK};
+    opacity: 0.95;
       
     .popup-body {
         display: flex;
@@ -26,6 +27,14 @@ const StyledModalWindow = styled.div`
         padding: 20px 20px;
         border-radius: 4px;
         position: relative;
+
+        @media (max-width: 767px) {
+          width: 250px;
+        }
+
+        @media (max-width: 380px) {
+          width: 180px;
+        }
       }
       
     .popup-close {

@@ -13,6 +13,7 @@ const newBooksList = [];
 const newReadingBooksList = [];
 const newReadBooksList = [];
 const newUserTheme = {};
+const newAvatar = {};
 
 const initialState = {
   userReducer: {user: newUser},
@@ -20,7 +21,8 @@ const initialState = {
   booksToReadReducer: {booksList: newBooksList},
   readingNowBooksReducer: {readingBooksList: newReadingBooksList},
   readBooksReducer: {readBooksList: newReadBooksList},
-  userThemeReducer: {userTheme: newUserTheme}
+  userThemeReducer: {userTheme: newUserTheme},
+  avatarReducer: {avatar: newAvatar}
 };
 
 const persistConfig = {

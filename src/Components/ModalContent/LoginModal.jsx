@@ -20,28 +20,49 @@ const StyledLoginModal = styled.div`
   .loginform {
     margin-bottom: 20px;
     
+    @media (max-width: 767px) {
+      margin-bottom: 15px;
+    }
+
     &-title_p {
-    font-size: 22px;
-    margin-bottom: 20px;
-    color: ${COLORS.BLACK};
+      font-size: 22px;
+      margin-bottom: 20px;
+      color: ${COLORS.BLACK};
+
+      @media (max-width: 767px) {
+        font-size: 18px;
+        margin-bottom: 15px;
+      }
     }
     
     &-item {
-    margin-bottom: 15px;
+      margin-bottom: 15px;
+
+      @media (max-width: 767px) {
+        margin-bottom: 10px;
+      }
     }
     
     &-item_formlabel {
-    display: block;
-    font-size: 14px;
-    color: ${COLORS.BLACK};
-    margin-bottom: 2px;
+      display: block;
+      font-size: 14px;
+      color: ${COLORS.BLACK};
+      margin-bottom: 2px;
+
+      @media (max-width: 767px) {
+        font-size: 12px;
+      }
     }
+
     &-register_p {
-    font-size: 14px;
-    margin-bottom: 10px;
+      font-size: 14px;
+      margin-bottom: 10px;
+
+      @media (max-width: 767px) {
+        font-size: 12px;
+      }
+    }
   }
-  }
-  
 `;
 
 const LoginModal = () => {

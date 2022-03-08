@@ -37,3 +37,17 @@ export const logInUser = (userName, userSurname, userEmail, userPassword, userId
 })
 };
 
+export const changeUserData = (userName, userSurname, userEmail, userPassword, userId, userLoggedIn) => {
+  return ({
+    type: USER_ACTIONS.changeUserData,
+    payload: {
+      name: userName,
+      surname: userSurname,
+      email: userEmail,
+      password: userPassword,
+      id: userId,
+      loggedIn: userLoggedIn
+  }
+})
+};
+

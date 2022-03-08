@@ -1,7 +1,8 @@
 export const USER_ACTIONS = {
   addUser: 'add new user',
   logOut: 'logout user',
-  logIn: 'login user'
+  logIn: 'login user',
+  changeUserData: 'change userData',
 };
 
 export const LIBRARY_ACTIONS = {
@@ -28,4 +29,9 @@ export const READ_BOOK_ACTIONS = {
 
 export const USER_THEME = {
   addTheme: 'add theme by user',
+}
+
+export const USER_AVATAR = {
+  addAvatar: 'add user avatar',
+  removeAvatar: 'remove user avatar'
 }

@@ -12,6 +12,8 @@ import { readingBookRemoveAll } from '../store/actions/readingNowBooksActions';
 import { readBookRemoveAll } from '../store/actions/readBooksActions';
 import Button from '../Components/Button';
 import { COLORS } from '../assets/styles/colors';
+import { avatarRemove } from '../store/actions/avatarActions';
+import { userAvatarSelector } from '../store/selectors/avatarSelector';
 
 const StyledProfileScene = styled.div`
   font-family: 'Montserrat';
@@ -57,10 +59,14 @@ const StyledProfileScene = styled.div`
       }
 
       &_img {
-        max-width: 100px;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
 
         @media (max-width: 767px) {
-          max-width: 80px;
+          width: 80px;
+          height: 80px;
         }
       }
     }
@@ -162,11 +168,9 @@ const ProfileScene = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector(userSelector);
-
-
   const currentUrl = window.location.pathname;
   let path = currentUrl.split('/')[3];
-  console.log('currentUrl', path);
+  const userAvatar = useSelector(userAvatarSelector);
 
   const { children } = props;
   return (
@@ -174,7 +178,11 @@ const ProfileScene = (props) => {
       <div className="profile-screen-sidebar">
         <div className="profile-screen-user">
           <div className="profile-screen-userphoto">
-            <img src={testUser} alt="userphoto" className="profile-screen-userphoto_img" />
+            {userAvatar.avatarImage ?
+              <img src={userAvatar.avatarImage} alt="userphoto" className="profile-screen-userphoto_img" />
+              :
+              <img src={testUser} alt="userphoto" className="profile-screen-userphoto_img" />
+            }
           </div>
           <div className="profile-screen-username">
             <p className="profile-screen-username_p">
@@ -239,6 +247,7 @@ const ProfileScene = (props) => {
             dispatch(booksToReadRemoveAll());
             dispatch(readingBookRemoveAll());
             dispatch(readBookRemoveAll());
+            dispatch(avatarRemove());
             history.push("/");
           }}>
           Logout
