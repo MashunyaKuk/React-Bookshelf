@@ -1,35 +1,22 @@
+import localforage from 'localforage';
 
 export const avatarAddToList = (currentUserAvatar, currentUserId) => {
-  return new Promise((res, rej) => {
-    let avatarList = JSON.parse(window.localStorage.getItem('avatarList'));
+  localforage.getItem('avatarList').then((value) => {
+    let avatarListFromStorage = value;
     const avatarData = { userAvatar: currentUserAvatar, userId: currentUserId };
-    if (!avatarList) {
-      avatarList = [] ;
-      avatarList.push(avatarData);
+    if (!avatarListFromStorage) {
+      avatarListFromStorage = [];
+      avatarListFromStorage.push(avatarData);
     } else {
-      const userIndex = avatarList.findIndex(avatar => avatar.userId === currentUserId);
+      const userIndex = avatarListFromStorage.findIndex(avatar => avatar.userId === currentUserId);
       if (userIndex === -1) {
-        avatarList.push(avatarData);
+        avatarListFromStorage.push(avatarData);
       } else {
-        avatarList[userIndex].userAvatar = currentUserAvatar;
+        avatarListFromStorage[userIndex].userAvatar = currentUserAvatar;
       }
     }
-    window.localStorage.setItem('avatarList', JSON.stringify(avatarList));
-    res({ avatarData });
-  }
-)}
+    localforage.setItem('avatarList', avatarListFromStorage).then(() => {
+    });
+  });}
 
-export const avatarCurrent = (currentUserId) => {
-  return new Promise((res, rej) => {
-    let avatarList = JSON.parse(window.localStorage.getItem('avatarList'));
-    if (!avatarList) rej();
-    const currentUserAvatar = avatarList.filter((avatar) => {
-      if (avatar.userId === currentUserId) {
-        return avatar;
-      }
-  }
-)
-    res(currentUserAvatar);
-  }
-  )}
 

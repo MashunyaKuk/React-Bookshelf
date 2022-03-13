@@ -12,6 +12,8 @@ import { useDispatch } from 'react-redux';
 import { loginValidation } from '../../validation/loginValidation';
 import Button from '../../Components/Button';
 import { COLORS } from '../../assets/styles/colors';
+import localforage from 'localforage';
+import { avatarAdd } from '../../store/actions/avatarActions';
 
 const StyledLoginModal = styled.div`
   font-family: 'Montserrat';
@@ -80,6 +82,16 @@ const LoginModal = () => {
           loginUser(formData.email, formData.password)
             .then(({ userData }) => {
               dispatch(logInUser(userData.userName, userData.userSurname, formData.email, formData.password, userData.userId, userData.loggedIn));
+              localforage.getItem('avatarList').then((value) => {
+                let avatarListFromStorage = value;
+                if (avatarListFromStorage) {
+                  avatarListFromStorage.filter((avatar) => {
+                    if (avatar.userId === userData.userId) {
+                      dispatch(avatarAdd(URL.createObjectURL(avatar.userAvatar), userData.userId));
+                    }
+                  })
+                }
+              });
               history.push(PATHS.PROFILE_ABOUT(userData.userId));
               setModalContent(false)
             })

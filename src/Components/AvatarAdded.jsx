@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import testUser from '../assets/img/testUser.png';
 import { COLORS } from '../assets/styles/colors';
@@ -7,8 +7,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { avatarAdd } from '../store/actions/avatarActions';
 import { useParams } from 'react-router-dom';
 import { userAvatarSelector } from '../store/selectors/avatarSelector';
-import { avatarCurrent, avatarAddToList } from '../api/avatarInstance';
 import IconDownload from '../assets/img/icons/download-icon.svg';
+import { avatarAddToList } from '../api/avatarInstance';
+import { ModalContext } from '../HOC/GlobalModalProvider';
+import SuccessChangesModal from '../Components/ModalContent/SuccessChangesModal';
 
 const StyledAvatarAdded = styled.div`
   font-family: 'Montserrat';
@@ -90,21 +92,7 @@ const AvatarAdded = () => {
   const params = useParams();
   const urlUserId = Number(params.userId);
   const userAvatar = useSelector(userAvatarSelector);
-
-  useEffect(() => {
-    let mounted = true; //переменная, отвечающая за то, чтобы не обновлять состояние, если компонент еще не смонтирован
-    avatarCurrent(urlUserId)
-      .then((currentUserAvatar) => {
-        if (mounted) {
-          const avatar = currentUserAvatar[0].userAvatar;
-          dispatch(avatarAdd(avatar, urlUserId));
-        }
-      })
-      .catch(() => {
-      })
-    return () => mounted = false;
-  }, [])
-
+  const setModalContent = useContext(ModalContext);
 
   return (
     <StyledAvatarAdded>
@@ -142,15 +130,14 @@ const AvatarAdded = () => {
         </div>
         <Button
           type="button"
-          color={COLORS.ORANGE}
+          color={COLORS.BLUE}
           onClick={() => {
-            avatarAddToList(URL.createObjectURL(userPhoto), urlUserId)
-              .then(() => {
-                dispatch(avatarAdd(URL.createObjectURL(userPhoto), urlUserId));
-              })
-
+            avatarAddToList(userPhoto, urlUserId);
+            setModalContent(
+              <SuccessChangesModal />
+            )
           }}>
-          Save changes
+          Save avatar
         </Button>
       </div>
 

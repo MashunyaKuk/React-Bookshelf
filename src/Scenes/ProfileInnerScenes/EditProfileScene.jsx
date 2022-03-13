@@ -1,6 +1,5 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
-import testUser from '../../assets/img/testUser.png';
 import { Formik, Form } from 'formik';
 import FormikInput from '../../Components/FormikInputs/FormikInputs';
 import Button from '../../Components/Button';
@@ -21,7 +20,6 @@ const StyledEditProfileScene = styled.div`
     &-photo {
       text-align: center;
       margin-bottom: 30px;
-      //background-image: ${testUser};
 
       @media (max-width: 480px) {
         margin-bottom: 20px;
